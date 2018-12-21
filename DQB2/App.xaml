@@ -1,0 +1,10 @@
+﻿<Application x:Class="DQB2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DQB2"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <BitmapImage x:Key="Open" UriSource="./Resource/Open.png"/>
+        <BitmapImage x:Key="Save" UriSource="./Resource/Save.png"/>
+    </Application.Resources>
+</Application>

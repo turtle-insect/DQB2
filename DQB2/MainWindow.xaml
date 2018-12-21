@@ -1,0 +1,57 @@
+﻿<Window x:Class="DQB2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DQB2"
+        xmlns:properties="clr-namespace:DQB2.Properties"
+        mc:Ignorable="d"
+        Title="{x:Static properties:Resources.MainWindowTitle}" Height="650" Width="800"
+        WindowStartupLocation="CenterScreen"
+        AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="{x:Static properties:Resources.MenuFile}">
+                    <MenuItem Header="{x:Static properties:Resources.MenuFileOpen}" Click="MenuItemFileOpen_Click"/>
+                    <MenuItem Header="{x:Static properties:Resources.MenuFileSave}" Click="MenuItemFileSave_Click"/>
+                    <MenuItem Header="{x:Static properties:Resources.MenuFileSaveAs}" Click="MenuItemFileSaveAs_Click"/>
+                    <Separator/>
+                    <MenuItem Header="{x:Static properties:Resources.MenuExit}" Click="MenuItemExit_Click"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static properties:Resources.MenuAbout}" Click="MenuItemAbout_Click"/>
+            </Menu>
+            <ToolBar DockPanel.Dock="Top">
+                <Button Width="32" Height="32" Click="ToolBarFileOpen_Click" ToolTip="{x:Static properties:Resources.ToolTipOpen}">
+                    <Image Source="{StaticResource Open}"/>
+                </Button>
+                <Button Width="32" Height="32" Click="ToolBarFileSave_Click" ToolTip="{x:Static properties:Resources.ToolTipSave}">
+                    <Image Source="{StaticResource Save}"/>
+                </Button>
+            </ToolBar>
+            <TabControl>
+                <TabItem Header="{x:Static properties:Resources.TabItemHero}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="16*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="{x:Static properties:Resources.TabItemHeroName}"/>
+                            <TextBox Grid.Column="1" Text="{Binding Hero.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>

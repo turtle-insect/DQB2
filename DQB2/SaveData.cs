@@ -7,12 +7,13 @@ namespace DQB2
 	{
 		private static SaveData mThis;
 		private String mFileName = null;
+		private Byte[] mHeader = new Byte[0x2A444];
 		private Byte[] mBuffer = null;
 		private readonly System.Text.Encoding mEncode = System.Text.Encoding.UTF8;
 		public uint Adventure { private get; set; } = 0;
 
 		private SaveData()
-		{}
+		{ }
 
 		public static SaveData Instance()
 		{
@@ -22,20 +23,28 @@ namespace DQB2
 
 		public bool Open(String filename)
 		{
-			mFileName = filename;
-			mBuffer = System.IO.File.ReadAllBytes(mFileName);
+			if (System.IO.File.Exists(filename) == false) return false;
 
-			String header = "aerC";
-			for (int i = 0; i < header.Length; i++)
+			Byte[] tmp = System.IO.File.ReadAllBytes(filename);
+			Byte[] check = { 0x61, 0x65, 0x72, 0x43, };
+			for (int i = 0; i < check.Length; i++)
 			{
-				if (mBuffer[i] != header[i])
-				{
-					mFileName = null;
-					mBuffer = null;
-					return false;
-				}
+				if (check[i] != tmp[i]) return false;
 			}
 
+			Byte[] comp = new Byte[tmp.Length - mHeader.Length];
+			Array.Copy(tmp, mHeader.Length, comp, 0, comp.Length);
+			Array.Copy(tmp, mHeader, mHeader.Length);
+			try
+			{
+				mBuffer = Ionic.Zlib.ZlibStream.UncompressBuffer(comp);
+			}
+			catch
+			{
+				return false;
+			}
+
+			mFileName = filename;
 			Backup();
 			return true;
 		}
@@ -44,15 +53,31 @@ namespace DQB2
 		{
 			if (mFileName == null || mBuffer == null) return false;
 
-			System.IO.File.WriteAllBytes(mFileName, mBuffer);
+			Byte[] comp = Ionic.Zlib.ZlibStream.CompressBuffer(mBuffer);
+			Byte[] tmp = new Byte[mHeader.Length + comp.Length];
+			Array.Copy(mHeader, tmp, mHeader.Length);
+			Array.Copy(comp, 0, tmp, mHeader.Length, comp.Length);
+			System.IO.File.WriteAllBytes(mFileName, tmp);
 			return true;
 		}
 
-		public bool SaveAs(String filenname)
+		public bool SaveAs(String filename)
 		{
-			if (mBuffer == null) return false;
-			mFileName = filenname;
+			if (mFileName == null || mBuffer == null) return false;
+			mFileName = filename;
 			return Save();
+		}
+
+		public void Import(String filename)
+		{
+			if (mFileName == null) return;
+
+			mBuffer = System.IO.File.ReadAllBytes(filename);
+		}
+
+		public void Export(String filename)
+		{
+			System.IO.File.WriteAllBytes(filename, mBuffer);
 		}
 
 		public uint ReadNumber(uint address, uint size)
@@ -61,9 +86,22 @@ namespace DQB2
 			address = CalcAddress(address);
 			if (address + size > mBuffer.Length) return 0;
 			uint result = 0;
-			for(int i = 0; i < size; i++)
+			for (int i = 0; i < size; i++)
 			{
 				result += (uint)(mBuffer[address + i]) << (i * 8);
+			}
+			return result;
+		}
+
+		public Byte[] ReadValue(uint address, uint size)
+		{
+			Byte[] result = new Byte[size];
+			if (mBuffer == null) return result;
+			address = CalcAddress(address);
+			if (address + size > mBuffer.Length) return result;
+			for (int i = 0; i < size; i++)
+			{
+				result[i] = mBuffer[address + i];
 			}
 			return result;
 		}
@@ -88,7 +126,7 @@ namespace DQB2
 			if (address + size > mBuffer.Length) return "";
 
 			Byte[] tmp = new Byte[size];
-			for(uint i = 0; i < size; i++)
+			for (uint i = 0; i < size; i++)
 			{
 				if (mBuffer[address + i] == 0) break;
 				tmp[i] = mBuffer[address + i];
@@ -164,7 +202,7 @@ namespace DQB2
 			to = CalcAddress(to);
 			if (from + size > mBuffer.Length) return;
 			if (to + size > mBuffer.Length) return;
-			for(uint i = 0; i < size; i++)
+			for (uint i = 0; i < size; i++)
 			{
 				mBuffer[to + i] = mBuffer[from + i];
 			}
@@ -213,13 +251,13 @@ namespace DQB2
 			DateTime now = DateTime.Now;
 			String path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 			path = System.IO.Path.Combine(path, "backup");
-			if(!System.IO.Directory.Exists(path))
+			if (!System.IO.Directory.Exists(path))
 			{
 				System.IO.Directory.CreateDirectory(path);
 			}
-			path = System.IO.Path.Combine(path, 
+			path = System.IO.Path.Combine(path,
 				String.Format("{0:0000}-{1:00}-{2:00} {3:00}-{4:00}", now.Year, now.Month, now.Day, now.Hour, now.Minute));
-			System.IO.File.WriteAllBytes(path, mBuffer);
+			System.IO.File.Copy(mFileName, path, true);
 		}
 	}
 }

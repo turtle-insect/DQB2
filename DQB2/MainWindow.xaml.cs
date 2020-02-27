@@ -26,83 +26,51 @@ namespace DQB2
 			InitializeComponent();
 		}
 
-		private void Window_PreviewDragOver(object sender, DragEventArgs e)
-		{
-			e.Handled = e.Data.GetDataPresent(DataFormats.FileDrop);
-		}
-
-		private void Window_Drop(object sender, DragEventArgs e)
-		{
-			String[] files = e.Data.GetData(DataFormats.FileDrop) as String[];
-			if (files == null) return;
-			if (!System.IO.File.Exists(files[0])) return;
-
-			SaveData.Instance().Open(files[0]);
-			Init();
-			MessageBox.Show(Properties.Resources.MessageLoadSuccess);
-		}
-
 		private void MenuItemFileOpen_Click(object sender, RoutedEventArgs e)
 		{
-			Load();
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().Open(dlg.FileName);
+			DataContext = new ViewModel();
 		}
 
 		private void MenuItemFileSave_Click(object sender, RoutedEventArgs e)
 		{
-			Save();
+			SaveData.Instance().Save();
 		}
 
-		private void MenuItemFileSaveAs_Click(object sender, RoutedEventArgs e)
+		private void MenuItemFileImport_Click(object sender, RoutedEventArgs e)
 		{
-			SaveFileDialog dlg = new SaveFileDialog();
+			var dlg = new OpenFileDialog();
 			if (dlg.ShowDialog() == false) return;
 
-			if (SaveData.Instance().SaveAs(dlg.FileName) == true) MessageBox.Show(Properties.Resources.MessageSaveSuccess);
-			else MessageBox.Show(Properties.Resources.MessageSaveFail);
+			SaveData.Instance().Import(dlg.FileName);
 		}
 
-		private void MenuItemExit_Click(object sender, RoutedEventArgs e)
+		private void MenuItemFileExport_Click(object sender, RoutedEventArgs e)
+		{
+			var dlg = new SaveFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().Export(dlg.FileName);
+		}
+
+
+		private void MenuItemFileExit_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
 		}
 
-		private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
+		private void ButtonItemChoice_Click(object sender, RoutedEventArgs e)
 		{
-			//new AboutWindow().ShowDialog();
-		}
+			Item item = (sender as Button)?.DataContext as Item;
+			if (item == null) return;
 
-		private void ToolBarFileOpen_Click(object sender, RoutedEventArgs e)
-		{
-			Load();
-		}
-
-		private void ToolBarFileSave_Click(object sender, RoutedEventArgs e)
-		{
-			Save();
-		}
-
-		private void Init()
-		{
-			DataContext = new DataContext();
-		}
-
-		private void Load()
-		{
-			OpenFileDialog dlg = new OpenFileDialog();
-			if (dlg.ShowDialog() == false) return;
-			if (SaveData.Instance().Open(dlg.FileName) == false)
-			{
-				MessageBox.Show(Properties.Resources.MessageLoadFail);
-			}
-
-			Init();
-			MessageBox.Show(Properties.Resources.MessageLoadSuccess);
-		}
-
-		private void Save()
-		{
-			if (SaveData.Instance().Save() == true) MessageBox.Show(Properties.Resources.MessageSaveSuccess);
-			else MessageBox.Show(Properties.Resources.MessageSaveFail);
+			var window = new ChoiceWindow();
+			window.ID = item.ID;
+			window.ShowDialog();
+			item.ID = window.ID;
 		}
 	}
 }

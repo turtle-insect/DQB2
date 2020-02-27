@@ -4,52 +4,71 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DQB2"
-        xmlns:properties="clr-namespace:DQB2.Properties"
         mc:Ignorable="d"
-        Title="{x:Static properties:Resources.MainWindowTitle}" Height="650" Width="800"
         WindowStartupLocation="CenterScreen"
-        AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver">
+        Title="DQB2" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Header="{x:Static properties:Resources.MenuFile}">
-                    <MenuItem Header="{x:Static properties:Resources.MenuFileOpen}" Click="MenuItemFileOpen_Click"/>
-                    <MenuItem Header="{x:Static properties:Resources.MenuFileSave}" Click="MenuItemFileSave_Click"/>
-                    <MenuItem Header="{x:Static properties:Resources.MenuFileSaveAs}" Click="MenuItemFileSaveAs_Click"/>
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Click="MenuItemFileOpen_Click"/>
+                    <MenuItem Header="Save" Click="MenuItemFileSave_Click"/>
                     <Separator/>
-                    <MenuItem Header="{x:Static properties:Resources.MenuExit}" Click="MenuItemExit_Click"/>
+                    <MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
+                    <MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
                 </MenuItem>
-                <MenuItem Header="{x:Static properties:Resources.MenuAbout}" Click="MenuItemAbout_Click"/>
             </Menu>
-            <ToolBar DockPanel.Dock="Top">
-                <Button Width="32" Height="32" Click="ToolBarFileOpen_Click" ToolTip="{x:Static properties:Resources.ToolTipOpen}">
-                    <Image Source="{StaticResource Open}"/>
-                </Button>
-                <Button Width="32" Height="32" Click="ToolBarFileSave_Click" ToolTip="{x:Static properties:Resources.ToolTipSave}">
-                    <Image Source="{StaticResource Save}"/>
-                </Button>
-            </ToolBar>
             <TabControl>
-                <TabItem Header="{x:Static properties:Resources.TabItemHero}">
+                <TabItem Header="Player">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
+                            <ColumnDefinition/>
                             <ColumnDefinition Width="5"/>
                             <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition Height="16*"/>
-                            </Grid.RowDefinitions>
-                            <Label Content="{x:Static properties:Resources.TabItemHeroName}"/>
-                            <TextBox Grid.Column="1" Text="{Binding Hero.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                        </Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Lv"/>
+                        <TextBox Grid.Column="1" Text="{Binding Player.Lv, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="1" Content="Exp"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Player.Exp, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="2" Content="HP"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Player.HP, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="3" Content="Attack"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Player.Attack, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="4" Content="Defense"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Player.Defense, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
+                </TabItem>
+                <TabItem Header="Inventory">
+                    <ListBox ItemsSource="{Binding Inventory}">
+                        <ListBox.Resources>
+                            <local:ItemIDConverter x:Key="ItemIDConverter"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="  Count: "/>
+                                    <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                    <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+                                    <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </TabItem>
             </TabControl>
         </DockPanel>

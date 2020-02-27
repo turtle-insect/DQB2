@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:DQB2"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <BitmapImage x:Key="Open" UriSource="./Resource/Open.png"/>
-        <BitmapImage x:Key="Save" UriSource="./Resource/Save.png"/>
+         
     </Application.Resources>
 </Application>

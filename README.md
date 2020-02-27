@@ -1,9 +1,5 @@
 ![DL Count](https://img.shields.io/github/downloads/turtle-insect/DQB2/total.svg)
 
-# 寄付
-<a href="https://www.buymeacoffee.com/06yi7RLlT" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
-
-
 # 概要
 Switch & STEAM ドラゴンクエストビルダーズ2のセーブデータ編集Tool
 

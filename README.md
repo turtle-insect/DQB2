@@ -8,10 +8,10 @@
 Switch & STEAM ドラゴンクエストビルダーズ2のセーブデータ編集Tool
 
 # ソフト
-■Switch
+■Switch  
 http://www.dragonquest.jp/builders2/  
-https://ec.nintendo.com/JP/ja/titles/70010000002603
-■STEAM
+https://ec.nintendo.com/JP/ja/titles/70010000002603  
+■STEAM  
 https://store.steampowered.com/app/1072420/
 
 # 実行に必要

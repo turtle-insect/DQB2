@@ -22,5 +22,6 @@ https://store.steampowered.com/app/1072420/
 
 # 編集時の手順
 * saveDataを吸い出す
+* 『CMNDAT.BIN』をToolで読み込む
 * 任意の編集を行う
 * saveDataを書き戻す

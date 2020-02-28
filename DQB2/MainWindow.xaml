@@ -70,6 +70,23 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </TabItem>
+                <TabItem Header="Bag">
+                    <ListBox ItemsSource="{Binding Bag}">
+                        <ListBox.Resources>
+                            <local:ItemIDConverter x:Key="ItemIDConverter"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="  Count: "/>
+                                    <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                    <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+                                    <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
             </TabControl>
         </DockPanel>
     </Grid>

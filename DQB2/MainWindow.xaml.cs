@@ -71,6 +71,8 @@ namespace DQB2
 			window.ID = item.ID;
 			window.ShowDialog();
 			item.ID = window.ID;
+
+			item.Count = item.ID == 0 ? 0 : 1u;
 		}
 	}
 }

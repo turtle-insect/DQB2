@@ -25,3 +25,6 @@ https://store.steampowered.com/app/1072420/
 * 『CMNDAT.BIN』をToolで読み込む
 * 任意の編集を行う
 * saveDataを書き戻す
+
+# Special Thanks
+* https://docs.google.com/spreadsheets/d/1w8Njk2d0DolMqHw4ZycqsAR4asmEpn0By7m_QpUUArs

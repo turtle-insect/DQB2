@@ -9,7 +9,9 @@ namespace DQB2
 {
 	class ViewModel
 	{
+		public Info Info { get; private set; } = Info.Instance();
 		public Player Player { get; set; } = new Player();
+		public Skill Skill { get; set; } = new Skill();
 		public ObservableCollection<Item> Inventory { get; set; } = new ObservableCollection<Item>();
 		public ObservableCollection<Item> Bag { get; set; } = new ObservableCollection<Item>();
 
@@ -24,6 +26,18 @@ namespace DQB2
 			{
 				Bag.Add(new Item(0x55B2C9 + i * 4));
 			}
+		}
+
+		public uint From
+		{
+			get { return SaveData.Instance().ReadNumber_Header(0xC9, 1); }
+			set { SaveData.Instance().WriteNumber_Header(0xC9, 1, value); }
+		}
+
+		public uint To
+		{
+			get { return SaveData.Instance().ReadNumber_Header(0xC8, 1); }
+			set { SaveData.Instance().WriteNumber_Header(0xC8, 1, value); }
 		}
 	}
 }

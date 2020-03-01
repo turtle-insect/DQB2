@@ -188,9 +188,11 @@
     </Compile>
     <Compile Include="ILineAnalysis.cs" />
     <Compile Include="Info.cs" />
+    <Compile Include="IslandIDConverter.cs" />
     <Compile Include="ItemIDConverter.cs" />
     <Compile Include="NameValueInfo.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Skill.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="SaveData.cs" />

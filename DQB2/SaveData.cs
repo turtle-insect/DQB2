@@ -93,6 +93,19 @@ namespace DQB2
 			return result;
 		}
 
+		public uint ReadNumber_Header(uint address, uint size)
+		{
+			if (mHeader == null) return 0;
+			address = CalcAddress(address);
+			if (address + size > mHeader.Length) return 0;
+			uint result = 0;
+			for (int i = 0; i < size; i++)
+			{
+				result += (uint)(mHeader[address + i]) << (i * 8);
+			}
+			return result;
+		}
+
 		public Byte[] ReadValue(uint address, uint size)
 		{
 			Byte[] result = new Byte[size];
@@ -142,6 +155,18 @@ namespace DQB2
 			for (uint i = 0; i < size; i++)
 			{
 				mBuffer[address + i] = (Byte)(value & 0xFF);
+				value >>= 8;
+			}
+		}
+
+		public void WriteNumber_Header(uint address, uint size, uint value)
+		{
+			if (mHeader == null) return;
+			address = CalcAddress(address);
+			if (address + size > mHeader.Length) return;
+			for (uint i = 0; i < size; i++)
+			{
+				mHeader[address + i] = (Byte)(value & 0xFF);
 				value >>= 8;
 			}
 		}

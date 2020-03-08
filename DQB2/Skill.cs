@@ -32,6 +32,18 @@ namespace DQB2
 			set { SaveData.Instance().WriteBit(0x502, 3, value); }
 		}
 
+		public bool ReformIron
+		{
+			get { return SaveData.Instance().ReadBit(0x500, 6); }
+			set { SaveData.Instance().WriteBit(0x500, 6, value); }
+		}
+
+		public bool Expression
+		{
+			get { return !SaveData.Instance().ReadBit(0x501, 1); }
+			set { SaveData.Instance().WriteBit(0x501, 1, !value); }
+		}
+
 		public bool BuilderEye
 		{
 			get { return SaveData.Instance().ReadBit(0x502, 7); }

@@ -39,5 +39,17 @@ namespace DQB2
 			get { return SaveData.Instance().ReadNumber_Header(0xC8, 1); }
 			set { SaveData.Instance().WriteNumber_Header(0xC8, 1, value); }
 		}
+
+		public uint MiniMedal
+		{
+			get { return SaveData.Instance().ReadNumber(0x226E40, 1); }
+			set { Util.WriteNumber(0x226E40, 1, value, 0, 90); }
+		}
+
+		public uint MiniMedal_deposit
+		{
+			get { return SaveData.Instance().ReadNumber(0x226E44, 1); }
+			set { Util.WriteNumber(0x226E44, 1, value, 0, 90); }
+		}
 	}
 }

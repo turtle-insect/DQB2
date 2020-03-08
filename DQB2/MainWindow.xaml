@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DQB2"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="DQB2" Height="450" Width="800">
+        Title="DQB2 Nintendo Switch &amp; Sterm" Height="450" Width="800">
     <Window.DataContext>
         <local:ViewModel/>
     </Window.DataContext>
@@ -68,8 +68,22 @@
                         <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Skill.Hammer3x}" VerticalAlignment="Center"/>
                         <Label Grid.Row="8" Content="Hammer5x"/>
                         <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Skill.Hammer5x}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="9" Content="BuilderEye"/>
-                        <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Skill.BuilderEye}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="9" Content="Reform Iron(grade up)"/>
+                        <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Skill.ReformIron}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="10" Content="Thirst Pot(grade up)"/>
+                        
+                        <Label Grid.Row="11" Content="Builder Eye"/>
+                        <CheckBox Grid.Row="11" Grid.Column="1" IsChecked="{Binding Skill.BuilderEye}" VerticalAlignment="Center"/>
+                        <Label Grid.Column="3" Content="MiniMedal" FontWeight="Bold"/>
+                        <Label Grid.Row="1" Grid.Column="3" Content="Have"/>
+                        <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding MiniMedal, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="2" Grid.Column="3" Content="Deposit"/>
+                        <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding MiniMedal_deposit, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Label Grid.Row="4" Grid.Column="3" Content="Expression" FontWeight="Bold"/>
+                        <Label Grid.Row="5"  Grid.Column="3" Content="Smile"/>
+                        <CheckBox Grid.Row="5" Grid.Column="4" IsChecked="{Binding Skill.Expression}" VerticalAlignment="Center"/>
+                        
                     </Grid>
                 </TabItem>
                 <TabItem Header="Player">

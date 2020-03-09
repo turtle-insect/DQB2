@@ -7,7 +7,8 @@ namespace DQB2
 	{
 		private static Info mThis;
 		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> Island { get; private set; } = new List<NameValueInfo>();
+		public List<NameValueInfo> StoryIsland { get; private set; } = new List<NameValueInfo>();
+		public List<NameValueInfo> MaterialIsland { get; private set; } = new List<NameValueInfo>();
 
 		private Info() { }
 
@@ -39,7 +40,8 @@ namespace DQB2
 		private void Init()
 		{
 			AppendList("info\\item.txt", Item);
-			AppendList("info\\island.txt", Island);
+			AppendList("info\\story_island.txt", StoryIsland);
+			AppendList("info\\material_island.txt", MaterialIsland);
 			Item.Sort();
 		}
 

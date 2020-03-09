@@ -14,6 +14,9 @@ namespace DQB2
 		public Skill Skill { get; set; } = new Skill();
 		public ObservableCollection<Item> Inventory { get; set; } = new ObservableCollection<Item>();
 		public ObservableCollection<Item> Bag { get; set; } = new ObservableCollection<Item>();
+		public ObservableCollection<MaterialIsland> Island { get; set; } = new ObservableCollection<MaterialIsland>();
+		public ObservableCollection<Party> Party { get; set; } = new ObservableCollection<Party>();
+
 
 		public ViewModel()
 		{
@@ -25,6 +28,16 @@ namespace DQB2
 			for (uint i = 0; i < 420; i++)
 			{
 				Bag.Add(new Item(0x55B2C9 + i * 4));
+			}
+
+			for(uint i = 0; i < Info.MaterialIsland.Count; i++)
+			{
+				Island.Add(new MaterialIsland(0x69F93 + i * 7, Info.MaterialIsland[(int)i].Name));
+			}
+
+			for(uint i = 0; i < 3; i++)
+			{
+				Party.Add(new Party(0x6A9DC + i * 4));
 			}
 		}
 

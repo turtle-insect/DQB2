@@ -29,6 +29,7 @@ namespace DQB2
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			CreateItemList("");
+			TextBoxFilter.Focus();
 		}
 
 		private void TextBoxFilter_TextChanged(object sender, TextChangedEventArgs e)
@@ -39,6 +40,11 @@ namespace DQB2
 		private void ListBoxItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ButtonDecision.IsEnabled = ListBoxItem.SelectedIndex >= 0;
+		}
+
+		private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			ButtonDecision_Click(sender, null);
 		}
 
 		private void ButtonDecision_Click(object sender, RoutedEventArgs e)

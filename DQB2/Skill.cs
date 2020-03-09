@@ -22,8 +22,8 @@ namespace DQB2
 
 		public bool Hammer3x
 		{
-			get { return SaveData.Instance().ReadNumber(0x230706, 1) == 1; }
-			set { SaveData.Instance().WriteNumber(0x230706, 1, value == true ? 1u : 0); }
+			get { return SaveData.Instance().ReadBit(0x506, 1); }
+			set { SaveData.Instance().WriteBit(0x506, 1, value); }
 		}
 
 		public bool Hammer5x
@@ -42,6 +42,18 @@ namespace DQB2
 		{
 			get { return !SaveData.Instance().ReadBit(0x501, 1); }
 			set { SaveData.Instance().WriteBit(0x501, 1, !value); }
+		}
+
+		public bool ThirstPotUse
+		{
+			get { return SaveData.Instance().ReadBit(0x504, 2); }
+			set { SaveData.Instance().WriteBit(0x504, 2, value); }
+		}
+
+		public bool ThirstPot
+		{
+			get { return SaveData.Instance().ReadNumber(0x67D, 1) == 0xDE; }
+			set { SaveData.Instance().WriteNumber(0x67D, 1, value == true ? 0xDEu : 0); }
 		}
 
 		public bool BuilderEye

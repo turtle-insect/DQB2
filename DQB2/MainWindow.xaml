@@ -53,10 +53,10 @@
                         </Grid.RowDefinitions>
                         <Label Content="Place" FontWeight="Bold"/>
                         <Label Grid.Row="1" Content="From"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Info.Island}" DisplayMemberPath="Name"
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
                                   SelectedIndex="{Binding From, Converter={StaticResource IslandIDConverter}}"/>
                         <Label Grid.Row="2" Content="To"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Info.Island}" DisplayMemberPath="Name"
+                        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
                                   SelectedIndex="{Binding To, Converter={StaticResource IslandIDConverter}}"/>
 
                         <Label Grid.Row="4" Content="Skill" FontWeight="Bold"/>
@@ -70,10 +70,13 @@
                         <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Skill.Hammer5x}" VerticalAlignment="Center"/>
                         <Label Grid.Row="9" Content="Reform Iron(grade up)"/>
                         <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Skill.ReformIron}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="10" Content="Thirst Pot(grade up)"/>
-                        
-                        <Label Grid.Row="11" Content="Builder Eye"/>
-                        <CheckBox Grid.Row="11" Grid.Column="1" IsChecked="{Binding Skill.BuilderEye}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="10" Content="Thirst Pot(use)"/>
+                        <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding Skill.ThirstPotUse}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="11" Content="Thirst Pot(grade up)"/>
+                        <CheckBox Grid.Row="11" Grid.Column="1" IsChecked="{Binding Skill.ThirstPot}" VerticalAlignment="Center"/>
+
+                        <Label Grid.Row="12" Content="Builder Eye"/>
+                        <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding Skill.BuilderEye}" VerticalAlignment="Center"/>
                         <Label Grid.Column="3" Content="MiniMedal" FontWeight="Bold"/>
                         <Label Grid.Row="1" Grid.Column="3" Content="Have"/>
                         <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding MiniMedal, UpdateSourceTrigger=PropertyChanged}"/>
@@ -145,6 +148,37 @@
                                     <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
                                     <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
                                 </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                <TabItem Header="Material Island">
+                    <ListBox ItemsSource="{Binding Island}">
+                        <ListBox.Resources>
+                            <local:MaterialIslandStateConverter x:Key="MaterialIslandStateConverter"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Label Content="{Binding Name}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="State"/>
+                                        <ComboBox SelectedIndex="{Binding State, Converter={StaticResource MaterialIslandStateConverter}}">
+                                            <ComboBoxItem Content="None"/>
+                                            <ComboBoxItem Content="View"/>
+                                            <ComboBoxItem Content="Open"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                <TabItem Header="Party">
+                    <ListBox ItemsSource="{Binding Party}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBox Width="50" Text="{Binding ID, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

@@ -8,22 +8,17 @@ using System.Windows.Data;
 
 namespace DQB2
 {
-	class IslandIDConverter : IValueConverter
+	class MaterialIslandStateConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			uint id = (uint)value;
-			for(int i = 0; i < Info.Instance().StoryIsland.Count; i++)
-			{
-				if (id == Info.Instance().StoryIsland[i].Value) return i;
-			}
-
-			return -1;
+			uint state = (uint)value;
+			return state / 2;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return Info.Instance().StoryIsland[(int)value].Value;
+			return (int)value * 2;
 		}
 	}
 }

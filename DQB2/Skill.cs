@@ -56,6 +56,12 @@ namespace DQB2
 			set { SaveData.Instance().WriteNumber(0x67D, 1, value == true ? 0xDEu : 0); }
 		}
 
+		public bool WateringType
+		{
+			get { return SaveData.Instance().ReadNumber(0x67E, 1) == 0x01; }
+			set { SaveData.Instance().WriteNumber(0x67E, 1, value == true ? 0x01u : 0); }
+		}
+
 		public bool BuilderEye
 		{
 			get { return SaveData.Instance().ReadBit(0x502, 7); }

@@ -183,6 +183,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BitItem.cs" />
     <Compile Include="ChoiceWindow.xaml.cs">
       <DependentUpon>ChoiceWindow.xaml</DependentUpon>
     </Compile>

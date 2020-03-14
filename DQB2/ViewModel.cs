@@ -32,7 +32,7 @@ namespace DQB2
 
 			for(uint i = 0; i < Info.MaterialIsland.Count; i++)
 			{
-				Island.Add(new MaterialIsland(0x69F93 + i * 7, Info.MaterialIsland[(int)i].Name));
+				Island.Add(new MaterialIsland(0x69F8D + i * 7, Info.MaterialIsland[(int)i].Name));
 			}
 
 			for(uint i = 0; i < 3; i++)

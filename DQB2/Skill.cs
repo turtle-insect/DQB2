@@ -59,7 +59,15 @@ namespace DQB2
 		public bool WateringType
 		{
 			get { return SaveData.Instance().ReadNumber(0x67E, 1) == 0x01; }
-			set { SaveData.Instance().WriteNumber(0x67E, 1, value == true ? 0x01u : 0); }
+			set
+			{
+				//SaveData.Instance().WriteNumber(0x67E, 1, value == true ? 0x01u : 0);
+				//SaveData.Instance().WriteNumber(0x20C00, 1, value == true ? 0x02u : 0x00);
+
+				// Story Island
+				//SaveData.Instance().WriteNumber(0x22E76A, 1, value == true ? 0x08u : 0x00);
+				//SaveData.Instance().WriteNumber(0x22E76D, 1, value == true ? 0x08u : 0x00);
+			}
 		}
 
 		public bool BuilderEye

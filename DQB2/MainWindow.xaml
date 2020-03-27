@@ -92,7 +92,15 @@
                         <Label Grid.Row="4" Grid.Column="3" Content="Expression" FontWeight="Bold"/>
                         <Label Grid.Row="5"  Grid.Column="3" Content="Smile"/>
                         <CheckBox Grid.Row="5" Grid.Column="4" IsChecked="{Binding Skill.Expression}" VerticalAlignment="Center"/>
-                        
+
+                        <Label Grid.Row="7" Grid.Column="3" Content="Super Car" FontWeight="Bold"/>
+                        <Label Grid.Row="8"  Grid.Column="3" Content="Light"/>
+                        <CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding Car_Light}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="9"  Grid.Column="3" Content="Fly"/>
+                        <CheckBox Grid.Row="9" Grid.Column="4" IsChecked="{Binding Car_Fly}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="10"  Grid.Column="3" Content="Beam"/>
+                        <CheckBox Grid.Row="10" Grid.Column="4" IsChecked="{Binding Car_Beam}" VerticalAlignment="Center"/>
+
                     </Grid>
                 </TabItem>
                 <TabItem Header="Player">

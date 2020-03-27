@@ -64,5 +64,23 @@ namespace DQB2
 			get { return SaveData.Instance().ReadNumber(0x226E44, 1); }
 			set { Util.WriteNumber(0x226E44, 1, value, 0, 90); }
 		}
+
+		public bool Car_Light
+		{
+			get { return SaveData.Instance().ReadBit(0x506, 5); }
+			set { SaveData.Instance().WriteBit(0x506, 5, value); }
+		}
+
+		public bool Car_Fly
+		{
+			get { return SaveData.Instance().ReadBit(0x506, 6); }
+			set { SaveData.Instance().WriteBit(0x506, 6, value); }
+		}
+
+		public bool Car_Beam
+		{
+			get { return SaveData.Instance().ReadBit(0x506, 7); }
+			set { SaveData.Instance().WriteBit(0x506, 7, value); }
+		}
 	}
 }

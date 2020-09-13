@@ -1,0 +1,47 @@
+﻿<Window x:Class="STGDAT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:STGDAT"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="DQB2 STGDAT Nintendo Switch &amp; Steam" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Click="MenuItemFileOpen_Click"/>
+                    <MenuItem Header="Save" Click="MenuItemFileSave_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
+                    <MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
+                </MenuItem>
+            </Menu>
+            <TabControl>
+                <TabItem Header="Basic">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="15*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Heart"/>
+                        <TextBox Grid.Column="1" Text="{Binding Heart, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>

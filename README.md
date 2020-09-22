@@ -26,6 +26,8 @@ https://store.steampowered.com/app/1072420/
   * 『CMNDAT.BIN』をToolで読み込む
 * SCSHDAT.exe
   * 『SCSHDAT.BIN』をToolで読み込む
+* STGDAT.exe
+  * 『STGDATxx.BIN』をToolで読み込む
 * 任意の編集を行う
 * saveDataを書き戻す
 

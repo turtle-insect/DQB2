@@ -196,6 +196,7 @@
     <Compile Include="Party.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="MaterialIsland.cs" />
+    <Compile Include="Resident.cs" />
     <Compile Include="Skill.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Item.cs" />

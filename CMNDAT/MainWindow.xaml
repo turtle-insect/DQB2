@@ -195,6 +195,37 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </TabItem>
+                <!--
+                <TabItem Header="Resident">
+                    <ListBox ItemsSource="{Binding Residents}">
+                        <ListBox.Resources>
+                            <local:ItemIDConverter x:Key="ItemIDConverter"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="  Sex: "/>
+                                        <TextBox Text="{Binding Sex, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="  Count: "/>
+                                        <TextBox Text="{Binding Weapon.Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                        <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+                                        <Label Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="  Count: "/>
+                                        <TextBox Text="{Binding Dress.Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                        <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+                                        <Label Content="{Binding Dress.ID, Converter={StaticResource ItemIDConverter}}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                -->
                 <TabItem Header="Party">
                     <ListBox ItemsSource="{Binding Party}">
                         <ListBox.ItemTemplate>

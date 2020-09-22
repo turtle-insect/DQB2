@@ -15,6 +15,7 @@ namespace CMNDAT
 		public ObservableCollection<Item> Inventory { get; set; } = new ObservableCollection<Item>();
 		public ObservableCollection<Item> Bag { get; set; } = new ObservableCollection<Item>();
 		public ObservableCollection<MaterialIsland> Island { get; set; } = new ObservableCollection<MaterialIsland>();
+		public ObservableCollection<Resident> Residents { get; set; } = new ObservableCollection<Resident>();
 		public ObservableCollection<Party> Party { get; set; } = new ObservableCollection<Party>();
 
 
@@ -38,6 +39,14 @@ namespace CMNDAT
 			for(uint i = 0; i < 3; i++)
 			{
 				Party.Add(new Party(0x6A9DC + i * 4));
+			}
+
+			// 住人
+			// 0x102A68
+			// 608Byte
+			for(int i = 0; i < 60; i++)
+			{
+				Residents.Add(new Resident((uint)(0x102A68 + i * 608)));
 			}
 		}
 

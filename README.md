@@ -8,7 +8,6 @@ http://www.dragonquest.jp/builders2/
 
 # ソフト
 ■Switch  
-http://www.dragonquest.jp/builders2/  
 https://ec.nintendo.com/JP/ja/titles/70010000002603  
 ■STEAM  
 https://store.steampowered.com/app/1072420/  

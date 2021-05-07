@@ -3,12 +3,20 @@
 # 概要
 Switch & STEAM ドラゴンクエストビルダーズ2のセーブデータ編集Tool
 
+# Portal
+http://www.dragonquest.jp/builders2/
+
 # ソフト
 ■Switch  
 http://www.dragonquest.jp/builders2/  
 https://ec.nintendo.com/JP/ja/titles/70010000002603  
 ■STEAM  
-https://store.steampowered.com/app/1072420/
+https://store.steampowered.com/app/1072420/  
+■XBox、PC  
+https://www.microsoft.com/ja-jp/p/b1e651fe-2ee9-4bd1-85ce-49fa3f9ca6bd/9pfd00czj35v  
+■Play Station  
+https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
+
 
 # 実行に必要
 * Windows マシン

@@ -26,6 +26,20 @@ namespace CMNDAT
 			InitializeComponent();
 		}
 
+		private void Window_PreviewDragOver(object sender, DragEventArgs e)
+		{
+			e.Handled = e.Data.GetDataPresent(DataFormats.FileDrop);
+		}
+
+		private void Window_Drop(object sender, DragEventArgs e)
+		{
+			String[] files = e.Data.GetData(DataFormats.FileDrop) as String[];
+			if (files == null) return;
+
+			SaveData.Instance().Open(files[0]);
+			DataContext = new ViewModel();
+		}
+
 		private void MenuItemFileOpen_Click(object sender, RoutedEventArgs e)
 		{
 			var dlg = new OpenFileDialog();

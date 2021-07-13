@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:SCSHDAT"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
         Title="DQB2 SCSHDAT Nintendo Switch &amp; Steam" Height="450" Width="800">
     <Window.DataContext>
         <local:ViewModel/>
@@ -15,6 +16,8 @@
             <MenuItem Header="Import" Click="ListBoxItemMenuImport_Click"/>
             <MenuItem Header="Export" Click="ListBoxItemMenuExport_Click"/>
         </ContextMenu>
+        <BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
+        <BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
     </Window.Resources>
     <Grid>
         <DockPanel>
@@ -29,6 +32,14 @@
                     <MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
                 </MenuItem>
             </Menu>
+            <ToolBar DockPanel.Dock="Top">
+                <Button Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click">
+                    <Image Source="{StaticResource Open}"/>
+                </Button>
+                <Button Height="32" ToolTip="Save" Click="MenuItemFileSave_Click">
+                    <Image Source="{StaticResource Save}"/>
+                </Button>
+            </ToolBar>
             <ListBox x:Name="ListBoxPhoto" ItemsSource="{Binding Photos}" ContextMenu="{DynamicResource ListBoxItemMenu}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

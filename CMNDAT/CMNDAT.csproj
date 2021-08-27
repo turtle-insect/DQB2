@@ -194,6 +194,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BitItem.cs" />
+    <Compile Include="BluePrint.cs" />
     <Compile Include="ChoiceWindow.xaml.cs">
       <DependentUpon>ChoiceWindow.xaml</DependentUpon>
     </Compile>

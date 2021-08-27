@@ -89,5 +89,33 @@ namespace CMNDAT
 
 			item.Count = item.ID == 0 ? 0 : 1u;
 		}
+
+		private void ButtonBluePrintBackup_Click(object sender, RoutedEventArgs e)
+		{
+			BluePrint item = (sender as Button)?.DataContext as BluePrint;
+			if (item == null) return;
+
+			var dlg = new SaveFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, 0x30008));
+		}
+
+		private void ButtonBluePrintLoad_Click(object sender, RoutedEventArgs e)
+		{
+			BluePrint item = (sender as Button)?.DataContext as BluePrint;
+			if (item == null) return;
+
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
+			if (buf.Length != 0x30008) return;
+			SaveData.Instance().WriteValue(item.Address, buf);
+
+			item.X = buf[0x30000];
+			item.Y = buf[0x30002];
+			item.Z = buf[0x30004];
+		}
 	}
 }

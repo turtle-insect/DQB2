@@ -208,6 +208,24 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </TabItem>
+                <TabItem Header="BluePrint">
+                    <ListBox ItemsSource="{Binding BluePrints}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="X"/>
+                                    <TextBox Text="{Binding X, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                    <Label Content="Y"/>
+                                    <TextBox Text="{Binding Y, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                    <Label Content="Z"/>
+                                    <TextBox Text="{Binding Z, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                    <Button Margin="5,0,0,0" Content="Backup" Click="ButtonBluePrintBackup_Click"/>
+                                    <Button Margin="5,0,0,0" Content="Load" Click="ButtonBluePrintLoad_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
                 <!--
                 <TabItem Header="Resident">
                     <ListBox ItemsSource="{Binding Residents}">

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
-        Title="DQB2 SCSHDAT Nintendo Switch &amp; Steam" Height="450" Width="800">
+        Title="DQB2 SCSHDAT Nintendo Switch &amp; Steam" Height="500" Width="800">
     <Window.DataContext>
         <local:ViewModel/>
     </Window.DataContext>

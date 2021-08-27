@@ -7,10 +7,14 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
-        Title="DQB2 STGDAT Nintendo Switch &amp; Steam" Height="450" Width="800">
+        Title="DQB2 STGDAT Nintendo Switch &amp; Steam" Height="500" Width="800">
     <Window.DataContext>
         <local:ViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
+        <BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
+    </Window.Resources>
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
@@ -24,6 +28,14 @@
                     <MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
                 </MenuItem>
             </Menu>
+            <ToolBar DockPanel.Dock="Top">
+                <Button Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click">
+                    <Image Source="{StaticResource Open}"/>
+                </Button>
+                <Button Height="32" ToolTip="Save" Click="MenuItemFileSave_Click">
+                    <Image Source="{StaticResource Save}"/>
+                </Button>
+            </ToolBar>
             <TabControl>
                 <TabItem Header="Basic">
                     <Grid>
@@ -36,7 +48,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
-                            <RowDefinition Height="15*"/>
+                            <RowDefinition Height="13*"/>
                         </Grid.RowDefinitions>
                         <Label Content="Heart"/>
                         <TextBox Grid.Column="1" Text="{Binding Heart, UpdateSourceTrigger=PropertyChanged}"/>

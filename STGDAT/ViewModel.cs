@@ -15,8 +15,12 @@ namespace STGDAT
 		}
 
 		// map info.
-		// からっぽ島
-		// 0x183FEF0 - 0x5D3FEF0くらいが書き換え可能
+		// からっぽ島(モンゾーラ)
+		// 0x183FEF0 - 0x86DFEF0くらいが書き換え可能そう
+		// = 590チャンク
+		// かいたく島(大きい)
+		// 0x183FEF0 - 0x3B0FEF0くらいが書き換え可能そう
+		// = 185チャンク
 		// 座標の考え方
 		// x = 32, z = 32, y = 96を一塊にしたチャンク方式
 		// yは岩盤地点も含めて保存されている
@@ -33,7 +37,7 @@ namespace STGDAT
 		// 0x24E7CD : オブジェクトの数 : 3Byte
 		// 0x0C7FFF：最大数
 		// 1つのオブジェクトは24Byteで表現されている
-		// カウントを0にするだけでオブジェクトは消える
+		// オブジェクトの数を0にするだけでオブジェクトは消える
 		// 0x24E7F1から開始
 
 
@@ -41,22 +45,24 @@ namespace STGDAT
 		// 0層：岩盤、1層：土、2層：草原の土
 		// ブロック以外のオブジェクト無し
 		/*
+		String filename = @"*********";
+		Byte[] buffer = System.IO.File.ReadAllBytes(filename);
 		int address = 0x24E7CD;
-		buffer[address] = 0;
-		buffer[address + 1] = 0;
-		buffer[address + 2] = 0;
+		//buffer[address] = 0;
+		//buffer[address + 1] = 0;
+		//buffer[address + 2] = 0;
 
-		for(int ch = 0; ch < 368; ch++)
+		for (int ch = 0; ch < 185; ch++)
 		{
 			address = 0x183FEF0 + ch * 0x30000;
-			for(int y = 0; y < 96; y++)
+			for (int y = 0; y < 96; y++)
 			{
 				Byte block = 0;
 				if (y == 0) block = 1;
 				else if (y == 1) block = 2;
 				else if (y == 2) block = 3;
 
-				for(int i = 0; i < 32 * 32; i++)
+				for (int i = 0; i < 32 * 32; i++)
 				{
 					buffer[address] = block;
 					buffer[address + 1] = 0;
@@ -64,6 +70,7 @@ namespace STGDAT
 				}
 			}
 		}
+		System.IO.File.WriteAllBytes(filename + "_", buffer);
 		*/
 	}
 }

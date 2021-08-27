@@ -63,7 +63,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                            <RowDefinition Height="1*"/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Label Content="Place" FontWeight="Bold"/>
                         <Label Grid.Row="1" Content="From"/>

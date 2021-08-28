@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CMNDAT
+namespace STGDAT
 {
 	class Info
 	{
 		private static Info mThis;
-		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> StoryIsland { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> MaterialIsland { get; private set; } = new List<NameValueInfo>();
+		public List<NameValueInfo> Block { get; private set; } = new List<NameValueInfo>();
 
 		private Info() { }
 
@@ -39,9 +37,7 @@ namespace CMNDAT
 
 		private void Init()
 		{
-			AppendList("info\\item.txt", Item);
-			AppendList("info\\story_island.txt", StoryIsland);
-			AppendList("info\\material_island.txt", MaterialIsland);
+			AppendList("info\\block.txt", Block);
 		}
 
 		private void AppendList<Type>(String filename, List<Type> items)

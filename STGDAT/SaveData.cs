@@ -21,6 +21,12 @@ namespace STGDAT
 			return mThis;
 		}
 
+		public int Length()
+		{
+			if (mBuffer == null) return 0;
+			return mBuffer.Length;
+		}
+
 		public bool Open(String filename)
 		{
 			if (System.IO.File.Exists(filename) == false) return false;

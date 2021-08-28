@@ -8,6 +8,8 @@ namespace STGDAT
 {
 	class ViewModel
 	{
+		public Info Info { get; private set; } = Info.Instance();
+		public MapGenerator Map { get; set; } = new MapGenerator();
 		public uint Heart
 		{
 			get { return SaveData.Instance().ReadNumber(0xC0ECC, 4); }

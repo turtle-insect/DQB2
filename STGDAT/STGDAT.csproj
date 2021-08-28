@@ -178,6 +178,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ILineAnalysis.cs" />
+    <Compile Include="Info.cs" />
+    <Compile Include="Layer.cs" />
+    <Compile Include="MapGenerator.cs" />
+    <Compile Include="NameValueInfo.cs" />
     <Compile Include="SaveData.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="ViewModel.cs" />

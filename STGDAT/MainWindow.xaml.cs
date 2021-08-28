@@ -76,5 +76,53 @@ namespace STGDAT
 		{
 			Close();
 		}
+
+		private void ButtonMapGeneratorUp_Click(object sender, RoutedEventArgs e)
+		{
+			int index = ListBoxMap.SelectedIndex;
+			if (index == -1) return;
+			MapGenerator map = (DataContext as ViewModel)?.Map;
+			if (map == null) return;
+			map.Front(index);
+		}
+
+		private void ButtonMapGeneratorDown_Click(object sender, RoutedEventArgs e)
+		{
+			int index = ListBoxMap.SelectedIndex;
+			if (index == -1) return;
+			MapGenerator map = (DataContext as ViewModel)?.Map;
+			if (map == null) return;
+			map.Back(index);
+		}
+
+		private void ButtonMapGeneratorAppend_Click(object sender, RoutedEventArgs e)
+		{
+			MapGenerator map = (DataContext as ViewModel)?.Map;
+			if (map == null) return;
+			map.Append();
+		}
+
+		private void ButtonMapGeneratorRemove_Click(object sender, RoutedEventArgs e)
+		{
+			int index = ListBoxMap.SelectedIndex;
+			if (index == -1) return;
+			MapGenerator map = (DataContext as ViewModel)?.Map;
+			if (map == null) return;
+			map.RemoveAt(index);
+		}
+
+		private void ButtonMapGeneratorClear_Click(object sender, RoutedEventArgs e)
+		{
+			MapGenerator map = (DataContext as ViewModel)?.Map;
+			if (map == null) return;
+			map.Clear();
+		}
+
+		private void ButtonMapGeneratorExecution_Click(object sender, RoutedEventArgs e)
+		{
+			MapGenerator map = (DataContext as ViewModel)?.Map;
+			if (map == null) return;
+			map.Execution();
+		}
 	}
 }

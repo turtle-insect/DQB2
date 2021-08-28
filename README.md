@@ -27,6 +27,23 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 * Windows 10(64bit)
 * Visual Studio 2019
 
+# セーブデータの構成
+* AUTOxx.BIN
+  * オートセーブ
+* CMNDAT.BIN
+  * ゲーム全体に紐づく設定を保持
+* SCSHDAT.BIN
+  * フォトのデータ
+* STGDATxx.BIN
+  * 各ステージに紐づく設定を保持
+    * 01：からっぽ島
+    * 02：モンゾーラ島
+    * 03：オッカムル島
+    * 04：ムーンブルク島
+    * 05：破壊天体シドー
+    * 10：監獄島
+    * 12：かいたく島
+
 # 編集時の手順
 * saveDataを吸い出す
 * CMNDAT.exe

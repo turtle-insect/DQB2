@@ -86,6 +86,42 @@ namespace STGDAT
 			System.IO.File.WriteAllBytes(filename, mBuffer);
 		}
 
+		public void OtherMap(String filename)
+		{
+			if (mFileName == null) return;
+
+			Byte[] buffer = System.IO.File.ReadAllBytes(filename);
+			try
+			{
+				buffer = Ionic.Zlib.ZlibStream.UncompressBuffer(buffer);
+			}
+			catch
+			{
+				return;
+			}
+
+			// other map's info
+			// 0x8B2909 start
+			// 0x8B2915：オブジェクトの数
+			// 0x1EA4038：Blockの先頭
+			// 自身のセーブデータのオブジェクトの差分
+			// 0x664148
+			// そこから全アドレスをコピー
+			Array.Copy(buffer, 0x8B2909, mBuffer, 0x24E7C1, mBuffer.Length - 0x24E7C1);
+			/*
+			// Object Copy.
+			for (int i = 0; i < 0x12C0004; i++)
+			{
+				mBuffer[0x24E7C1 + i] = buffer[0x8B2909 + i];
+			}
+			// Block Copy.
+			for(int i = 0; i < 590 * 96 * 32 * 32 * 2; i++)
+			{
+				mBuffer[0x183FEF0 + i] = buffer[0x1EA4038 + i];
+			}
+			*/
+		}
+
 		public uint ReadNumber(uint address, uint size)
 		{
 			if (mBuffer == null) return 0;

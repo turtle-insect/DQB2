@@ -127,6 +127,7 @@ namespace CMNDAT
 			if (item == null) return;
 
 			var dlg = new SaveFileDialog();
+			dlg.FileName = item.Name;
 			if (dlg.ShowDialog() == false) return;
 
 			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, Util.ResidentSize));

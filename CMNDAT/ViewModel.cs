@@ -20,6 +20,10 @@ namespace CMNDAT
 		public ObservableCollection<BluePrint> BluePrints { get; set; } = new ObservableCollection<BluePrint>();
 
 
+		// シドー
+		// 武器
+		// 0x6AD8F(2)
+
 		public ViewModel()
 		{
 			for (uint i = 0; i < 15; i++)

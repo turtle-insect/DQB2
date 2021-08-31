@@ -5,6 +5,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace CMNDAT
 {
@@ -13,16 +14,21 @@ namespace CMNDAT
 		public uint Address { get; private set; }
 		public Item Weapon { get; set; }
 		public Item Armor { get; set; }
+		public ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>();
 
-		// 258 : 性別
-		// 199 : 武器 ID:2 Count:2
-		// 207 : 服 ID:2 Count:2
+		// 212 - 243：キャラスキン？
+		// 261 - 266：セリフ？
+
 
 		public Resident(uint address)
 		{
 			Address = address;
 			Weapon = new Item(address + 199);
 			Armor = new Item(address + 207);
+			for(uint i = 0; i < 15; i++)
+			{
+				Items.Add(new Item(address + 32 + i * 4));
+			}
 		}
 
 		public String Name
@@ -42,6 +48,16 @@ namespace CMNDAT
 			{
 				SaveData.Instance().WriteNumber(Address + 258, 1, value);
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Sex)));
+			}
+		}
+
+		public uint Job
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 271, 1); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 271, 1, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Job)));
 			}
 		}
 
@@ -71,12 +87,18 @@ namespace CMNDAT
 		{
 			Name = Name;
 			Sex = Sex;
+			Job = Job;
 			Island = Island;
 			Place = Place;
 			Weapon.ID = Weapon.ID;
 			Weapon.Count = Weapon.Count;
-			Armor.ID = Weapon.ID;
-			Armor.Count = Weapon.Count;
+			Armor.ID = Armor.ID;
+			Armor.Count = Armor.Count;
+			foreach (var item in Items)
+			{
+				item.ID = item.ID;
+				item.Count = item.Count;
+			}
 		}
 	}
 }

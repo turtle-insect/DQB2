@@ -44,7 +44,7 @@ namespace CMNDAT
 
 			for (uint i = 0; i < 4; i++)
 			{
-				BluePrints.Add(new BluePrint(0x166DF0 + i * 0x30008));
+				BluePrints.Add(new BluePrint(0x166DF0 + i * Util.BluePrintSize));
 			}
 
 			// 住人
@@ -52,7 +52,7 @@ namespace CMNDAT
 			// 608Byte
 			for (int i = 0; i < 60; i++)
 			{
-				Residents.Add(new Resident((uint)(0x102A68 + i * 608)));
+				Residents.Add(new Resident((uint)(0x102A68 + i * Util.ResidentSize)));
 			}
 		}
 

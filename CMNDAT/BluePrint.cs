@@ -46,6 +46,13 @@ namespace CMNDAT
 			}
 		}
 
+		public void Reload()
+		{
+			X = X;
+			Y = Y;
+			Z = Z;
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

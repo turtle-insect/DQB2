@@ -80,17 +80,22 @@ namespace CMNDAT
 		private void ButtonItemChoice_Click(object sender, RoutedEventArgs e)
 		{
 			Item item = (sender as Button)?.DataContext as Item;
-			if (item == null) return;
-
-			var window = new ChoiceWindow();
-			window.ID = item.ID;
-			window.ShowDialog();
-			item.ID = window.ID;
-
-			item.Count = item.ID == 0 ? 0 : 1u;
+			ItemChoice(item);
 		}
 
-		private void ButtonBluePrintBackup_Click(object sender, RoutedEventArgs e)
+		private void ButtonResidentWeaponItemChoice_Click(object sender, RoutedEventArgs e)
+		{
+			Resident item = (sender as Button)?.DataContext as Resident;
+			ItemChoice(item?.Weapon);
+		}
+
+		private void ButtonResidentArmorItemChoice_Click(object sender, RoutedEventArgs e)
+		{
+			Resident item = (sender as Button)?.DataContext as Resident;
+			ItemChoice(item?.Armor);
+		}
+
+		private void ButtonBluePrintExport_Click(object sender, RoutedEventArgs e)
 		{
 			BluePrint item = (sender as Button)?.DataContext as BluePrint;
 			if (item == null) return;
@@ -98,10 +103,10 @@ namespace CMNDAT
 			var dlg = new SaveFileDialog();
 			if (dlg.ShowDialog() == false) return;
 
-			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, 0x30008));
+			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, Util.BluePrintSize));
 		}
 
-		private void ButtonBluePrintLoad_Click(object sender, RoutedEventArgs e)
+		private void ButtonBluePrintImport_Click(object sender, RoutedEventArgs e)
 		{
 			BluePrint item = (sender as Button)?.DataContext as BluePrint;
 			if (item == null) return;
@@ -110,12 +115,48 @@ namespace CMNDAT
 			if (dlg.ShowDialog() == false) return;
 
 			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
-			if (buf.Length != 0x30008) return;
+			if (buf.Length != Util.BluePrintSize) return;
 			SaveData.Instance().WriteValue(item.Address, buf);
 
-			item.X = buf[0x30000];
-			item.Y = buf[0x30002];
-			item.Z = buf[0x30004];
+			item.Reload();
+		}
+
+		private void ButtonResidentExport_Click(object sender, RoutedEventArgs e)
+		{
+			Resident item = (sender as Button)?.DataContext as Resident;
+			if (item == null) return;
+
+			var dlg = new SaveFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, Util.ResidentSize));
+		}
+
+		private void ButtonResidentImport_Click(object sender, RoutedEventArgs e)
+		{
+			Resident item = (sender as Button)?.DataContext as Resident;
+			if (item == null) return;
+
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
+			if (buf.Length != Util.ResidentSize) return;
+			SaveData.Instance().WriteValue(item.Address, buf);
+
+			item.Reload();
+		}
+
+		private void ItemChoice(Item item)
+		{
+			if (item == null) return;
+
+			var window = new ChoiceWindow();
+			window.ID = item.ID;
+			window.ShowDialog();
+			item.ID = window.ID;
+
+			item.Count = item.ID == 0 ? 0 : 1u;
 		}
 	}
 }

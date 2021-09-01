@@ -264,6 +264,10 @@
                                         <Label Grid.Row="2" Content="Job"/>
                                         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
                                         <Label Grid.Row="3" Content="Battle"/>
+                                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                                            <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
+                                            <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
+                                        </StackPanel>
                                         <Label Grid.Row="4" Content="IsLand"/>
                                         <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
                                               DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>

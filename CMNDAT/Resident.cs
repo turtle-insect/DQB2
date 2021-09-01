@@ -33,10 +33,10 @@ namespace CMNDAT
 
 		public String Name
 		{
-			get { return SaveData.Instance().ReadText(Address, 120); }
+			get { return SaveData.Instance().ReadText(Address, 30); }
 			set
 			{
-				SaveData.Instance().WriteText(Address, 120, value);
+				SaveData.Instance().WriteText(Address, 30, value);
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
 			}
 		}
@@ -58,6 +58,26 @@ namespace CMNDAT
 			{
 				SaveData.Instance().WriteNumber(Address + 271, 1, value);
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Job)));
+			}
+		}
+
+		public bool Equipment
+		{
+			get { return !SaveData.Instance().ReadBit(Address + 307, 1); }
+			set
+			{
+				SaveData.Instance().WriteBit(Address + 307, 1, !value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Equipment)));
+			}
+		}
+
+		public bool Battle
+		{
+			get { return !SaveData.Instance().ReadBit(Address + 259, 1); }
+			set
+			{
+				SaveData.Instance().WriteBit(Address + 259, 1, !value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Battle)));
 			}
 		}
 
@@ -88,6 +108,8 @@ namespace CMNDAT
 			Name = Name;
 			Sex = Sex;
 			Job = Job;
+			Equipment = Equipment;
+			Battle = Battle;
 			Island = Island;
 			Place = Place;
 			Weapon.ID = Weapon.ID;

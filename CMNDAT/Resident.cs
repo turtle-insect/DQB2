@@ -51,6 +51,16 @@ namespace CMNDAT
 			}
 		}
 
+		public uint HP
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 146, 2); }
+			set
+			{
+				Util.WriteNumber(Address + 146, 2, value, 0, 999);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HP)));
+			}
+		}
+
 		public uint Job
 		{
 			get { return SaveData.Instance().ReadNumber(Address + 271, 1); }
@@ -107,6 +117,7 @@ namespace CMNDAT
 		{
 			Name = Name;
 			Sex = Sex;
+			HP = HP;
 			Job = Job;
 			Equipment = Equipment;
 			Battle = Battle;

@@ -12,6 +12,7 @@
         <local:ViewModel/>
     </Window.DataContext>
     <Window.Resources>
+        <local:ItemIDConverter x:Key="ItemIDConverter"/>
         <BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
         <BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
     </Window.Resources>
@@ -113,7 +114,6 @@
                         <CheckBox Grid.Row="9" Grid.Column="4" IsChecked="{Binding Car_Fly}" VerticalAlignment="Center"/>
                         <Label Grid.Row="10"  Grid.Column="3" Content="Beam"/>
                         <CheckBox Grid.Row="10" Grid.Column="4" IsChecked="{Binding Car_Beam}" VerticalAlignment="Center"/>
-
                     </Grid>
                 </TabItem>
                 <TabItem Header="Player">
@@ -131,7 +131,10 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                            <RowDefinition Height="10*"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="7*"/>
                         </Grid.RowDefinitions>
                         <Label Content="Lv"/>
                         <TextBox Grid.Column="1" Text="{Binding Player.Lv, UpdateSourceTrigger=PropertyChanged}"/>
@@ -143,13 +146,25 @@
                         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Player.Attack, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Grid.Row="4" Content="Defense"/>
                         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Player.Defense, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="5" Content="Weapon"/>
+                        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                            <Button Content="..." DataContext="{Binding Player.Weapon}" Width="30" Click="ButtonItemChoice_Click"/>
+                            <Label Content="{Binding Player.Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
+                        </StackPanel>
+                        <Label Grid.Row="6" Content="Armor"/>
+                        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                            <Button Content="..." DataContext="{Binding Player.Armor}" Width="30" Click="ButtonItemChoice_Click"/>
+                            <Label Content="{Binding Player.Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
+                        </StackPanel>
+                        <Label Grid.Row="7" Content="Hammer"/>
+                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+                            <Button Content="..." DataContext="{Binding Player.Hammer}" Width="30" Click="ButtonItemChoice_Click"/>
+                            <Label Content="{Binding Player.Hammer.ID, Converter={StaticResource ItemIDConverter}}"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Inventory">
                     <ListBox ItemsSource="{Binding Inventory}">
-                        <ListBox.Resources>
-                            <local:ItemIDConverter x:Key="ItemIDConverter"/>
-                        </ListBox.Resources>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -164,9 +179,6 @@
                 </TabItem>
                 <TabItem Header="Bag">
                     <ListBox ItemsSource="{Binding Bag}">
-                        <ListBox.Resources>
-                            <local:ItemIDConverter x:Key="ItemIDConverter"/>
-                        </ListBox.Resources>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -229,7 +241,6 @@
                 <TabItem Header="Resident">
                     <ListBox ItemsSource="{Binding Residents}">
                         <ListBox.Resources>
-                            <local:ItemIDConverter x:Key="ItemIDConverter"/>
                             <local:IslandIDConverter x:Key="IslandIDConverter"/>
                         </ListBox.Resources>
                         <ListBox.ItemTemplate>

@@ -37,5 +37,9 @@ namespace CMNDAT
 			get { return SaveData.Instance().ReadNumber(0x6A89A, 2); }
 			set { Util.WriteNumber(0x6A89A, 2, value, 1, 9999); }
 		}
+
+		public Item Weapon { get; private set; } = new Item(0x55B959);
+		public Item Armor { get; private set; } = new Item(0x55B989);
+		public Item Hammer { get; private set; } = new Item(0x55B95D);
 	}
 }

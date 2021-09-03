@@ -322,8 +322,7 @@ namespace STGDAT
 			{
 				System.IO.Directory.CreateDirectory(path);
 			}
-			path = System.IO.Path.Combine(path,
-				String.Format("{0:0000}-{1:00}-{2:00} {3:00}-{4:00}", now.Year, now.Month, now.Day, now.Hour, now.Minute));
+			path = System.IO.Path.Combine(path, $"{now:yyyy-MM-dd HH-mm-ss} {System.IO.Path.GetFileName(mFileName)}");
 			System.IO.File.Copy(mFileName, path, true);
 		}
 	}

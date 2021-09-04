@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,13 +86,13 @@ namespace CMNDAT
 
 		private void ButtonResidentWeaponItemChoice_Click(object sender, RoutedEventArgs e)
 		{
-			Resident item = (sender as Button)?.DataContext as Resident;
+			Pelple item = (sender as Button)?.DataContext as Pelple;
 			ItemChoice(item?.Weapon);
 		}
 
 		private void ButtonResidentArmorItemChoice_Click(object sender, RoutedEventArgs e)
 		{
-			Resident item = (sender as Button)?.DataContext as Resident;
+			Pelple item = (sender as Button)?.DataContext as Pelple;
 			ItemChoice(item?.Armor);
 		}
 
@@ -123,7 +124,7 @@ namespace CMNDAT
 
 		private void ButtonResidentExport_Click(object sender, RoutedEventArgs e)
 		{
-			Resident item = (sender as Button)?.DataContext as Resident;
+			Pelple item = (sender as Button)?.DataContext as Pelple;
 			if (item == null) return;
 
 			var dlg = new SaveFileDialog();
@@ -135,7 +136,7 @@ namespace CMNDAT
 
 		private void ButtonResidentImport_Click(object sender, RoutedEventArgs e)
 		{
-			Resident item = (sender as Button)?.DataContext as Resident;
+			Pelple item = (sender as Button)?.DataContext as Pelple;
 			if (item == null) return;
 
 			var dlg = new OpenFileDialog();
@@ -148,6 +149,22 @@ namespace CMNDAT
 			item.Reload();
 		}
 
+		private void ComboBoxResidentFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			PeopleFilter(sender, vm.Residents, Util.ResidentAddress, Util.ResidentCount, Util.ResidentSize);
+		}
+
+		private void ComboBoxStoryPeopleFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			PeopleFilter(sender, vm.StoryPeople, Util.StoryPeopleAddress, Util.StoryPeopleCount, Util.StoryPeopleSize);
+		}
+
 		private void ItemChoice(Item item)
 		{
 			if (item == null) return;
@@ -158,6 +175,22 @@ namespace CMNDAT
 			item.ID = window.ID;
 
 			item.Count = item.ID == 0 ? 0 : 1u;
+		}
+
+		private void PeopleFilter(object sender, ObservableCollection<Pelple> collection, uint address, uint count, uint size)
+		{
+			int index = (sender as ComboBox).SelectedIndex;
+			uint island = Info.Instance().StoryIsland[index].Value;
+			collection.Clear();
+
+			for (uint i = 0; i < count; i++)
+			{
+				Pelple item = new Pelple(address + i * size);
+				if (island == 0 || item.Island == island)
+				{
+					collection.Add(item);
+				}
+			}
 		}
 	}
 }

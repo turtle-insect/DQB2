@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace CMNDAT
 {
-	class Resident : INotifyPropertyChanged
+	class Pelple : INotifyPropertyChanged
 	{
 		public uint Address { get; private set; }
 		public Item Weapon { get; set; }
@@ -17,10 +17,16 @@ namespace CMNDAT
 		public ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>();
 
 		// 212 - 243：キャラスキン？
+		// 229:顔(顔の色、目の形、耳の形)
+		// 231:髪型(0x19:青兵士、0x14:ボブ)
+		// 233:体(0x69:青兵士、0x42:バニーガール)
+		// 235:?
+		// 237:髪の色
+		// 239:肌の色
 		// 261 - 266：セリフ？
 
 
-		public Resident(uint address)
+		public Pelple(uint address)
 		{
 			Address = address;
 			Weapon = new Item(address + 199);

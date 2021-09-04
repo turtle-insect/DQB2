@@ -58,6 +58,9 @@ namespace STGDAT
 			if (AllObjectClear)
 			{
 				SaveData.Instance().WriteNumber(0x24E7CD, 3, 0);
+				// 収納箱
+				//SaveData.Instance().WriteNumber(0x28708, 1, 0);
+				//SaveData.Instance().Fill(0xF565, 264, 0x00);
 			}
 
 			List<uint> BlockList = new List<uint>();

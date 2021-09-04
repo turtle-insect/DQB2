@@ -15,7 +15,8 @@ namespace CMNDAT
 		public ObservableCollection<Item> Inventory { get; set; } = new ObservableCollection<Item>();
 		public ObservableCollection<Item> Bag { get; set; } = new ObservableCollection<Item>();
 		public ObservableCollection<MaterialIsland> Island { get; set; } = new ObservableCollection<MaterialIsland>();
-		public ObservableCollection<Resident> Residents { get; set; } = new ObservableCollection<Resident>();
+		public ObservableCollection<Pelple> Residents { get; set; } = new ObservableCollection<Pelple>();
+		public ObservableCollection<Pelple> StoryPeople { get; set; } = new ObservableCollection<Pelple>();
 		public ObservableCollection<Party> Party { get; set; } = new ObservableCollection<Party>();
 		public ObservableCollection<BluePrint> BluePrints { get; set; } = new ObservableCollection<BluePrint>();
 
@@ -23,6 +24,18 @@ namespace CMNDAT
 		// シドー
 		// 武器
 		// 0x6AD8F(2)
+
+		// 野菜
+		// 収穫した数(4)
+		// 収穫ステータス(4)
+		//   収穫可能:0x0C
+		//   収穫済み:0x0D
+		// 
+		// 小麦：0x22D568(4)
+		// キャベツ：0x22D578(4)
+		// ネギ：0x22D598(4)
+		// カボチャ：0x22D5C0(4)
+		// トマト：0x22D57C8(4)
 
 		public ViewModel()
 		{
@@ -51,12 +64,16 @@ namespace CMNDAT
 				BluePrints.Add(new BluePrint(0x166DF0 + i * Util.BluePrintSize));
 			}
 
-			// 住人
-			// 0x102A68
-			// 608Byte
-			for (int i = 0; i < 60; i++)
+			// ストーリーで出会うキャラクタ？
+			for (uint i = 0; i < Util.StoryPeopleCount; i++)
 			{
-				Residents.Add(new Resident((uint)(0x102A68 + i * Util.ResidentSize)));
+				StoryPeople.Add(new Pelple(Util.StoryPeopleAddress + i * Util.StoryPeopleSize));
+			}
+
+			// 住人
+			for (uint i = 0; i < Util.ResidentCount; i++)
+			{
+				Residents.Add(new Pelple(Util.ResidentAddress + i * Util.ResidentSize));
 			}
 		}
 

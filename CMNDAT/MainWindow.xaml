@@ -239,86 +239,180 @@
                     </ListBox>
                 </TabItem>
                 <TabItem Header="Resident">
-                    <ListBox ItemsSource="{Binding Residents}">
-                        <ListBox.Resources>
-                            <local:IslandIDConverter x:Key="IslandIDConverter"/>
-                        </ListBox.Resources>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonResidentImport_Click"/>
-                                    <Button DockPanel.Dock="Right" Content="Export" Click="ButtonResidentExport_Click"/>
-                                    <Grid Margin="0,0,100,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Label Content="Name"/>
-                                        <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
-                                        <Label Grid.Row="1" Content="Sex"/>
-                                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding Sex}">
-                                            <ComboBoxItem Content="-"/>
-                                            <ComboBoxItem Content="male"/>
-                                            <ComboBoxItem Content="woman"/>
-                                        </ComboBox>
-                                        <Label Grid.Row="2" Content="HP"/>
-                                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding HP, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Label Grid.Row="3" Content="Job"/>
-                                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Label Grid.Row="4" Content="Battle"/>
-                                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                                            <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
-                                            <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                        <Label Grid.Row="5" Content="IsLand"/>
-                                        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Label Content="Filter"/>
+                            <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectionChanged="ComboBoxResidentFilter_SelectionChanged"/>
+                        </StackPanel>
+                        <ListBox ItemsSource="{Binding Residents}">
+                            <ListBox.Resources>
+                                <local:IslandIDConverter x:Key="IslandIDConverter"/>
+                            </ListBox.Resources>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonResidentImport_Click"/>
+                                        <Button DockPanel.Dock="Right" Content="Export" Click="ButtonResidentExport_Click"/>
+                                        <Grid Margin="0,0,100,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Label Content="Name"/>
+                                            <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                            <Label Grid.Row="1" Content="Sex"/>
+                                            <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding Sex}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="male"/>
+                                                <ComboBoxItem Content="woman"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="2" Content="HP"/>
+                                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding HP, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="3" Content="Job"/>
+                                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="4" Content="Battle"/>
+                                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                                <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
+                                                <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Label Grid.Row="5" Content="IsLand"/>
+                                            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
                                               DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
-                                        <Label Grid.Row="6" Content="Place"/>
-                                        <ComboBox Grid.Row="6" Grid.Column="1" SelectedIndex="{Binding Place}">
-                                            <ComboBoxItem Content="-"/>
-                                            <ComboBoxItem Content="Green"/>
-                                            <ComboBoxItem Content="Red"/>
-                                            <ComboBoxItem Content="Blue"/>
-                                        </ComboBox>
-                                        <Label Grid.Row="7" Content="Weapon"/>
-                                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
-                                            <Button Content="..." Click="ButtonResidentWeaponItemChoice_Click" Width="30"/>
-                                            <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
-                                        </StackPanel>
-                                        <Label Grid.Row="8" Content="Armor"/>
-                                        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
-                                            <Button Content="..." Click="ButtonResidentArmorItemChoice_Click" Width="30"/>
-                                            <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
-                                        </StackPanel>
-                                        <ListBox Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" Height="100">
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Label Content="  Count: "/>
-                                                        <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-                                                        <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
-                                                        <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-                                    </Grid>
-                                </DockPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                            <Label Grid.Row="6" Content="Place"/>
+                                            <ComboBox Grid.Row="6" Grid.Column="1" SelectedIndex="{Binding Place}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="Green"/>
+                                                <ComboBoxItem Content="Red"/>
+                                                <ComboBoxItem Content="Blue"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="7" Content="Weapon"/>
+                                            <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+                                                <Button Content="..." Click="ButtonResidentWeaponItemChoice_Click" Width="30"/>
+                                                <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
+                                            </StackPanel>
+                                            <Label Grid.Row="8" Content="Armor"/>
+                                            <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                                                <Button Content="..." Click="ButtonResidentArmorItemChoice_Click" Width="30"/>
+                                                <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
+                                            </StackPanel>
+                                            <ListBox Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" Height="100">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="  Count: "/>
+                                                            <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                                            <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+                                                            <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Story People">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Label Content="Filter"/>
+                            <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectionChanged="ComboBoxStoryPeopleFilter_SelectionChanged"/>
+                        </StackPanel>
+                        <ListBox ItemsSource="{Binding StoryPeople}">
+                            <ListBox.Resources>
+                                <local:IslandIDConverter x:Key="IslandIDConverter"/>
+                            </ListBox.Resources>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonResidentImport_Click"/>
+                                        <Button DockPanel.Dock="Right" Content="Export" Click="ButtonResidentExport_Click"/>
+                                        <Grid Margin="0,0,100,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Label Content="Name"/>
+                                            <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                            <Label Grid.Row="1" Content="Sex"/>
+                                            <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding Sex}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="male"/>
+                                                <ComboBoxItem Content="woman"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="2" Content="HP"/>
+                                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding HP, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="3" Content="Job"/>
+                                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="4" Content="Battle"/>
+                                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                                <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
+                                                <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Label Grid.Row="5" Content="IsLand"/>
+                                            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
+                                              DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
+                                            <Label Grid.Row="6" Content="Place"/>
+                                            <ComboBox Grid.Row="6" Grid.Column="1" SelectedIndex="{Binding Place}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="Green"/>
+                                                <ComboBoxItem Content="Red"/>
+                                                <ComboBoxItem Content="Blue"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="7" Content="Weapon"/>
+                                            <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+                                                <Button Content="..." Click="ButtonResidentWeaponItemChoice_Click" Width="30"/>
+                                                <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
+                                            </StackPanel>
+                                            <Label Grid.Row="8" Content="Armor"/>
+                                            <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                                                <Button Content="..." Click="ButtonResidentArmorItemChoice_Click" Width="30"/>
+                                                <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
+                                            </StackPanel>
+                                            <ListBox Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" Height="100">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="  Count: "/>
+                                                            <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                                            <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+                                                            <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Grid>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
                 </TabItem>
                 <TabItem Header="Party">
                     <ListBox ItemsSource="{Binding Party}">

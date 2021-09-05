@@ -74,46 +74,47 @@
                         <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
                                   SelectedIndex="{Binding To, Converter={StaticResource IslandIDConverter}}"/>
 
-                        <Label Grid.Row="4" Content="Skill" FontWeight="Bold"/>
-                        <Label Grid.Row="5" Content="Bag"/>
-                        <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding Skill.Bag}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="6" Content="WindCape"/>
-                        <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Skill.WindCape}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="7" Content="Hammer3x"/>
-                        <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Skill.Hammer3x}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="8" Content="Hammer5x"/>
-                        <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Skill.Hammer5x}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="9" Content="Reform Iron(grade up)"/>
-                        <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Skill.ReformIron}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="10" Content="Thirst Pot(use)"/>
-                        <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding Skill.ThirstPotUse}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="11" Content="Thirst Pot(grade up)"/>
-                        <CheckBox Grid.Row="11" Grid.Column="1" IsChecked="{Binding Skill.ThirstPot}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="3" Content="Skill" FontWeight="Bold"/>
+                        <Label Grid.Row="4" Content="Bag"/>
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Skill.Bag}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="5" Content="WindCape"/>
+                        <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding Skill.WindCape}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="6" Content="Hammer3x"/>
+                        <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Skill.Hammer3x}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="7" Content="Hammer5x"/>
+                        <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Skill.Hammer5x}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="8" Content="Reform Iron(grade up)"/>
+                        <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Skill.ReformIron}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="9" Content="Thirst Pot(use)"/>
+                        <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Skill.ThirstPotUse}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="10" Content="Thirst Pot(grade up)"/>
+                        <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding Skill.ThirstPot}" VerticalAlignment="Center"/>
                         
                         <!--
                         <Label Grid.Row="12" Content="WateringType"/>
                         <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding Skill.WateringType}" VerticalAlignment="Center"/>
                         -->
                         
-                        <Label Grid.Row="13" Content="Builder Eye"/>
-                        <CheckBox Grid.Row="13" Grid.Column="1" IsChecked="{Binding Skill.BuilderEye}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="12" Content="Builder Eye"/>
+                        <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding Skill.BuilderEye}" VerticalAlignment="Center"/>
                         <Label Grid.Column="3" Content="MiniMedal" FontWeight="Bold"/>
                         <Label Grid.Row="1" Grid.Column="3" Content="Have"/>
                         <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding MiniMedal, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Grid.Row="2" Grid.Column="3" Content="Deposit"/>
                         <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding MiniMedal_deposit, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <Label Grid.Row="4" Grid.Column="3" Content="Expression" FontWeight="Bold"/>
-                        <Label Grid.Row="5"  Grid.Column="3" Content="Smile"/>
-                        <CheckBox Grid.Row="5" Grid.Column="4" IsChecked="{Binding Skill.Expression}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="3" Grid.Column="3" Content="Expression" FontWeight="Bold"/>
+                        <Label Grid.Row="4"  Grid.Column="3" Content="Smile"/>
+                        <CheckBox Grid.Row="4" Grid.Column="4" IsChecked="{Binding Skill.Expression}" VerticalAlignment="Center"/>
 
-                        <Label Grid.Row="7" Grid.Column="3" Content="Super Car" FontWeight="Bold"/>
-                        <Label Grid.Row="8"  Grid.Column="3" Content="Light"/>
-                        <CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding Car_Light}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="9"  Grid.Column="3" Content="Fly"/>
-                        <CheckBox Grid.Row="9" Grid.Column="4" IsChecked="{Binding Car_Fly}" VerticalAlignment="Center"/>
-                        <Label Grid.Row="10"  Grid.Column="3" Content="Beam"/>
-                        <CheckBox Grid.Row="10" Grid.Column="4" IsChecked="{Binding Car_Beam}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="5" Grid.Column="3" Content="Super Car" FontWeight="Bold"/>
+                        <Label Grid.Row="6"  Grid.Column="3" Content="Light"/>
+                        <CheckBox Grid.Row="6" Grid.Column="4" IsChecked="{Binding Car_Light}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="7"  Grid.Column="3" Content="Fly"/>
+                        <CheckBox Grid.Row="7" Grid.Column="4" IsChecked="{Binding Car_Fly}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="8"  Grid.Column="3" Content="Beam"/>
+                        <CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding Car_Beam}" VerticalAlignment="Center"/>
+                        <Image Grid.Row="9" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Source="{Binding Thumbnail}" Stretch="Uniform"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Player">
@@ -224,7 +225,7 @@
                     <ListBox ItemsSource="{Binding BluePrints}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Background="{Binding Brush}">
                                     <Label Content="X"/>
                                     <TextBox Text="{Binding X, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
                                     <Label Content="Y"/>
@@ -251,12 +252,18 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel>
-                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonResidentImport_Click"/>
-                                        <Button DockPanel.Dock="Right" Content="Export" Click="ButtonResidentExport_Click"/>
-                                        <Grid Margin="0,0,100,0">
+                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonPeopleImport_Click"/>
+                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Export" Click="ButtonPeopleExport_Click"/>
+                                        <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
+                                                <ColumnDefinition Width="130"/>
                                                 <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="300"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -267,11 +274,9 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
                                             </Grid.RowDefinitions>
                                             <Label Content="Name"/>
-                                            <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                            <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="1" Content="Sex"/>
                                             <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding Sex}">
                                                 <ComboBoxItem Content="-"/>
@@ -282,32 +287,48 @@
                                             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding HP, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="3" Content="Job"/>
                                             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
-                                            <Label Grid.Row="4" Content="Battle"/>
-                                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                                                <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
-                                                <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                            <Label Grid.Row="5" Content="IsLand"/>
-                                            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
+                                            <Label Grid.Row="4" Content="IsLand"/>
+                                            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
                                               DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
-                                            <Label Grid.Row="6" Content="Place"/>
-                                            <ComboBox Grid.Row="6" Grid.Column="1" SelectedIndex="{Binding Place}">
+                                            <Label Grid.Row="5" Content="Place"/>
+                                            <ComboBox Grid.Row="5" Grid.Column="1" SelectedIndex="{Binding Place}">
                                                 <ComboBoxItem Content="-"/>
                                                 <ComboBoxItem Content="Green"/>
                                                 <ComboBoxItem Content="Red"/>
                                                 <ComboBoxItem Content="Blue"/>
                                             </ComboBox>
-                                            <Label Grid.Row="7" Content="Weapon"/>
-                                            <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+                                            <Label Grid.Row="6" Content="Battle"/>
+                                            <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                                                <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
+                                                <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Label Grid.Column="3" Content="FaceType"/>
+                                            <TextBox Grid.Column="4" Text="{Binding FaceType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="1" Grid.Column="3" Content="HeadType"/>
+                                            <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding HeadType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="2" Grid.Column="3" Content="BodyType"/>
+                                            <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding BodyType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="3" Grid.Column="3" Content="EyeColor"/>
+                                            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding EyeColor, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="4" Grid.Column="3" Content="HairColor"/>
+                                            <TextBox Grid.Row="4" Grid.Column="4" Text="{Binding HairColor, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="5" Grid.Column="3" Content="SkinColor"/>
+                                            <TextBox Grid.Row="5" Grid.Column="4" Text="{Binding SkinColor, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="6" Grid.Column="3" Content="MsgType"/>
+                                            <TextBox Grid.Row="6" Grid.Column="4" Text="{Binding MessageType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="7" Grid.Column="3" Content="VoiceType"/>
+                                            <TextBox Grid.Row="7" Grid.Column="4" Text="{Binding VoiceType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Column="6" Content="Weapon"/>
+                                            <StackPanel Grid.Column="7" Orientation="Horizontal">
                                                 <Button Content="..." Click="ButtonResidentWeaponItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
-                                            <Label Grid.Row="8" Content="Armor"/>
-                                            <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                                            <Label Grid.Row="1" Grid.Column="6" Content="Armor"/>
+                                            <StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
                                                 <Button Content="..." Click="ButtonResidentArmorItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
-                                            <ListBox Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" Height="100">
+                                            <ListBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding Items}" Height="160">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
@@ -339,12 +360,18 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel>
-                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonResidentImport_Click"/>
-                                        <Button DockPanel.Dock="Right" Content="Export" Click="ButtonResidentExport_Click"/>
-                                        <Grid Margin="0,0,100,0">
+                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonPeopleImport_Click"/>
+                                        <Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Export" Click="ButtonPeopleExport_Click"/>
+                                        <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
+                                                <ColumnDefinition Width="130"/>
                                                 <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="300"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -355,11 +382,9 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
                                             </Grid.RowDefinitions>
                                             <Label Content="Name"/>
-                                            <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                            <TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="1" Content="Sex"/>
                                             <ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding Sex}">
                                                 <ComboBoxItem Content="-"/>
@@ -370,32 +395,48 @@
                                             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding HP, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="3" Content="Job"/>
                                             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
-                                            <Label Grid.Row="4" Content="Battle"/>
-                                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                                                <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
-                                                <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                            <Label Grid.Row="5" Content="IsLand"/>
-                                            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
+                                            <Label Grid.Row="4" Content="IsLand"/>
+                                            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
                                               DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
-                                            <Label Grid.Row="6" Content="Place"/>
-                                            <ComboBox Grid.Row="6" Grid.Column="1" SelectedIndex="{Binding Place}">
+                                            <Label Grid.Row="5" Content="Place"/>
+                                            <ComboBox Grid.Row="5" Grid.Column="1" SelectedIndex="{Binding Place}">
                                                 <ComboBoxItem Content="-"/>
                                                 <ComboBoxItem Content="Green"/>
                                                 <ComboBoxItem Content="Red"/>
                                                 <ComboBoxItem Content="Blue"/>
                                             </ComboBox>
-                                            <Label Grid.Row="7" Content="Weapon"/>
-                                            <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+                                            <Label Grid.Row="6" Content="Battle"/>
+                                            <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                                                <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
+                                                <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Label Grid.Column="3" Content="FaceType"/>
+                                            <TextBox Grid.Column="4" Text="{Binding FaceType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="1" Grid.Column="3" Content="HeadType"/>
+                                            <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding HeadType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="2" Grid.Column="3" Content="BodyType"/>
+                                            <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding BodyType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="3" Grid.Column="3" Content="EyeColor"/>
+                                            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding EyeColor, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="4" Grid.Column="3" Content="HairColor"/>
+                                            <TextBox Grid.Row="4" Grid.Column="4" Text="{Binding HairColor, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="5" Grid.Column="3" Content="SkinColor"/>
+                                            <TextBox Grid.Row="5" Grid.Column="4" Text="{Binding SkinColor, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="6" Grid.Column="3" Content="MsgType"/>
+                                            <TextBox Grid.Row="6" Grid.Column="4" Text="{Binding MessageType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Row="7" Grid.Column="3" Content="VoiceType"/>
+                                            <TextBox Grid.Row="7" Grid.Column="4" Text="{Binding VoiceType, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label Grid.Column="6" Content="Weapon"/>
+                                            <StackPanel Grid.Column="7" Orientation="Horizontal">
                                                 <Button Content="..." Click="ButtonResidentWeaponItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
-                                            <Label Grid.Row="8" Content="Armor"/>
-                                            <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                                            <Label Grid.Row="1" Grid.Column="6" Content="Armor"/>
+                                            <StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
                                                 <Button Content="..." Click="ButtonResidentArmorItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
-                                            <ListBox Grid.Row="9" Grid.ColumnSpan="2" ItemsSource="{Binding Items}" Height="100">
+                                            <ListBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding Items}" Height="160">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">

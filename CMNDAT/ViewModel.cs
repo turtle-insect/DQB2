@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CMNDAT
 {
@@ -20,6 +22,8 @@ namespace CMNDAT
 		public ObservableCollection<Party> Party { get; set; } = new ObservableCollection<Party>();
 		public ObservableCollection<BluePrint> BluePrints { get; set; } = new ObservableCollection<BluePrint>();
 
+		// サムネ
+		// 0x10D - 0x2A40F
 
 		// シドー
 		// 武器
@@ -59,21 +63,27 @@ namespace CMNDAT
 				Party.Add(new Party(0x6A9DC + i * 4));
 			}
 
-			for (uint i = 0; i < 4; i++)
+			var brushs = new List<Brush>{
+				new SolidColorBrush(Colors.LightPink),
+				new SolidColorBrush(Colors.LightBlue),
+				new SolidColorBrush(Colors.LightGreen),
+				new SolidColorBrush(Colors.LightYellow),
+			};
+			for (uint i = 0; i < brushs.Count; i++)
 			{
-				BluePrints.Add(new BluePrint(0x166DF0 + i * Util.BluePrintSize));
+				BluePrints.Add(new BluePrint(0x166DF0 + i * Util.BluePrintSize, brushs[(int)i]));
 			}
 
 			// ストーリーで出会うキャラクタ？
 			for (uint i = 0; i < Util.StoryPeopleCount; i++)
 			{
-				StoryPeople.Add(new Pelple(Util.StoryPeopleAddress + i * Util.StoryPeopleSize));
+				StoryPeople.Add(new Pelple(Util.StoryPeopleAddress + i * Util.PeopleSize));
 			}
 
 			// 住人
 			for (uint i = 0; i < Util.ResidentCount; i++)
 			{
-				Residents.Add(new Pelple(Util.ResidentAddress + i * Util.ResidentSize));
+				Residents.Add(new Pelple(Util.ResidentAddress + i * Util.PeopleSize));
 			}
 		}
 
@@ -117,6 +127,22 @@ namespace CMNDAT
 		{
 			get { return SaveData.Instance().ReadBit(0x506, 7); }
 			set { SaveData.Instance().WriteBit(0x506, 7, value); }
+		}
+
+		public BitmapSource Thumbnail
+		{
+			get
+			{
+				int size = 320 * 180 * 3;
+				Byte[] pixel = new Byte[size];
+				
+				for(int i = 0; i < size; i++)
+				{
+					pixel[i] = (Byte)SaveData.Instance().ReadNumber_Header(0x10D + (uint)i, 1);
+				}
+				BitmapSource thumbnail = BitmapSource.Create(320, 180, 96, 96, PixelFormats.Bgr24, null, pixel, 960);
+				return thumbnail;
+			}
 		}
 	}
 }

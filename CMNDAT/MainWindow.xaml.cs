@@ -122,7 +122,7 @@ namespace CMNDAT
 			item.Reload();
 		}
 
-		private void ButtonResidentExport_Click(object sender, RoutedEventArgs e)
+		private void ButtonPeopleExport_Click(object sender, RoutedEventArgs e)
 		{
 			Pelple item = (sender as Button)?.DataContext as Pelple;
 			if (item == null) return;
@@ -131,10 +131,10 @@ namespace CMNDAT
 			dlg.FileName = item.Name;
 			if (dlg.ShowDialog() == false) return;
 
-			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, Util.ResidentSize));
+			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, Util.PeopleSize));
 		}
 
-		private void ButtonResidentImport_Click(object sender, RoutedEventArgs e)
+		private void ButtonPeopleImport_Click(object sender, RoutedEventArgs e)
 		{
 			Pelple item = (sender as Button)?.DataContext as Pelple;
 			if (item == null) return;
@@ -143,7 +143,7 @@ namespace CMNDAT
 			if (dlg.ShowDialog() == false) return;
 
 			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
-			if (buf.Length != Util.ResidentSize) return;
+			if (buf.Length != Util.PeopleSize) return;
 			SaveData.Instance().WriteValue(item.Address, buf);
 
 			item.Reload();
@@ -154,7 +154,7 @@ namespace CMNDAT
 			ViewModel vm = DataContext as ViewModel;
 			if (vm == null) return;
 
-			PeopleFilter(sender, vm.Residents, Util.ResidentAddress, Util.ResidentCount, Util.ResidentSize);
+			PeopleFilter(sender, vm.Residents, Util.ResidentAddress, Util.ResidentCount, Util.PeopleSize);
 		}
 
 		private void ComboBoxStoryPeopleFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -162,7 +162,7 @@ namespace CMNDAT
 			ViewModel vm = DataContext as ViewModel;
 			if (vm == null) return;
 
-			PeopleFilter(sender, vm.StoryPeople, Util.StoryPeopleAddress, Util.StoryPeopleCount, Util.StoryPeopleSize);
+			PeopleFilter(sender, vm.StoryPeople, Util.StoryPeopleAddress, Util.StoryPeopleCount, Util.PeopleSize);
 		}
 
 		private void ItemChoice(Item item)

@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace CMNDAT
 {
 	class BluePrint : INotifyPropertyChanged
 	{
 		public uint Address { get; private set; }
+		public Brush Brush { get; private set; }
 
-		public BluePrint(uint address)
+		public BluePrint(uint address, Brush brush)
 		{
 			Address = address;
+			Brush = brush;
 		}
 
 		public uint X

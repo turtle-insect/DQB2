@@ -16,14 +16,15 @@ namespace CMNDAT
 		public Item Armor { get; set; }
 		public ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>();
 
-		// 212 - 243：キャラスキン？
-		// 229:顔(顔の色、目の形、耳の形)
-		// 231:髪型(0x19:青兵士、0x14:ボブ)
-		// 233:体(0x69:青兵士、0x42:バニーガール)
-		// 235:?
-		// 237:髪の色
-		// 239:肌の色
-		// 261 - 266：セリフ？
+		// 229:顔(2)(顔の色、目の形、耳の形)
+		// 231:髪型(2)(0x19:青兵士、0x14:ボブ)
+		// 233:体(2)(0x69:青兵士、0x42:バニーガール)
+		// 235:目の色(2)
+		// 237:髪の色(2)
+		// 239:肌の色(2)
+		// 266:Message Type(1)
+		// 267:Voice Type(1)
+		// 301(7):名前命名
 
 
 		public Pelple(uint address)
@@ -117,6 +118,86 @@ namespace CMNDAT
 			}
 		}
 
+		public uint FaceType
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 229, 2); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 229, 2, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FaceType)));
+			}
+		}
+
+		public uint HeadType
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 231, 2); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 231, 2, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HeadType)));
+			}
+		}
+
+		public uint BodyType
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 233, 2); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 233, 2, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyType)));
+			}
+		}
+
+		public uint EyeColor
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 235, 2); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 235, 2, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EyeColor)));
+			}
+		}
+
+		public uint HairColor
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 237, 2); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 237, 2, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HairColor)));
+			}
+		}
+
+		public uint SkinColor
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 239, 2); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 239, 2, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SkinColor)));
+			}
+		}
+
+		public uint MessageType
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 266, 1); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 266, 1, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MessageType)));
+			}
+		}
+
+		public uint VoiceType
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 267, 1); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 267, 1, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MessageType)));
+			}
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public void Reload()
@@ -138,6 +219,15 @@ namespace CMNDAT
 				item.ID = item.ID;
 				item.Count = item.Count;
 			}
+
+			FaceType = FaceType;
+			HeadType = HeadType;
+			BodyType = BodyType;
+			EyeColor = EyeColor;
+			HairColor = HairColor;
+			SkinColor = SkinColor;
+			MessageType = MessageType;
+			VoiceType = VoiceType;
 		}
 	}
 }

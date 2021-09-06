@@ -457,9 +457,20 @@
                 </TabItem>
                 <TabItem Header="Party">
                     <ListBox ItemsSource="{Binding Party}">
+                        <ListBox.Resources>
+                            <local:PartyTypeConverter x:Key="PartyTypeConverter"/>
+                        </ListBox.Resources>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBox Width="50" Text="{Binding ID, UpdateSourceTrigger=PropertyChanged}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Width="50" Text="{Binding ID, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <ComboBox SelectedIndex="{Binding Type, Converter={StaticResource PartyTypeConverter}}">
+                                        <ComboBoxItem Content="-"/>
+                                        <ComboBoxItem Content="Human"/>
+                                        <ComboBoxItem Content="Animal"/>
+                                        <ComboBoxItem Content="Monster"/>
+                                    </ComboBox>
+                                </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

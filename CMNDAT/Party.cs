@@ -18,11 +18,13 @@ namespace CMNDAT
 		public uint ID
 		{
 			get { return SaveData.Instance().ReadNumber(mAddress, 2); }
-			set
-			{
-				SaveData.Instance().WriteNumber(mAddress, 2, value);
-				SaveData.Instance().WriteNumber(mAddress + 2, 1, value == 0 ? 0 : 1u);
-			}
+			set { SaveData.Instance().WriteNumber(mAddress, 2, value); }
+		}
+
+		public uint Type
+		{
+			get { return SaveData.Instance().ReadNumber(mAddress + 2, 1); }
+			set { SaveData.Instance().WriteNumber(mAddress + 2, 1, value); }
 		}
 	}
 }

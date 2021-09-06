@@ -205,6 +205,7 @@
     <Compile Include="MaterialIslandStateConverter.cs" />
     <Compile Include="NameValueInfo.cs" />
     <Compile Include="Party.cs" />
+    <Compile Include="PartyTypeConverter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="MaterialIsland.cs" />
     <Compile Include="Pelple.cs" />

@@ -165,6 +165,27 @@ namespace CMNDAT
 			PeopleFilter(sender, vm.StoryPeople, Util.StoryPeopleAddress, Util.StoryPeopleCount, Util.PeopleSize);
 		}
 
+		private void TextBoxCraftItem_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			String filter = (sender as TextBox)?.Text;
+
+			vm.Crafts.Clear();
+
+			for (uint i = 0; i < Info.Instance().Item.Count; i++)
+			{
+				var item = Info.Instance().Item[(int)i];
+				if (item.Value == 0) continue;
+
+				if (String.IsNullOrEmpty(filter) || item.Name.IndexOf(filter) >= 0)
+				{
+					vm.Crafts.Add(new Craft(Util.CraftAddress + item.Value, item.Value));
+				}
+			}
+		}
+
 		private void ItemChoice(Item item)
 		{
 			if (item == null) return;

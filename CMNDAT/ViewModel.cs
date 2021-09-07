@@ -21,6 +21,7 @@ namespace CMNDAT
 		public ObservableCollection<Pelple> StoryPeople { get; set; } = new ObservableCollection<Pelple>();
 		public ObservableCollection<Party> Party { get; set; } = new ObservableCollection<Party>();
 		public ObservableCollection<BluePrint> BluePrints { get; set; } = new ObservableCollection<BluePrint>();
+		public ObservableCollection<Craft> Crafts { get; set; } = new ObservableCollection<Craft>();
 
 		// サムネ
 		// 0x10D - 0x2A40F
@@ -40,6 +41,18 @@ namespace CMNDAT
 		// ネギ：0x22D598(4)
 		// カボチャ：0x22D5C0(4)
 		// トマト：0x22D57C8(4)
+
+		// 赤の設計図：0x22CD2D
+		// 未作成：0x00
+		// 作成済み：0x03
+
+		// クラフトテーブル new
+		// 590  0x227C9F アイスキャンディ
+		// 1420 0x2271DE 城の矢よけ石
+		// 2125 0x227DB3 八尺玉
+		// 2389 0x227D0E 城のまどかざり
+
+
 
 		public ViewModel()
 		{
@@ -64,6 +77,7 @@ namespace CMNDAT
 			}
 
 			var brushs = new List<Brush>{
+				new SolidColorBrush(Colors.White),
 				new SolidColorBrush(Colors.LightPink),
 				new SolidColorBrush(Colors.LightBlue),
 				new SolidColorBrush(Colors.LightGreen),
@@ -71,8 +85,10 @@ namespace CMNDAT
 			};
 			for (uint i = 0; i < brushs.Count; i++)
 			{
-				BluePrints.Add(new BluePrint(0x166DF0 + i * Util.BluePrintSize, brushs[(int)i]));
+				BluePrints.Add(new BluePrint(0x136DEA + i * Util.BluePrintSize, brushs[(int)i]));
 			}
+			// move online blue print
+			BluePrints.Move(0, 4);
 
 			// ストーリーで出会うキャラクタ？
 			for (uint i = 0; i < Util.StoryPeopleCount; i++)
@@ -84,6 +100,15 @@ namespace CMNDAT
 			for (uint i = 0; i < Util.ResidentCount; i++)
 			{
 				Residents.Add(new Pelple(Util.ResidentAddress + i * Util.PeopleSize));
+			}
+
+			// クラフト
+			for(uint i = 0; i < Info.Instance().Item.Count; i++)
+			{
+				var item = Info.Instance().Item[(int)i];
+				if (item.Value == 0) continue;
+
+				Crafts.Add(new Craft(Util.CraftAddress + item.Value, item.Value));
 			}
 		}
 
@@ -143,6 +168,30 @@ namespace CMNDAT
 				BitmapSource thumbnail = BitmapSource.Create(320, 180, 96, 96, PixelFormats.Bgr24, null, pixel, 960);
 				return thumbnail;
 			}
+		}
+
+		public bool MaterialBonusCord
+		{
+			get { return SaveData.Instance().ReadBit(0x22C75A, 4); }
+			set { SaveData.Instance().WriteBit(0x22C75A, 4, value); }
+		}
+
+		public bool MaterialBonusGrassFibre
+		{
+			get { return SaveData.Instance().ReadBit(0x22CD8A, 4); }
+			set { SaveData.Instance().WriteBit(0x22CD8A, 4, value); }
+		}
+
+		public bool MaterialBonusWood
+		{
+			get { return SaveData.Instance().ReadBit(0x22C757, 4); }
+			set { SaveData.Instance().WriteBit(0x22C757, 4, value); }
+		}
+
+		public bool MaterialBonusDryGrass
+		{
+			get { return SaveData.Instance().ReadBit(0x22CD3E, 4); }
+			set { SaveData.Instance().WriteBit(0x22CD3E, 4, value); }
 		}
 	}
 }

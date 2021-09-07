@@ -8,6 +8,8 @@ namespace CMNDAT
 {
 	class Util
 	{
+		public const uint CraftAddress = 0x22C5C0;
+
 		public const uint BluePrintSize = 0x30008;
 		public const uint PeopleSize = 608;
 

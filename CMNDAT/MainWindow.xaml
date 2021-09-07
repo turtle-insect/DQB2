@@ -221,6 +221,25 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </TabItem>
+                <TabItem Header="Crafts">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Label Content="Filter"/>
+                            <TextBox Width="300" TextChanged="TextBoxCraftItem_TextChanged"/>
+                        </StackPanel>
+                        <ListBox ItemsSource="{Binding Crafts}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox Margin="5,0,0,0" IsChecked="{Binding New}" Content="New" VerticalAlignment="Center"/>
+                                        <CheckBox Margin="5,0,0,0" IsChecked="{Binding Infinite}" Content="Infinite" VerticalAlignment="Center"/>
+                                        <Label Margin="5,0,0,0" Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </TabItem>
                 <TabItem Header="BluePrint">
                     <ListBox ItemsSource="{Binding BluePrints}">
                         <ListBox.ItemTemplate>

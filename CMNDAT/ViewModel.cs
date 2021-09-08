@@ -91,26 +91,18 @@ namespace CMNDAT
 			BluePrints.Move(0, 4);
 
 			// ストーリーで出会うキャラクタ？
-			for (uint i = 0; i < Util.StoryPeopleCount; i++)
-			{
-				StoryPeople.Add(new Pelple(Util.StoryPeopleAddress + i * Util.PeopleSize));
-			}
+			CreateStoryPeople();
 
 			// 住人
-			for (uint i = 0; i < Util.ResidentCount; i++)
-			{
-				Residents.Add(new Pelple(Util.ResidentAddress + i * Util.PeopleSize));
-			}
+			CreateResident();
 
 			// クラフト
-			for(uint i = 0; i < Info.Instance().Item.Count; i++)
-			{
-				var item = Info.Instance().Item[(int)i];
-				if (item.Value == 0) continue;
-
-				Crafts.Add(new Craft(Util.CraftAddress + item.Value, item.Value));
-			}
+			CreateCraft();
 		}
+
+		public uint StoryPeopleFilter { get; set; }
+		public uint ResidentFilter { get; set; }
+		public String CraftNameFilter { get; set; }
 
 		public uint From
 		{
@@ -192,6 +184,47 @@ namespace CMNDAT
 		{
 			get { return SaveData.Instance().ReadBit(0x22CD3E, 4); }
 			set { SaveData.Instance().WriteBit(0x22CD3E, 4, value); }
+		}
+
+		public void CreateStoryPeople()
+		{
+			StoryPeople.Clear();
+			for (uint i = 0; i < Util.StoryPeopleCount; i++)
+			{
+				var item = new Pelple(Util.StoryPeopleAddress + i * Util.PeopleSize);
+				if (StoryPeopleFilter == 0 || item.Island == StoryPeopleFilter)
+				{
+					StoryPeople.Add(item);
+				}
+			}
+		}
+
+		public void CreateResident()
+		{
+			Residents.Clear();
+			for (uint i = 0; i < Util.ResidentCount; i++)
+			{
+				var item = new Pelple(Util.ResidentAddress + i * Util.PeopleSize);
+				if (ResidentFilter == 0 || item.Island == ResidentFilter)
+				{
+					Residents.Add(item);
+				}
+			}
+		}
+
+		public void CreateCraft()
+		{
+			Crafts.Clear();
+			for (uint i = 0; i < Info.Instance().Item.Count; i++)
+			{
+				var item = Info.Instance().Item[(int)i];
+				if (item.Value == 0) continue;
+
+				if (String.IsNullOrEmpty(CraftNameFilter) || item.Name.IndexOf(CraftNameFilter) >= 0)
+				{
+					Crafts.Add(new Craft(Util.CraftAddress + item.Value, item.Value));
+				}
+			}
 		}
 	}
 }

@@ -84,13 +84,13 @@ namespace CMNDAT
 			ItemChoice(item);
 		}
 
-		private void ButtonResidentWeaponItemChoice_Click(object sender, RoutedEventArgs e)
+		private void ButtonPeopleWeaponItemChoice_Click(object sender, RoutedEventArgs e)
 		{
 			Pelple item = (sender as Button)?.DataContext as Pelple;
 			ItemChoice(item?.Weapon);
 		}
 
-		private void ButtonResidentArmorItemChoice_Click(object sender, RoutedEventArgs e)
+		private void ButtonPeopleArmorItemChoice_Click(object sender, RoutedEventArgs e)
 		{
 			Pelple item = (sender as Button)?.DataContext as Pelple;
 			ItemChoice(item?.Armor);
@@ -154,7 +154,7 @@ namespace CMNDAT
 			ViewModel vm = DataContext as ViewModel;
 			if (vm == null) return;
 
-			PeopleFilter(sender, vm.Residents, Util.ResidentAddress, Util.ResidentCount, Util.PeopleSize);
+			vm.CreateResident();
 		}
 
 		private void ComboBoxStoryPeopleFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -162,7 +162,7 @@ namespace CMNDAT
 			ViewModel vm = DataContext as ViewModel;
 			if (vm == null) return;
 
-			PeopleFilter(sender, vm.StoryPeople, Util.StoryPeopleAddress, Util.StoryPeopleCount, Util.PeopleSize);
+			vm.CreateStoryPeople();
 		}
 
 		private void TextBoxCraftItem_TextChanged(object sender, TextChangedEventArgs e)
@@ -170,20 +170,7 @@ namespace CMNDAT
 			ViewModel vm = DataContext as ViewModel;
 			if (vm == null) return;
 
-			String filter = (sender as TextBox)?.Text;
-
-			vm.Crafts.Clear();
-
-			for (uint i = 0; i < Info.Instance().Item.Count; i++)
-			{
-				var item = Info.Instance().Item[(int)i];
-				if (item.Value == 0) continue;
-
-				if (String.IsNullOrEmpty(filter) || item.Name.IndexOf(filter) >= 0)
-				{
-					vm.Crafts.Add(new Craft(Util.CraftAddress + item.Value, item.Value));
-				}
-			}
+			vm.CreateCraft();
 		}
 
 		private void ItemChoice(Item item)
@@ -196,22 +183,6 @@ namespace CMNDAT
 			item.ID = window.ID;
 
 			item.Count = item.ID == 0 ? 0 : 1u;
-		}
-
-		private void PeopleFilter(object sender, ObservableCollection<Pelple> collection, uint address, uint count, uint size)
-		{
-			int index = (sender as ComboBox).SelectedIndex;
-			uint island = Info.Instance().StoryIsland[index].Value;
-			collection.Clear();
-
-			for (uint i = 0; i < count; i++)
-			{
-				Pelple item = new Pelple(address + i * size);
-				if (island == 0 || item.Island == island)
-				{
-					collection.Add(item);
-				}
-			}
 		}
 	}
 }

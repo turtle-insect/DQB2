@@ -9,6 +9,7 @@ namespace CMNDAT
 		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();
 		public List<NameValueInfo> StoryIsland { get; private set; } = new List<NameValueInfo>();
 		public List<NameValueInfo> MaterialIsland { get; private set; } = new List<NameValueInfo>();
+		public List<NameValueInfo> Mood { get; private set; } = new List<NameValueInfo>();
 
 		private Info() { }
 
@@ -42,6 +43,7 @@ namespace CMNDAT
 			AppendList("info\\item.txt", Item);
 			AppendList("info\\story_island.txt", StoryIsland);
 			AppendList("info\\material_island.txt", MaterialIsland);
+			AppendList("info\\mood.txt", Mood);
 		}
 
 		private void AppendList<Type>(String filename, List<Type> items)

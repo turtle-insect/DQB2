@@ -24,8 +24,20 @@ namespace CMNDAT
 		// 239:肌の色(2)
 		// 266:Message Type(1)
 		// 267:Voice Type(1)
+
 		// 301(7):名前命名
 
+		// 部屋の好み
+		// 263:ひろさ
+		// 264:ごうかさ(1)
+		// 265:ムード(1)
+		// ムード
+		//   キュート = 1
+		//   クール = 2
+		//   ナチュラル = 3
+		//   ビビット = 4
+		//   えっち = 5
+		//   ノーマル = 6
 
 		public Pelple(uint address)
 		{
@@ -44,6 +56,7 @@ namespace CMNDAT
 			set
 			{
 				SaveData.Instance().WriteText(Address, 30, value);
+				SaveData.Instance().WriteBit(Address + 301, 7, !String.IsNullOrEmpty(value));
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
 			}
 		}
@@ -194,7 +207,37 @@ namespace CMNDAT
 			set
 			{
 				SaveData.Instance().WriteNumber(Address + 267, 1, value);
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MessageType)));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VoiceType)));
+			}
+		}
+
+		public uint RoomSize
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 263, 1); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 263, 1, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RoomSize)));
+			}
+		}
+
+		public uint RoomGorgeous
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 264, 1); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 264, 1, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RoomGorgeous)));
+			}
+		}
+
+		public uint RoomMood
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 265, 1); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 265, 1, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RoomMood)));
 			}
 		}
 
@@ -228,6 +271,10 @@ namespace CMNDAT
 			SkinColor = SkinColor;
 			MessageType = MessageType;
 			VoiceType = VoiceType;
+
+			RoomSize = RoomSize;
+			RoomGorgeous = RoomGorgeous;
+			RoomMood = RoomMood;
 		}
 	}
 }

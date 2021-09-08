@@ -225,7 +225,7 @@
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                             <Label Content="Filter"/>
-                            <TextBox Width="300" TextChanged="TextBoxCraftItem_TextChanged"/>
+                            <TextBox Width="300" Text="{Binding CraftNameFilter}" TextChanged="TextBoxCraftItem_TextChanged"/>
                         </StackPanel>
                         <ListBox ItemsSource="{Binding Crafts}">
                             <ListBox.ItemTemplate>
@@ -262,7 +262,8 @@
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                             <Label Content="Filter"/>
-                            <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectionChanged="ComboBoxResidentFilter_SelectionChanged"/>
+                            <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
+                                      SelectedIndex="{Binding ResidentFilter}" SelectionChanged="ComboBoxResidentFilter_SelectionChanged"/>
                         </StackPanel>
                         <ListBox ItemsSource="{Binding Residents}">
                             <ListBox.Resources>
@@ -276,7 +277,7 @@
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
-                                                <ColumnDefinition Width="130"/>
+                                                <ColumnDefinition Width="120"/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition Width="50"/>
@@ -285,6 +286,8 @@
                                                 <ColumnDefinition Width="300"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
@@ -321,6 +324,30 @@
                                                 <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
                                                 <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
                                             </StackPanel>
+                                            <Label Grid.Row="7" Content="RoomSize"/>
+                                            <ComboBox Grid.Row="7" Grid.Column="1" SelectedIndex="{Binding RoomSize}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="1"/>
+                                                <ComboBoxItem Content="2"/>
+                                                <ComboBoxItem Content="3"/>
+                                                <ComboBoxItem Content="4"/>
+                                                <ComboBoxItem Content="5"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="8" Content="Gorgeous"/>
+                                            <ComboBox Grid.Row="8" Grid.Column="1" SelectedIndex="{Binding RoomGorgeous}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="1"/>
+                                                <ComboBoxItem Content="2"/>
+                                                <ComboBoxItem Content="3"/>
+                                                <ComboBoxItem Content="4"/>
+                                                <ComboBoxItem Content="5"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="9" Content="Mood"/>
+                                            <ComboBox Grid.Row="9" Grid.Column="1"
+                                                      ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
+                                                      SelectedIndex="{Binding RoomMood}"
+                                                      DisplayMemberPath="Name"/>
+
                                             <Label Grid.Column="3" Content="FaceType"/>
                                             <TextBox Grid.Column="4" Text="{Binding FaceType, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="1" Grid.Column="3" Content="HeadType"/>
@@ -337,17 +364,19 @@
                                             <TextBox Grid.Row="6" Grid.Column="4" Text="{Binding MessageType, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="7" Grid.Column="3" Content="VoiceType"/>
                                             <TextBox Grid.Row="7" Grid.Column="4" Text="{Binding VoiceType, UpdateSourceTrigger=PropertyChanged}"/>
+
+
                                             <Label Grid.Column="6" Content="Weapon"/>
                                             <StackPanel Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonResidentWeaponItemChoice_Click" Width="30"/>
+                                                <Button Content="..." Click="ButtonPeopleWeaponItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
                                             <Label Grid.Row="1" Grid.Column="6" Content="Armor"/>
                                             <StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonResidentArmorItemChoice_Click" Width="30"/>
+                                                <Button Content="..." Click="ButtonPeopleArmorItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
-                                            <ListBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding Items}" Height="160">
+                                            <ListBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="8" ItemsSource="{Binding Items}" Height="200">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
@@ -370,7 +399,8 @@
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                             <Label Content="Filter"/>
-                            <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectionChanged="ComboBoxStoryPeopleFilter_SelectionChanged"/>
+                            <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
+                                      SelectedIndex="{Binding StoryPeopleFilter}" SelectionChanged="ComboBoxStoryPeopleFilter_SelectionChanged"/>
                         </StackPanel>
                         <ListBox ItemsSource="{Binding StoryPeople}">
                             <ListBox.Resources>
@@ -384,7 +414,7 @@
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
-                                                <ColumnDefinition Width="130"/>
+                                                <ColumnDefinition Width="120"/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition Width="50"/>
@@ -393,6 +423,8 @@
                                                 <ColumnDefinition Width="300"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
@@ -429,6 +461,30 @@
                                                 <CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
                                                 <CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
                                             </StackPanel>
+                                            <Label Grid.Row="7" Content="RoomSize"/>
+                                            <ComboBox Grid.Row="7" Grid.Column="1" SelectedIndex="{Binding RoomSize}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="1"/>
+                                                <ComboBoxItem Content="2"/>
+                                                <ComboBoxItem Content="3"/>
+                                                <ComboBoxItem Content="4"/>
+                                                <ComboBoxItem Content="5"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="8" Content="Gorgeous"/>
+                                            <ComboBox Grid.Row="8" Grid.Column="1" SelectedIndex="{Binding RoomGorgeous}">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="1"/>
+                                                <ComboBoxItem Content="2"/>
+                                                <ComboBoxItem Content="3"/>
+                                                <ComboBoxItem Content="4"/>
+                                                <ComboBoxItem Content="5"/>
+                                            </ComboBox>
+                                            <Label Grid.Row="9" Content="Mood"/>
+                                            <ComboBox Grid.Row="9" Grid.Column="1"
+                                                      ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
+                                                      SelectedIndex="{Binding RoomMood}"
+                                                      DisplayMemberPath="Name"/>
+
                                             <Label Grid.Column="3" Content="FaceType"/>
                                             <TextBox Grid.Column="4" Text="{Binding FaceType, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="1" Grid.Column="3" Content="HeadType"/>
@@ -445,17 +501,19 @@
                                             <TextBox Grid.Row="6" Grid.Column="4" Text="{Binding MessageType, UpdateSourceTrigger=PropertyChanged}"/>
                                             <Label Grid.Row="7" Grid.Column="3" Content="VoiceType"/>
                                             <TextBox Grid.Row="7" Grid.Column="4" Text="{Binding VoiceType, UpdateSourceTrigger=PropertyChanged}"/>
+
+
                                             <Label Grid.Column="6" Content="Weapon"/>
                                             <StackPanel Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonResidentWeaponItemChoice_Click" Width="30"/>
+                                                <Button Content="..." Click="ButtonPeopleWeaponItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
                                             <Label Grid.Row="1" Grid.Column="6" Content="Armor"/>
                                             <StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonResidentArmorItemChoice_Click" Width="30"/>
+                                                <Button Content="..." Click="ButtonPeopleArmorItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
-                                            <ListBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="6" ItemsSource="{Binding Items}" Height="160">
+                                            <ListBox Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="8" ItemsSource="{Binding Items}" Height="200">
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">

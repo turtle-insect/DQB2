@@ -39,9 +39,10 @@ namespace CMNDAT
 		//   えっち = 5
 		//   ノーマル = 6
 
-		public Pelple(uint address)
+		public Pelple(uint address, uint id)
 		{
 			Address = address;
+			ID = id;
 			Weapon = new Item(address + 199);
 			Armor = new Item(address + 207);
 			for(uint i = 0; i < 15; i++)
@@ -49,6 +50,8 @@ namespace CMNDAT
 				Items.Add(new Item(address + 32 + i * 4));
 			}
 		}
+
+		public uint ID { get; private set; }
 
 		public String Name
 		{

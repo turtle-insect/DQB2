@@ -22,6 +22,7 @@ namespace CMNDAT
 		public ObservableCollection<Party> Party { get; set; } = new ObservableCollection<Party>();
 		public ObservableCollection<BluePrint> BluePrints { get; set; } = new ObservableCollection<BluePrint>();
 		public ObservableCollection<Craft> Crafts { get; set; } = new ObservableCollection<Craft>();
+		public ObservableCollection<Crop> Crops { get; set; } = new ObservableCollection<Crop>();
 
 		// サムネ
 		// 0x10D - 0x2A40F
@@ -40,7 +41,7 @@ namespace CMNDAT
 		// キャベツ：0x22D578(4)
 		// ネギ：0x22D598(4)
 		// カボチャ：0x22D5C0(4)
-		// トマト：0x22D57C8(4)
+		// トマト：0x22D5C8(4)
 
 		// 赤の設計図：0x22CD2D
 		// 未作成：0x00
@@ -98,6 +99,12 @@ namespace CMNDAT
 
 			// クラフト
 			CreateCraft();
+
+			// 収穫物
+			for (int i = 0; i < Info.Crop.Count; i++)
+			{
+				Crops.Add(new Crop(0x22D568 + Info.Crop[i].Value * 8, Info.Crop[i].Value));
+			}
 		}
 
 		public uint StoryPeopleFilter { get; set; }
@@ -191,7 +198,7 @@ namespace CMNDAT
 			StoryPeople.Clear();
 			for (uint i = 0; i < Util.StoryPeopleCount; i++)
 			{
-				var item = new Pelple(Util.StoryPeopleAddress + i * Util.PeopleSize);
+				var item = new Pelple(Util.StoryPeopleAddress + i * Util.PeopleSize, i + 1);
 				if (StoryPeopleFilter == 0 || item.Island == StoryPeopleFilter)
 				{
 					StoryPeople.Add(item);
@@ -204,7 +211,7 @@ namespace CMNDAT
 			Residents.Clear();
 			for (uint i = 0; i < Util.ResidentCount; i++)
 			{
-				var item = new Pelple(Util.ResidentAddress + i * Util.PeopleSize);
+				var item = new Pelple(Util.ResidentAddress + i * Util.PeopleSize, i + 1024);
 				if (ResidentFilter == 0 || item.Island == ResidentFilter)
 				{
 					Residents.Add(item);

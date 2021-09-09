@@ -199,6 +199,8 @@
       <DependentUpon>ChoiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Craft.cs" />
+    <Compile Include="Crop.cs" />
+    <Compile Include="CropIDConverter.cs" />
     <Compile Include="ILineAnalysis.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="IslandIDConverter.cs" />

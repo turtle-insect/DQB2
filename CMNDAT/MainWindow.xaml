@@ -225,7 +225,7 @@
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                             <Label Content="Filter"/>
-                            <TextBox Width="300" Text="{Binding CraftNameFilter}" TextChanged="TextBoxCraftItem_TextChanged"/>
+                            <TextBox Width="300" Text="{Binding CraftNameFilter, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxCraftItem_TextChanged"/>
                         </StackPanel>
                         <ListBox ItemsSource="{Binding Crafts}">
                             <ListBox.ItemTemplate>

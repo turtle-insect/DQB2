@@ -51,13 +51,13 @@ namespace STGDAT
 			}
 
 			mFileName = filename;
-			Backup();
 			return true;
 		}
 
 		public bool Save()
 		{
 			if (mFileName == null || mBuffer == null) return false;
+			Backup();
 
 			Byte[] comp = Ionic.Zlib.ZlibStream.CompressBuffer(mBuffer);
 			Byte[] tmp = new Byte[mHeader.Length + comp.Length];
@@ -87,6 +87,27 @@ namespace STGDAT
 		}
 
 		public void OtherMap(String filename)
+		{
+			if (mFileName == null) return;
+
+			Byte[] buffer;
+			Byte[] tmp = System.IO.File.ReadAllBytes(filename);
+			Byte[] comp = new Byte[tmp.Length - mHeader.Length];
+			Array.Copy(tmp, mHeader.Length, comp, 0, comp.Length);
+			try
+			{
+				buffer = Ionic.Zlib.ZlibStream.UncompressBuffer(comp);
+			}
+			catch
+			{
+				return;
+			}
+
+			Array.Copy(buffer, 0x24E7C1, mBuffer, 0x24E7C1, mBuffer.Length - 0x24E7C1);
+
+		}
+
+		public void DLMap(String filename)
 		{
 			if (mFileName == null) return;
 

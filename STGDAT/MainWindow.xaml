@@ -24,9 +24,12 @@
                     <Separator/>
                     <MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
                     <MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
+
                     <!--
                     <MenuItem Header="Other's Map" Click="MenuItemFileOtherMap_Click"/>
+                    <MenuItem Header="DL Map" Click="MenuItemFileDLMap_Click"/>
                     -->
+
                     <Separator/>
                     <MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
                 </MenuItem>

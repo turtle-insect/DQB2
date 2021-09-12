@@ -45,13 +45,13 @@ namespace CMNDAT
 			}
 
 			mFileName = filename;
-			Backup();
 			return true;
 		}
 
 		public bool Save()
 		{
 			if (mFileName == null || mBuffer == null) return false;
+			Backup();
 
 			Byte[] comp = Ionic.Zlib.ZlibStream.CompressBuffer(mBuffer);
 			Byte[] tmp = new Byte[mHeader.Length + comp.Length];

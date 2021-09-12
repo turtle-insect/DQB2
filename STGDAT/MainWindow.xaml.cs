@@ -67,6 +67,14 @@ namespace STGDAT
 			SaveData.Instance().OtherMap(dlg.FileName);
 		}
 
+		private void MenuItemFileDLMap_Click(object sender, RoutedEventArgs e)
+		{
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().DLMap(dlg.FileName);
+		}
+
 		private void MenuItemFileExit_Click(object sender, RoutedEventArgs e)
 		{
 			Close();

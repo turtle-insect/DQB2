@@ -20,6 +20,7 @@ namespace CMNDAT
 		public ObservableCollection<BluePrint> BluePrints { get; set; } = new ObservableCollection<BluePrint>();
 		public ObservableCollection<Craft> Crafts { get; set; } = new ObservableCollection<Craft>();
 		public ObservableCollection<Crop> Crops { get; set; } = new ObservableCollection<Crop>();
+		public ObservableCollection<Scenery> Sceneries { get; set; } = new ObservableCollection<Scenery>();
 
 		// サムネ
 		// 0x10D - 0x2A40F
@@ -50,7 +51,11 @@ namespace CMNDAT
 		// 2125 0x227DB3 八尺玉
 		// 2389 0x227D0E 城のまどかざり
 
-
+		// ビルダー100景
+		// ジメジメ：0x230B6D - 0x230BD0
+		// 100Byte
+		// 未訪問:0x00
+		// 訪問済み:0x01
 
 		public ViewModel()
 		{
@@ -101,6 +106,12 @@ namespace CMNDAT
 			for (int i = 0; i < Info.Crop.Count; i++)
 			{
 				Crops.Add(new Crop(0x22D568 + Info.Crop[i].Value * 8, Info.Crop[i].Value));
+			}
+
+			// ビルダー100景
+			for (uint i = 0; i < 100; i++)
+			{
+				Sceneries.Add(new Scenery(0x230B6D + i));
 			}
 		}
 

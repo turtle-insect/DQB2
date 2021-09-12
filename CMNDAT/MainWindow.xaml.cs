@@ -137,6 +137,16 @@ namespace CMNDAT
 			item.Reload();
 		}
 
+		private void ButtonSceneriesAllCheck_Click(object sender, RoutedEventArgs e)
+		{
+			SceneriesCheck(true);
+		}
+
+		private void ButtonSceneriesAllUnCheck_Click(object sender, RoutedEventArgs e)
+		{
+			SceneriesCheck(false);
+		}
+
 		private void ComboBoxResidentFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ViewModel vm = DataContext as ViewModel;
@@ -171,6 +181,17 @@ namespace CMNDAT
 			item.ID = window.ID;
 
 			item.Count = item.ID == 0 ? 0 : 1u;
+		}
+
+		private void SceneriesCheck(bool isCheck)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			foreach (var item in vm.Sceneries)
+			{
+				item.Visit = isCheck;
+			}
 		}
 	}
 }

@@ -557,6 +557,25 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </TabItem>
+                <TabItem Header="Sceneries">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="All Check" Click="ButtonSceneriesAllCheck_Click"/>
+                            <Button Grid.Column="1" Content="All UnCheck" Click="ButtonSceneriesAllUnCheck_Click"/>
+                        </Grid>
+                        <ListBox ItemsSource="{Binding Sceneries}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Visit}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </TabItem>
                 <TabItem Header="Party">
                     <ListBox ItemsSource="{Binding Party}">
                         <ListBox.Resources>

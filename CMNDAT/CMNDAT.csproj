@@ -212,6 +212,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="MaterialIsland.cs" />
     <Compile Include="Pelple.cs" />
+    <Compile Include="Scenery.cs" />
     <Compile Include="Skill.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Item.cs" />

@@ -223,10 +223,10 @@
                 </TabItem>
                 <TabItem Header="Crafts">
                     <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <DockPanel DockPanel.Dock="Top">
                             <Label Content="Filter"/>
-                            <TextBox Width="300" Text="{Binding CraftNameFilter, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxCraftItem_TextChanged"/>
-                        </StackPanel>
+                            <TextBox Text="{Binding CraftNameFilter, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxCraftItem_TextChanged"/>
+                        </DockPanel>
                         <ListBox ItemsSource="{Binding Crafts}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -260,11 +260,11 @@
                 </TabItem>
                 <TabItem Header="Resident">
                     <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <DockPanel DockPanel.Dock="Top">
                             <Label Content="Filter"/>
                             <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
                                       SelectedIndex="{Binding ResidentFilter}" SelectionChanged="ComboBoxResidentFilter_SelectionChanged"/>
-                        </StackPanel>
+                        </DockPanel>
                         <ListBox ItemsSource="{Binding Residents}">
                             <ListBox.Resources>
                                 <local:IslandIDConverter x:Key="IslandIDConverter"/>
@@ -400,11 +400,11 @@
                 </TabItem>
                 <TabItem Header="Story People">
                     <DockPanel>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <DockPanel DockPanel.Dock="Top">
                             <Label Content="Filter"/>
                             <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
                                       SelectedIndex="{Binding StoryPeopleFilter}" SelectionChanged="ComboBoxStoryPeopleFilter_SelectionChanged"/>
-                        </StackPanel>
+                        </DockPanel>
                         <ListBox ItemsSource="{Binding StoryPeople}">
                             <ListBox.Resources>
                                 <local:IslandIDConverter x:Key="IslandIDConverter"/>

@@ -1,13 +1,25 @@
-﻿namespace STGDAT
+﻿using System.Collections.ObjectModel;
+
+namespace STGDAT
 {
 	class ViewModel
 	{
 		public Info Info { get; private set; } = Info.Instance();
 		public MapGenerator Map { get; set; } = new MapGenerator();
+		public ObservableCollection<Strage> Boxes { get; set; } = new ObservableCollection<Strage>();
+
 		public uint Heart
 		{
 			get { return SaveData.Instance().ReadNumber(0xC0ECC, 4); }
 			set { Util.WriteNumber(0xC0ECC, 4, value, 0, 99999); }
+		}
+
+		public ViewModel()
+		{
+			for (uint i = 0; i < 32; i++)
+			{
+				Boxes.Add(new Strage(0xF565 + i * 8, 0x2467CC + i * 120));
+			}
 		}
 
 		// map info.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Win32;
 
 namespace STGDAT
@@ -126,6 +127,32 @@ namespace STGDAT
 			MapGenerator map = (DataContext as ViewModel)?.Map;
 			if (map == null) return;
 			map.Execution();
+		}
+
+		private void ButtonItemChoice_Click(object sender, RoutedEventArgs e)
+		{
+			Item item = (sender as Button)?.DataContext as Item;
+			ItemChoice(item);
+		}
+
+		private void ItemChoice(Item item)
+		{
+			if (item == null) return;
+
+			var window = new ChoiceWindow();
+			window.ID = item.ID;
+			window.ShowDialog();
+			item.ID = window.ID;
+
+			item.Count = item.ID == 0 ? 0 : 1u;
+		}
+
+		private void ButtonStorageUnActive_Click(object sender, RoutedEventArgs e)
+		{
+			Strage item = (sender as Button)?.DataContext as Strage;
+			if (item == null) return;
+
+			item.Clear();
 		}
 	}
 }

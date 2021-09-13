@@ -6,6 +6,7 @@ namespace STGDAT
 	class Info
 	{
 		private static Info mThis;
+		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();
 		public List<NameValueInfo> Block { get; private set; } = new List<NameValueInfo>();
 
 		private Info() { }
@@ -37,6 +38,7 @@ namespace STGDAT
 
 		private void Init()
 		{
+			AppendList("info\\item.txt", Item);
 			AppendList("info\\block.txt", Block);
 		}
 

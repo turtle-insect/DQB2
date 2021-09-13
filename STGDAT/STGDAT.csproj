@@ -179,14 +179,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BlockIDConverter.cs" />
+    <Compile Include="ChoiceWindow.xaml.cs">
+      <DependentUpon>ChoiceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ILineAnalysis.cs" />
     <Compile Include="Info.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemIDConverter.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="NameValueInfo.cs" />
     <Compile Include="SaveData.cs" />
+    <Compile Include="Strage.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="ViewModel.cs" />
+    <Page Include="ChoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

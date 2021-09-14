@@ -7,6 +7,9 @@ namespace STGDAT
 		public Info Info { get; private set; } = Info.Instance();
 		public MapGenerator Map { get; set; } = new MapGenerator();
 		public ObservableCollection<Strage> Boxes { get; set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Strage> Cabinets { get; set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Strage> ShelfChests { get; set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Strage> ShelfDrawers{ get; set; } = new ObservableCollection<Strage>();
 
 		public uint Heart
 		{
@@ -20,6 +23,29 @@ namespace STGDAT
 			{
 				Boxes.Add(new Strage(0xF565 + i * 8, 0x2467CC + i * 120));
 			}
+
+			for (uint i = 0; i < 16; i++)
+			{
+				Cabinets.Add(new Strage(0xFF75 + i * 8, 0x248C24 + i * 120));
+			}
+
+			for (uint i = 0; i < 16; i++)
+			{
+				ShelfChests.Add(new Strage(0x1027D + i * 8, 0x24A9B4 + i * 120));
+			}
+
+			for (uint i = 0; i < 16; i++)
+			{
+				ShelfDrawers.Add(new Strage(0x102FD + i * 8, 0x24B134 + i * 120));
+			}
+		}
+
+		public void AllStorageUnActive()
+		{
+			foreach (var item in Boxes) item.Clear();
+			foreach (var item in Cabinets) item.Clear();
+			foreach (var item in ShelfChests) item.Clear();
+			foreach (var item in ShelfDrawers) item.Clear();
 		}
 
 		// map info.

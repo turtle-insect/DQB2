@@ -32,6 +32,11 @@ namespace STGDAT
 			}
 		}
 
+		public bool Active()
+		{
+			return !(SaveData.Instance().ReadNumber(mAddress, 4) == 0 && SaveData.Instance().ReadNumber(mAddress + 4, 4) == 0);
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

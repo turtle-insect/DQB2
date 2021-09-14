@@ -64,31 +64,36 @@
                     <TabItem.Resources>
                         <local:ItemIDConverter x:Key="ItemIDConverter"/>
                     </TabItem.Resources>
-                    <TabControl>
-                        <TabItem Header="Boxes">
-                            <DockPanel>
-                                <DockPanel DockPanel.Dock="Top">
-                                    <Label Content="Select Storage"/>
-                                    <Button DockPanel.Dock="Right" Content="UnActive Storage"
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top">
+                            <Button Content="UnActive All Strage" Click="ButtonAllStrageUnActive_Click"/>
+                        </DockPanel>
+                        <TabControl>
+                            <TabItem Header="Boxes">
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Top">
+                                        <Label Content="Select Storage"/>
+                                        <Button DockPanel.Dock="Right" Content="UnActive Storage"
                                             DataContext="{Binding ElementName=ComboBoxStorageBoxes, Path=SelectedItem}"
                                             Click="ButtonStorageUnActive_Click"/>
-                                    <ComboBox Name="ComboBoxStorageBoxes" ItemsSource="{Binding Boxes}"/>
+                                        <ComboBox Name="ComboBoxStorageBoxes" ItemsSource="{Binding Boxes}"/>
+                                    </DockPanel>
+                                    <ListBox ItemsSource="{Binding ElementName=ComboBoxStorageBoxes, Path=SelectedItem.Items}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="  Count: "/>
+                                                    <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                                    <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+                                                    <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
                                 </DockPanel>
-                                <ListBox ItemsSource="{Binding ElementName=ComboBoxStorageBoxes, Path=SelectedItem.Items}">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Content="  Count: "/>
-                                                <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-                                                <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
-                                                <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </DockPanel>
-                        </TabItem>
-                    </TabControl>
+                            </TabItem>
+                        </TabControl>
+                    </DockPanel>
                 </TabItem>
                 <TabItem Header="Map">
                     <DockPanel>

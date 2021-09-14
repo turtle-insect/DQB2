@@ -135,6 +135,22 @@ namespace STGDAT
 			ItemChoice(item);
 		}
 
+		private void ButtonStorageUnActive_Click(object sender, RoutedEventArgs e)
+		{
+			Strage item = (sender as Button)?.DataContext as Strage;
+			if (item == null) return;
+
+			item.Clear();
+		}
+
+		private void ButtonAllStrageUnActive_Click(object sender, RoutedEventArgs e)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			vm.AllStorageUnActive();
+		}
+
 		private void ItemChoice(Item item)
 		{
 			if (item == null) return;
@@ -145,14 +161,6 @@ namespace STGDAT
 			item.ID = window.ID;
 
 			item.Count = item.ID == 0 ? 0 : 1u;
-		}
-
-		private void ButtonStorageUnActive_Click(object sender, RoutedEventArgs e)
-		{
-			Strage item = (sender as Button)?.DataContext as Strage;
-			if (item == null) return;
-
-			item.Clear();
 		}
 	}
 }

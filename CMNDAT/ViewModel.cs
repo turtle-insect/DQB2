@@ -88,7 +88,7 @@ namespace CMNDAT
 			};
 			for (uint i = 0; i < brushs.Count; i++)
 			{
-				BluePrints.Add(new BluePrint(0x136DEA + i * Util.BluePrintSize, brushs[(int)i]));
+				BluePrints.Add(new BluePrint(0x136DE8 + i * Util.BluePrintSize, brushs[(int)i]));
 			}
 			// move online blue print
 			BluePrints.Move(0, 4);
@@ -115,8 +115,8 @@ namespace CMNDAT
 			}
 		}
 
-		public uint StoryPeopleFilter { get; set; }
-		public uint ResidentFilter { get; set; }
+		public int StoryPeopleFilter { get; set; }
+		public int ResidentFilter { get; set; }
 		public String CraftNameFilter { get; set; }
 
 		public uint From
@@ -204,10 +204,11 @@ namespace CMNDAT
 		public void CreateStoryPeople()
 		{
 			StoryPeople.Clear();
+			uint filter = Info.StoryIsland[StoryPeopleFilter].Value;
 			for (uint i = 0; i < Util.StoryPeopleCount; i++)
 			{
 				var item = new Pelple(Util.StoryPeopleAddress + i * Util.PeopleSize, i + 1);
-				if (StoryPeopleFilter == 0 || item.Island == StoryPeopleFilter)
+				if (StoryPeopleFilter == 0 || item.Island == filter)
 				{
 					StoryPeople.Add(item);
 				}
@@ -217,10 +218,11 @@ namespace CMNDAT
 		public void CreateResident()
 		{
 			Residents.Clear();
+			uint filter = Info.StoryIsland[ResidentFilter].Value;
 			for (uint i = 0; i < Util.ResidentCount; i++)
 			{
 				var item = new Pelple(Util.ResidentAddress + i * Util.PeopleSize, i + 1024);
-				if (ResidentFilter == 0 || item.Island == ResidentFilter)
+				if (ResidentFilter == 0 || item.Island == filter)
 				{
 					Residents.Add(item);
 				}

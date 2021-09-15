@@ -274,5 +274,38 @@ namespace CMNDAT
 			RoomGorgeous = RoomGorgeous;
 			RoomMood = RoomMood;
 		}
+
+		public bool Exist()
+		{
+			if (!String.IsNullOrEmpty(Name)) return true;
+			if (Sex != 0) return true;
+			if (HP != 0) return true;
+			if (Job != 0) return true;
+			if (Island != 0) return true;
+			if (Place != 0) return true;
+			if (Weapon.ID != 0) return true;
+			if (Weapon.Count != 0) return true;
+			if (Armor.ID != 0) return true;
+			if (Armor.Count != 0) return true;
+			foreach (var item in Items)
+			{
+				if (item.ID != 0) return true;
+				if (item.Count != 0) return true;
+			}
+			if (FaceType != 0) return true;
+			if (HeadType != 0) return true;
+			if (BodyType != 0) return true;
+			if (EyeColor != 0) return true;
+			if (HairColor != 0) return true;
+			if (SkinColor != 0) return true;
+			if (MessageType != 0) return true;
+			if (VoiceType != 0) return true;
+
+			if (RoomSize != 0) return true;
+			if (RoomGorgeous != 0) return true;
+			if (RoomMood != 0) return true;
+
+			return false;
+		}
 	}
 }

@@ -155,6 +155,14 @@ namespace CMNDAT
 			vm.CreateResident();
 		}
 
+		private void ComboBoxResidentExist_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			vm.CreateResident();
+		}
+
 		private void ComboBoxStoryPeopleFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ViewModel vm = DataContext as ViewModel;

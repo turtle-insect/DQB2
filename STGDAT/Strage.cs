@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace STGDAT
 {
-	class Strage : INotifyPropertyChanged
+	class Strage
 	{
 		private readonly uint mAddress;
 		public ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>();
@@ -36,7 +36,5 @@ namespace STGDAT
 		{
 			return !(SaveData.Instance().ReadNumber(mAddress, 4) == 0 && SaveData.Instance().ReadNumber(mAddress + 4, 4) == 0);
 		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

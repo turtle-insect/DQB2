@@ -117,6 +117,7 @@ namespace CMNDAT
 
 		public int StoryPeopleFilter { get; set; }
 		public int ResidentFilter { get; set; }
+		public int ResidentExist { get; set; }
 		public String CraftNameFilter { get; set; }
 
 		public uint From
@@ -224,6 +225,10 @@ namespace CMNDAT
 				var item = new Pelple(Util.ResidentAddress + i * Util.PeopleSize, i + 1024);
 				if (ResidentFilter == 0 || item.Island == filter)
 				{
+					if(ResidentExist == 0 ||
+						(ResidentExist == 1 && item.Exist() == true) ||
+						(ResidentExist == 2 && item.Exist() == false)
+						)
 					Residents.Add(item);
 				}
 			}

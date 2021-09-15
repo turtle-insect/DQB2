@@ -262,6 +262,12 @@
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top">
                             <Label Content="Filter"/>
+                            <ComboBox DockPanel.Dock="Right" SelectedIndex="{Binding ResidentExist}" Width="100"
+                                      SelectionChanged="ComboBoxResidentExist_SelectionChanged">
+                                <ComboBoxItem Content="-"/>
+                                <ComboBoxItem Content="Exist"/>
+                                <ComboBoxItem Content="Not Exist"/>
+                            </ComboBox>
                             <ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
                                       SelectedIndex="{Binding ResidentFilter}" SelectionChanged="ComboBoxResidentFilter_SelectionChanged"/>
                         </DockPanel>

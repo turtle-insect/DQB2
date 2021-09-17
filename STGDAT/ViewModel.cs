@@ -46,6 +46,7 @@ namespace STGDAT
 			foreach (var item in Cabinets) item.Clear();
 			foreach (var item in ShelfChests) item.Clear();
 			foreach (var item in ShelfDrawers) item.Clear();
+			SaveData.Instance().WriteNumber(0x28708, 4, 0);
 		}
 
 		// map info.

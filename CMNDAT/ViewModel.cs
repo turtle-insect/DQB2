@@ -202,6 +202,14 @@ namespace CMNDAT
 			set { SaveData.Instance().WriteBit(0x22CD3E, 4, value); }
 		}
 
+		 // かいたく島の地図表示
+		public bool PioneerLand
+		{
+			get { return SaveData.Instance().ReadBit(0x22E785, 3); }
+			set { SaveData.Instance().WriteBit(0x22E785, 3, value); }
+		}
+
+
 		public void CreateStoryPeople()
 		{
 			StoryPeople.Clear();

@@ -151,6 +151,14 @@ namespace STGDAT
 			vm.AllStorageUnActive();
 		}
 
+		private void ButtonAllCrockeryUnActive_Click(object sender, RoutedEventArgs e)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			vm.AllTablewareUnActive();
+		}
+
 		private void ItemChoice(Item item)
 		{
 			if (item == null) return;

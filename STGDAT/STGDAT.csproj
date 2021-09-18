@@ -182,6 +182,7 @@
     <Compile Include="ChoiceWindow.xaml.cs">
       <DependentUpon>ChoiceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Craft.cs" />
     <Compile Include="ILineAnalysis.cs" />
     <Compile Include="Info.cs" />
     <Compile Include="Item.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="NameValueInfo.cs" />
     <Compile Include="SaveData.cs" />
     <Compile Include="Strage.cs" />
+    <Compile Include="Tableware.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="ChoiceWindow.xaml">

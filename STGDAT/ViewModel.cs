@@ -10,6 +10,8 @@ namespace STGDAT
 		public ObservableCollection<Strage> Cabinets { get; set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Strage> ShelfChests { get; set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Strage> ShelfDrawers{ get; set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Tableware> Tablewares { get; set; } = new ObservableCollection<Tableware>();
+		public ObservableCollection<Craft> Crafts { get; set; } = new ObservableCollection<Craft>();
 
 		public uint Heart
 		{
@@ -38,6 +40,16 @@ namespace STGDAT
 			{
 				ShelfDrawers.Add(new Strage(0x102FD + i * 8, 0x24B134 + i * 120));
 			}
+
+			for (uint i = 0; i < 32; i++)
+			{
+				Tablewares.Add(new Tableware(0xFC75 + i * 8, 0x24893C + i * 4));
+			}
+
+			for (uint i = 0; i < 128; i++)
+			{
+				Crafts.Add(new Craft(0x10EA5 + i * 52));
+			}
 		}
 
 		public void AllStorageUnActive()
@@ -47,6 +59,11 @@ namespace STGDAT
 			foreach (var item in ShelfChests) item.Clear();
 			foreach (var item in ShelfDrawers) item.Clear();
 			SaveData.Instance().WriteNumber(0x28708, 4, 0);
+		}
+
+		public void AllTablewareUnActive()
+		{
+			foreach (var item in Tablewares) item.Clear();
 		}
 
 		// map info.
@@ -70,6 +87,13 @@ namespace STGDAT
 		// 収納箱の数
 		// 0x28708
 
+		// たき火等
+		// 1つ52Byte
+		// 0埋めで無し
+		// 最大128個
+		// 0x10EA5
+		//
+
 
 		// 利用可能な家具
 		// 1つ8Byte
@@ -78,10 +102,14 @@ namespace STGDAT
 		// 食器(1288)
 		// 最大32個
 		// 0xFC75
+		// 中身
+		// 0x24893C
 
 		// 銅ジョッキ(2207)
 		// 最大32個(256)
 		// 0x103FD
+		// 中身
+		// 0x24C034
 
 		// 収納系
 		// 一つの収納に30個のアイテム

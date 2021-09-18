@@ -7,9 +7,9 @@ namespace STGDAT
 		private readonly uint mAddress;
 		public ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>();
 
-		public Strage(uint address, uint inside)
+		public Strage(uint info, uint inside)
 		{
-			mAddress = address;
+			mAddress = info;
 			for (uint i = 0; i < 30; i++)
 			{
 				Items.Add(new Item(inside + i * 4));

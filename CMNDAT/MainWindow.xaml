@@ -13,6 +13,7 @@
     </Window.DataContext>
     <Window.Resources>
         <local:ItemIDConverter x:Key="ItemIDConverter"/>
+        <local:IslandIDConverter x:Key="IslandIDConverter"/>
         <BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
         <BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
     </Window.Resources>
@@ -40,9 +41,6 @@
             <TabControl>
                 <TabItem Header="Basic">
                     <Grid>
-                        <Grid.Resources>
-                            <local:IslandIDConverter x:Key="IslandIDConverter"/>
-                        </Grid.Resources>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -122,6 +120,29 @@
                         <Label Grid.Row="8"  Grid.Column="3" Content="Beam"/>
                         <CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding Car_Beam}" VerticalAlignment="Center"/>
                         <Image Grid.Row="9" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Source="{Binding Thumbnail}" Stretch="Uniform"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Island">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Main Island"/>
+                        <TextBox Grid.Column="1" Text="{Binding MainIslandName, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="1" Content="Pioneer IsLand 1"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PioneerIsland1Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="2" Content="Pioneer IsLand 2"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PioneerIsland2Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="3" Content="Pioneer IsLand 3"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PioneerIsland3Name, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Player">
@@ -279,9 +300,6 @@
                                       SelectedIndex="{Binding ResidentFilter}" SelectionChanged="ComboBoxResidentFilter_SelectionChanged"/>
                         </DockPanel>
                         <ListBox ItemsSource="{Binding Residents}">
-                            <ListBox.Resources>
-                                <local:IslandIDConverter x:Key="IslandIDConverter"/>
-                            </ListBox.Resources>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel>
@@ -419,9 +437,6 @@
                                       SelectedIndex="{Binding StoryPeopleFilter}" SelectionChanged="ComboBoxStoryPeopleFilter_SelectionChanged"/>
                         </DockPanel>
                         <ListBox ItemsSource="{Binding StoryPeople}">
-                            <ListBox.Resources>
-                                <local:IslandIDConverter x:Key="IslandIDConverter"/>
-                            </ListBox.Resources>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <DockPanel>

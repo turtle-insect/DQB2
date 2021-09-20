@@ -209,6 +209,30 @@ namespace CMNDAT
 			set { SaveData.Instance().WriteBit(0x22E785, 3, value); }
 		}
 
+		public String MainIslandName
+		{
+			get { return SaveData.Instance().ReadText(0x226E10, 30); }
+			set { SaveData.Instance().WriteText(0x226E10, 30, value); }
+		}
+
+		public String PioneerIsland1Name
+		{
+			get { return SaveData.Instance().ReadText(0x52A667, 30); }
+			set { SaveData.Instance().WriteText(0x52A667, 30, value); }
+		}
+
+		public String PioneerIsland2Name
+		{
+			get { return SaveData.Instance().ReadText(0x52A69F, 30); }
+			set { SaveData.Instance().WriteText(0x52A69F, 30, value); }
+		}
+
+		public String PioneerIsland3Name
+		{
+			get { return SaveData.Instance().ReadText(0x52A6D7, 30); }
+			set { SaveData.Instance().WriteText(0x52A6D7, 30, value); }
+		}
+
 
 		public void CreateStoryPeople()
 		{

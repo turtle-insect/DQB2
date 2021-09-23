@@ -42,7 +42,9 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
     * 04：ムーンブルク島
     * 05：破壊天体シドー
     * 10：監獄島
-    * 12：かいたく島
+    * 12：かいたく島1
+    * 13：かいたく島2
+    * 16：かいたく島3
 
 # 編集時の手順
 * saveDataを吸い出す
@@ -57,3 +59,4 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 
 # Special Thanks
 * https://docs.google.com/spreadsheets/d/1w8Njk2d0DolMqHw4ZycqsAR4asmEpn0By7m_QpUUArs
+* [TaoistYang](https://gbatemp.net/threads/dragon-quest-builders-2-save-editor-pc-steam.558947/#post-9504144)

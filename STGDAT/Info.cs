@@ -7,7 +7,7 @@ namespace STGDAT
 	{
 		private static Info mThis;
 		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> Block { get; private set; } = new List<NameValueInfo>();
+		public List<BlockInfo> Block { get; private set; } = new List<BlockInfo>();
 
 		private Info() { }
 

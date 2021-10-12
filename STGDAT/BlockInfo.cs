@@ -23,7 +23,11 @@ namespace STGDAT
 
 		public virtual bool Line(String[] oneLine)
 		{
-			if (oneLine[0].Length > 1 && oneLine[0][1] == 'x') Value = Convert.ToUInt32(oneLine[1], 16);
+			if (oneLine[0].Length > 1 && oneLine[0][1] == 'x') Value = Convert.ToUInt32(oneLine[0], 16);
+			else Value = Convert.ToUInt32(oneLine[0]);
+			if (Value != 0) return false;
+
+			if (oneLine[1].Length > 1 && oneLine[1][1] == 'x') Value = Convert.ToUInt32(oneLine[1], 16);
 			else Value = Convert.ToUInt32(oneLine[1]);
 			Name = oneLine[2];
 			if (String.IsNullOrEmpty(Name)) return false;

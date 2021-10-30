@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
+        Closed="Window_Closed"
         Title="DQB2 CMNDAT Nintendo Switch &amp; Steam" Height="500" Width="800">
     <Window.DataContext>
         <local:ViewModel/>

@@ -9,7 +9,11 @@ namespace CMNDAT
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			uint id = (uint)value;
-			return Info.Instance().Search(Info.Instance().Item, id)?.Name + " {" + id + "}";
+			var info = Info.Instance().Search(Info.Instance().Item, id);
+			if (info == null) return "";
+
+			var name = $"{info.Name} {{ {info.Value} }}";
+			return name;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

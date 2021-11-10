@@ -193,6 +193,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Appearance.cs" />
     <Compile Include="BitItem.cs" />
     <Compile Include="BluePrint.cs" />
     <Compile Include="ChoiceWindow.xaml.cs">

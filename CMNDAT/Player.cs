@@ -34,6 +34,7 @@
 
 		public Item Weapon { get; private set; } = new Item(0x55B959);
 		public Item Armor { get; private set; } = new Item(0x55B989);
+		public Item Shield { get; private set; } = new Item(0x55B985);
 		public Item Hammer { get; private set; } = new Item(0x55B95D);
 	}
 }

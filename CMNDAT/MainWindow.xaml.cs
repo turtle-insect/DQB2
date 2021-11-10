@@ -195,7 +195,10 @@ namespace CMNDAT
 			window.ShowDialog();
 			item.ID = window.ID;
 
-			item.Count = item.ID == 0 ? 0 : 1u;
+			if(item.mCountForce)
+			{
+				item.Count = item.ID == 0 ? 0 : 1u;
+			}
 		}
 
 		private void SceneriesCheck(bool isCheck)

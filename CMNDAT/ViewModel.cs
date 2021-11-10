@@ -237,6 +237,8 @@ namespace CMNDAT
 		public void CreateStoryPeople()
 		{
 			StoryPeople.Clear();
+			if (Info.StoryIsland.Count == 0) return;
+
 			uint filter = Info.StoryIsland[StoryPeopleFilter].Value;
 			for (uint i = 0; i < Util.StoryPeopleCount; i++)
 			{
@@ -251,6 +253,8 @@ namespace CMNDAT
 		public void CreateResident()
 		{
 			Residents.Clear();
+			if (Info.StoryIsland.Count == 0) return;
+
 			uint filter = Info.StoryIsland[ResidentFilter].Value;
 			for (uint i = 0; i < Util.ResidentCount; i++)
 			{

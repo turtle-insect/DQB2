@@ -6,6 +6,8 @@ namespace CMNDAT
 	{
 		readonly uint mAddress;
 
+		public bool mCountForce { get; set; } = true;
+
 		public Item(uint address)
 		{
 			mAddress = address;

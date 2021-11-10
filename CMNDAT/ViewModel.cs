@@ -9,18 +9,19 @@ namespace CMNDAT
 	class ViewModel
 	{
 		public Info Info { get; private set; } = Info.Instance();
-		public Player Player { get; set; } = new Player();
-		public Skill Skill { get; set; } = new Skill();
-		public ObservableCollection<Item> Inventory { get; set; } = new ObservableCollection<Item>();
-		public ObservableCollection<Item> Bag { get; set; } = new ObservableCollection<Item>();
-		public ObservableCollection<MaterialIsland> Island { get; set; } = new ObservableCollection<MaterialIsland>();
-		public ObservableCollection<Pelple> Residents { get; set; } = new ObservableCollection<Pelple>();
-		public ObservableCollection<Pelple> StoryPeople { get; set; } = new ObservableCollection<Pelple>();
-		public ObservableCollection<Party> Party { get; set; } = new ObservableCollection<Party>();
-		public ObservableCollection<BluePrint> BluePrints { get; set; } = new ObservableCollection<BluePrint>();
-		public ObservableCollection<Craft> Crafts { get; set; } = new ObservableCollection<Craft>();
-		public ObservableCollection<Crop> Crops { get; set; } = new ObservableCollection<Crop>();
-		public ObservableCollection<Scenery> Sceneries { get; set; } = new ObservableCollection<Scenery>();
+		public Player Player { get; private set; } = new Player();
+		public Skill Skill { get; private set; } = new Skill();
+		public Appearance Appearance { get; private set; } = new Appearance();
+		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
+		public ObservableCollection<Item> Bag { get; private set; } = new ObservableCollection<Item>();
+		public ObservableCollection<MaterialIsland> Island { get; private set; } = new ObservableCollection<MaterialIsland>();
+		public ObservableCollection<Pelple> Residents { get; private set; } = new ObservableCollection<Pelple>();
+		public ObservableCollection<Pelple> StoryPeople { get; private set; } = new ObservableCollection<Pelple>();
+		public ObservableCollection<Party> Party { get; private set; } = new ObservableCollection<Party>();
+		public ObservableCollection<BluePrint> BluePrints { get; private set; } = new ObservableCollection<BluePrint>();
+		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
+		public ObservableCollection<Crop> Crops { get; private set; } = new ObservableCollection<Crop>();
+		public ObservableCollection<Scenery> Sceneries { get; private set; } = new ObservableCollection<Scenery>();
 
 		// サムネ
 		// 0x10D - 0x2A40F

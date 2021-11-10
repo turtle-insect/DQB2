@@ -199,7 +199,69 @@
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Inventory">
+				<TabItem Header="Appearance">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+							<ColumnDefinition Width="5"/>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition Height="6*"/>
+						</Grid.RowDefinitions>
+						<Label Content="Hammer"/>
+						<StackPanel Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Hammer}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Hammer.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+						<Label Grid.Row="1" Content="Weapon"/>
+						<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Weapon}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+						<Label Grid.Row="2" Content="Armmer"/>
+						<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Armmer}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Armmer.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+						<Label Grid.Row="3" Content="Shield"/>
+						<StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Shield}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Shield.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+						<Label Grid.Row="4" Content="Head"/>
+						<StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Head}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Head.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+						<Label Grid.Row="5" Content="Accessories"/>
+						<StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Accessories1}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Accessories1.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+						<Label Grid.Row="6" Content="Accessories"/>
+						<StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Accessories2}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Accessories2.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+						<Label Grid.Row="7" Content="Accessories"/>
+						<StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+							<Button Content="..." DataContext="{Binding Appearance.Accessories3}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Label Content="{Binding Appearance.Accessories3.ID, Converter={StaticResource ItemIDConverter}}"/>
+						</StackPanel>
+					</Grid>
+				</TabItem>
+				<TabItem Header="Inventory">
                     <ListBox ItemsSource="{Binding Inventory}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -409,12 +471,12 @@
 
                                             <Label Grid.Row="1" Grid.Column="6" Content="Weapon"/>
                                             <StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonPeopleWeaponItemChoice_Click" Width="30"/>
+												<Button Content="..." DataContext="{Binding Weapon}" Click="ButtonItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
                                             <Label Grid.Row="2" Grid.Column="6" Content="Armor"/>
                                             <StackPanel Grid.Row="2" Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonPeopleArmorItemChoice_Click" Width="30"/>
+												<Button Content="..." DataContext="{Binding Armor}" Click="ButtonItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
                                             <ListBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="8" ItemsSource="{Binding Items}" Height="210">
@@ -546,12 +608,12 @@
 
                                             <Label Grid.Row="1" Grid.Column="6" Content="Weapon"/>
                                             <StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonPeopleWeaponItemChoice_Click" Width="30"/>
+												<Button Content="..." DataContext="{Binding Weapon}" Click="ButtonItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
                                             <Label Grid.Row="2" Grid.Column="6" Content="Armor"/>
                                             <StackPanel Grid.Row="2" Grid.Column="7" Orientation="Horizontal">
-                                                <Button Content="..." Click="ButtonPeopleArmorItemChoice_Click" Width="30"/>
+												<Button Content="..." DataContext="{Binding Armor}" Click="ButtonItemChoice_Click" Width="30"/>
                                                 <Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
                                             </StackPanel>
                                             <ListBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="8" ItemsSource="{Binding Items}" Height="210">

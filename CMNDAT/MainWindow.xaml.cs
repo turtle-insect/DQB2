@@ -79,18 +79,6 @@ namespace CMNDAT
 			ItemChoice(item);
 		}
 
-		private void ButtonPeopleWeaponItemChoice_Click(object sender, RoutedEventArgs e)
-		{
-			Pelple item = (sender as Button)?.DataContext as Pelple;
-			ItemChoice(item?.Weapon);
-		}
-
-		private void ButtonPeopleArmorItemChoice_Click(object sender, RoutedEventArgs e)
-		{
-			Pelple item = (sender as Button)?.DataContext as Pelple;
-			ItemChoice(item?.Armor);
-		}
-
 		private void ButtonBluePrintExport_Click(object sender, RoutedEventArgs e)
 		{
 			BluePrint item = (sender as Button)?.DataContext as BluePrint;

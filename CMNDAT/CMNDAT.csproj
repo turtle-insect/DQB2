@@ -49,6 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>CMNDAT.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Iconic.Zlib.Netstandard, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Iconic.Zlib.Netstandard.1.0.0\lib\netstandard1.3\Iconic.Zlib.Netstandard.dll</HintPath>
@@ -275,7 +278,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="CMNDAT.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="resource\Open.png" />
     <Resource Include="resource\Save.png" />

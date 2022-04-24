@@ -1,6 +1,6 @@
 ﻿namespace STGDAT
 {
-	class Util
+	internal class Util
 	{
 		public static void WriteNumber(uint address, uint size, uint value, uint min, uint max)
 		{

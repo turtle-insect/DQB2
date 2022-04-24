@@ -1,6 +1,6 @@
 ﻿namespace CMNDAT
 {
-	class Crop
+	internal class Crop
 	{
 		private readonly uint mAddress;
 

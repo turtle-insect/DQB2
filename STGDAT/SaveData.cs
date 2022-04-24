@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace STGDAT
 {
-	class SaveData
+	internal class SaveData
 	{
-		private static SaveData mThis;
+		private static SaveData mThis = new SaveData();
 		private String mFileName = null;
 		private Byte[] mHeader = new Byte[0x110];
 		private Byte[] mBuffer = null;
@@ -17,7 +17,6 @@ namespace STGDAT
 
 		public static SaveData Instance()
 		{
-			if (mThis == null) mThis = new SaveData();
 			return mThis;
 		}
 

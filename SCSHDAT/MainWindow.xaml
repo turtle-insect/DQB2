@@ -8,47 +8,47 @@
         WindowStartupLocation="CenterScreen"
         AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
         Title="DQB2 SCSHDAT Nintendo Switch &amp; Steam" Height="500" Width="800">
-    <Window.DataContext>
-        <local:ViewModel/>
-    </Window.DataContext>
-    <Window.Resources>
-        <ContextMenu x:Key="ListBoxItemMenu">
-            <MenuItem Header="Import" Click="ListBoxItemMenuImport_Click"/>
-            <MenuItem Header="Export" Click="ListBoxItemMenuExport_Click"/>
-        </ContextMenu>
-        <BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
-        <BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
-    </Window.Resources>
-    <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="File">
-                    <MenuItem Header="Open" Click="MenuItemFileOpen_Click"/>
-                    <MenuItem Header="Save" Click="MenuItemFileSave_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
-                    <MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
-                </MenuItem>
-            </Menu>
-            <ToolBar DockPanel.Dock="Top">
-                <Button Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click">
-                    <Image Source="{StaticResource Open}"/>
-                </Button>
-                <Button Height="32" ToolTip="Save" Click="MenuItemFileSave_Click">
-                    <Image Source="{StaticResource Save}"/>
-                </Button>
-            </ToolBar>
-            <ListBox x:Name="ListBoxPhoto" ItemsSource="{Binding Photos}" ContextMenu="{DynamicResource ListBoxItemMenu}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Image Source="{Binding Image}" RenderTransformOrigin="0.5,0.5"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </DockPanel>
-    </Grid>
+	<Window.DataContext>
+		<local:ViewModel/>
+	</Window.DataContext>
+	<Window.Resources>
+		<ContextMenu x:Key="ListBoxItemMenu">
+			<MenuItem Header="Import" Click="ListBoxItemMenuImport_Click"/>
+			<MenuItem Header="Export" Click="ListBoxItemMenuExport_Click"/>
+		</ContextMenu>
+		<BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
+		<BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
+	</Window.Resources>
+	<Grid>
+		<DockPanel>
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="File">
+					<MenuItem Header="Open" Click="MenuItemFileOpen_Click"/>
+					<MenuItem Header="Save" Click="MenuItemFileSave_Click"/>
+					<Separator/>
+					<MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
+					<MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
+					<Separator/>
+					<MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
+				</MenuItem>
+			</Menu>
+			<ToolBar DockPanel.Dock="Top">
+				<Button Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click">
+					<Image Source="{StaticResource Open}"/>
+				</Button>
+				<Button Height="32" ToolTip="Save" Click="MenuItemFileSave_Click">
+					<Image Source="{StaticResource Save}"/>
+				</Button>
+			</ToolBar>
+			<ListBox x:Name="ListBoxPhoto" ItemsSource="{Binding Photos}" ContextMenu="{DynamicResource ListBoxItemMenu}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel>
+							<Image Source="{Binding Image}" RenderTransformOrigin="0.5,0.5"/>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</DockPanel>
+	</Grid>
 </Window>

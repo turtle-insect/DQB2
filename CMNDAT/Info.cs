@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CMNDAT
 {
-	class Info
+	internal class Info
 	{
 		private static Info mThis;
 		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();

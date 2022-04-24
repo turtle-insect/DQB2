@@ -2,15 +2,15 @@
 
 namespace SCSHDAT
 {
-	class ViewModel
+	internal class ViewModel
 	{
 		public ObservableCollection<Photo> Photos { get; set; } = new ObservableCollection<Photo>();
 
 		public ViewModel()
 		{
-			for(uint i = 0; i < 100; i++)
+			for (uint i = 0; i < 100; i++)
 			{
-				Photos.Add(new Photo(Util.PHOTO_ADDRESS + Util.PHOTO_SIZE * i));
+				Photos.Add(new Photo(0x69E90 + 409600 * i, 409600));
 			}
 		}
 	}

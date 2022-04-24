@@ -1,6 +1,12 @@
-﻿namespace CMNDAT
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CMNDAT
 {
-	class Player
+	internal class Player
 	{
 		public uint Lv
 		{

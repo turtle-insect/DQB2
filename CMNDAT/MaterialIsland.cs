@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace CMNDAT
 {
-	class MaterialIsland
+	internal class MaterialIsland
 	{
 		private readonly uint mAddress;
 		public ObservableCollection<BitItem> Info { get; set; } = new ObservableCollection<BitItem>();
@@ -13,7 +13,7 @@ namespace CMNDAT
 			mAddress = address;
 			Name = name;
 
-			for(uint i = 0; i < 48; i++)
+			for (uint i = 0; i < 48; i++)
 			{
 				Info.Add(new BitItem(address + i / 8, i % 8));
 			}

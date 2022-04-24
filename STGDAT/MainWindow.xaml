@@ -8,150 +8,150 @@
         WindowStartupLocation="CenterScreen"
         AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
         Title="DQB2 STGDAT Nintendo Switch &amp; Steam" Height="500" Width="800">
-    <Window.DataContext>
-        <local:ViewModel/>
-    </Window.DataContext>
-    <Window.Resources>
-        <BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
-        <BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
-        <local:ItemIDConverter x:Key="ItemIDConverter"/>
-    </Window.Resources>
-    <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="File">
-                    <MenuItem Header="Open" Click="MenuItemFileOpen_Click"/>
-                    <MenuItem Header="Save" Click="MenuItemFileSave_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
-                    <MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
+	<Window.DataContext>
+		<local:ViewModel/>
+	</Window.DataContext>
+	<Window.Resources>
+		<BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
+		<BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
+		<local:ItemIDConverter x:Key="ItemIDConverter"/>
+	</Window.Resources>
+	<Grid>
+		<DockPanel>
+			<Menu DockPanel.Dock="Top">
+				<MenuItem Header="File">
+					<MenuItem Header="Open" Click="MenuItemFileOpen_Click"/>
+					<MenuItem Header="Save" Click="MenuItemFileSave_Click"/>
+					<Separator/>
+					<MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
+					<MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
 
-                    <!--
+					<!--
                     <MenuItem Header="Other's Map" Click="MenuItemFileOtherMap_Click"/>
                     <MenuItem Header="DL Map" Click="MenuItemFileDLMap_Click"/>
                     -->
 
-                    <Separator/>
-                    <MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
-                </MenuItem>
-            </Menu>
-            <ToolBar DockPanel.Dock="Top">
-                <Button Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click">
-                    <Image Source="{StaticResource Open}"/>
-                </Button>
-                <Button Height="32" ToolTip="Save" Click="MenuItemFileSave_Click">
-                    <Image Source="{StaticResource Save}"/>
-                </Button>
-            </ToolBar>
-            <TabControl>
-                <TabItem Header="Basic">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="5"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition Height="13*"/>
-                        </Grid.RowDefinitions>
-                        <Label Content="Heart"/>
-                        <TextBox Grid.Column="1" Text="{Binding Heart, UpdateSourceTrigger=PropertyChanged}"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Storage">
-                    <DockPanel>
-                        <DockPanel DockPanel.Dock="Top">
-                            <Button Content="UnActive All Strage" Click="ButtonAllStrageUnActive_Click"/>
-                        </DockPanel>
-                        <TabControl>
-                            <TabItem Header="Boxes">
-                                <DockPanel>
-                                    <DockPanel DockPanel.Dock="Top">
-                                        <Label Content="Select Storage"/>
-                                        <Button DockPanel.Dock="Right" Content="UnActive Storage"
+					<Separator/>
+					<MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
+				</MenuItem>
+			</Menu>
+			<ToolBar DockPanel.Dock="Top">
+				<Button Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click">
+					<Image Source="{StaticResource Open}"/>
+				</Button>
+				<Button Height="32" ToolTip="Save" Click="MenuItemFileSave_Click">
+					<Image Source="{StaticResource Save}"/>
+				</Button>
+			</ToolBar>
+			<TabControl>
+				<TabItem Header="Basic">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+							<ColumnDefinition Width="5"/>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition Height="13*"/>
+						</Grid.RowDefinitions>
+						<Label Content="Heart"/>
+						<TextBox Grid.Column="1" Text="{Binding Heart, UpdateSourceTrigger=PropertyChanged}"/>
+					</Grid>
+				</TabItem>
+				<TabItem Header="Storage">
+					<DockPanel>
+						<DockPanel DockPanel.Dock="Top">
+							<Button Content="UnActive All Strage" Click="ButtonAllStrageUnActive_Click"/>
+						</DockPanel>
+						<TabControl>
+							<TabItem Header="Boxes">
+								<DockPanel>
+									<DockPanel DockPanel.Dock="Top">
+										<Label Content="Select Storage"/>
+										<Button DockPanel.Dock="Right" Content="UnActive Storage"
                                             DataContext="{Binding ElementName=ComboBoxStorageBoxes, Path=SelectedItem}"
                                             Click="ButtonStorageUnActive_Click"/>
-                                        <ComboBox Name="ComboBoxStorageBoxes" ItemsSource="{Binding Boxes}"/>
-                                    </DockPanel>
-                                    <ListBox ItemsSource="{Binding ElementName=ComboBoxStorageBoxes, Path=SelectedItem.Items}">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Label Content="  Count: "/>
-                                                    <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-                                                    <Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
-                                                    <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </DockPanel>
-                            </TabItem>
-                        </TabControl>
-                    </DockPanel>
-                </TabItem>
-                <TabItem Header="Crockery">
-                    <DockPanel>
-                        <Button DockPanel.Dock="Top" Content="UnActive All Crockery" Click="ButtonAllCrockeryUnActive_Click"/>
-                        <ListBox ItemsSource="{Binding Tablewares}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="  Count: "/>
-                                        <TextBox Text="{Binding Item.Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-                                        <Button DataContext="{Binding Item}" Content="..." Click="ButtonItemChoice_Click" Width="30"/>
-                                        <Label Content="{Binding Item.ID, Converter={StaticResource ItemIDConverter}}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </DockPanel>
-                </TabItem>
-                <TabItem Header="Map">
-                    <DockPanel>
-                        <StackPanel DockPanel.Dock="Top">
-                            <TextBox FontSize="16" FontWeight="Bold" Text="This Config is Super Flat Setting"/>
-                            <TextBox FontSize="16" FontWeight="Bold" Text="Max Height = 96 (if 96 or more, ignore.)"/>
-                            <CheckBox IsChecked="{Binding Map.AllObjectClear}" Content="all object clear"/>
-                        </StackPanel>
-                        <Grid DockPanel.Dock="Bottom">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Content="↑" Click="ButtonMapGeneratorUp_Click"/>
-                            <Button Grid.Column="1" Content="↓" Click="ButtonMapGeneratorDown_Click"/>
-                            <Button Grid.Column="2" Content="Append" Click="ButtonMapGeneratorAppend_Click"/>
-                            <Button Grid.Column="3" Content="Remove" Click="ButtonMapGeneratorRemove_Click"/>
-                            <Button Grid.Column="4" Content="Clear" Click="ButtonMapGeneratorClear_Click"/>
-                            <Button Grid.Column="5" Content="Execution" Click="ButtonMapGeneratorExecution_Click"/>
-                        </Grid>
-                        <ListBox x:Name="ListBoxMap" ItemsSource="{Binding Map.Layers}">
-                            <ListBox.Resources>
-                                <local:BlockIDConverter x:Key="BlockIDConverter"/>
-                            </ListBox.Resources>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="Block"/>
-                                        <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, 
+										<ComboBox Name="ComboBoxStorageBoxes" ItemsSource="{Binding Boxes}"/>
+									</DockPanel>
+									<ListBox ItemsSource="{Binding ElementName=ComboBoxStorageBoxes, Path=SelectedItem.Items}">
+										<ListBox.ItemTemplate>
+											<DataTemplate>
+												<StackPanel Orientation="Horizontal">
+													<Label Content="  Count: "/>
+													<TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+													<Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+													<Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+												</StackPanel>
+											</DataTemplate>
+										</ListBox.ItemTemplate>
+									</ListBox>
+								</DockPanel>
+							</TabItem>
+						</TabControl>
+					</DockPanel>
+				</TabItem>
+				<TabItem Header="Crockery">
+					<DockPanel>
+						<Button DockPanel.Dock="Top" Content="UnActive All Crockery" Click="ButtonAllCrockeryUnActive_Click"/>
+						<ListBox ItemsSource="{Binding Tablewares}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal">
+										<Label Content="  Count: "/>
+										<TextBox Text="{Binding Item.Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+										<Button DataContext="{Binding Item}" Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+										<Label Content="{Binding Item.ID, Converter={StaticResource ItemIDConverter}}"/>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</DockPanel>
+				</TabItem>
+				<TabItem Header="Map">
+					<DockPanel>
+						<StackPanel DockPanel.Dock="Top">
+							<TextBox FontSize="16" FontWeight="Bold" Text="This Config is Super Flat Setting"/>
+							<TextBox FontSize="16" FontWeight="Bold" Text="Max Height = 96 (if 96 or more, ignore.)"/>
+							<CheckBox IsChecked="{Binding Map.AllObjectClear}" Content="all object clear"/>
+						</StackPanel>
+						<Grid DockPanel.Dock="Bottom">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<Button Content="↑" Click="ButtonMapGeneratorUp_Click"/>
+							<Button Grid.Column="1" Content="↓" Click="ButtonMapGeneratorDown_Click"/>
+							<Button Grid.Column="2" Content="Append" Click="ButtonMapGeneratorAppend_Click"/>
+							<Button Grid.Column="3" Content="Remove" Click="ButtonMapGeneratorRemove_Click"/>
+							<Button Grid.Column="4" Content="Clear" Click="ButtonMapGeneratorClear_Click"/>
+							<Button Grid.Column="5" Content="Execution" Click="ButtonMapGeneratorExecution_Click"/>
+						</Grid>
+						<ListBox x:Name="ListBoxMap" ItemsSource="{Binding Map.Layers}">
+							<ListBox.Resources>
+								<local:BlockIDConverter x:Key="BlockIDConverter"/>
+							</ListBox.Resources>
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal">
+										<Label Content="Block"/>
+										<ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, 
                                         Path=DataContext.Info.Block}" DisplayMemberPath="Name" Width="200" SelectedIndex="{Binding Block, Converter={StaticResource BlockIDConverter}}"/>
-                                        <Label Content="Height"/>
-                                        <TextBox Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </DockPanel>
-                </TabItem>
-            </TabControl>
-        </DockPanel>
-    </Grid>
+										<Label Content="Height"/>
+										<TextBox Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</DockPanel>
+				</TabItem>
+			</TabControl>
+		</DockPanel>
+	</Grid>
 </Window>

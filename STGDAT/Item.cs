@@ -2,7 +2,7 @@
 
 namespace STGDAT
 {
-	class Item : INotifyPropertyChanged
+	internal class Item : INotifyPropertyChanged
 	{
 		readonly uint mAddress;
 

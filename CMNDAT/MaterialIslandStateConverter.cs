@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace CMNDAT
 {
-	class MaterialIslandStateConverter : IValueConverter
+	internal class MaterialIslandStateConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{

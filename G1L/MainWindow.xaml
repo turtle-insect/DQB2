@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:G1L"
         mc:Ignorable="d"
-		WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"
         Title="DQB2 G1L 2 OGG" Height="300" Width="800">
 	<Window.DataContext>
 		<local:ViewModel/>

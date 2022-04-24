@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace CMNDAT
 {
-	class CropIDConverter : IValueConverter
+	internal class CropIDConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{

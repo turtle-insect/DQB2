@@ -1,6 +1,6 @@
 ﻿namespace CMNDAT
 {
-	class BitItem
+	internal class BitItem
 	{
 		private readonly uint mAddress;
 		private readonly uint mBit;

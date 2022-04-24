@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LINKDATA
 {
@@ -20,7 +17,7 @@ namespace LINKDATA
 			}
 		}
 
-		private String mOutputPath = @"E:\DQB2\output";
+		private String mOutputPath = "";
 		public String OutputPath
 		{
 			get { return mOutputPath; }
@@ -98,9 +95,10 @@ namespace LINKDATA
 						Array.Copy(buffer, offset + 4, tmp, 0, blockSize);
 						try
 						{
-							System.IO.File.WriteAllBytes(System.IO.Path.Combine(OutputPath, $"{idxIndex:0000} {blockIndex:0000}"), Ionic.Zlib.ZlibStream.UncompressBuffer(tmp));
+							System.IO.File.WriteAllBytes(System.IO.Path.Combine(OutputPath, $"{idxIndex:0000} {blockIndex:0000}"), tmp);
+							//System.IO.File.WriteAllBytes(System.IO.Path.Combine(OutputPath, $"{idxIndex:0000} {blockIndex:0000}"), Ionic.Zlib.ZlibStream.UncompressBuffer(tmp));
 						}
-						catch(Exception)
+						catch (Exception)
 						{
 							System.Console.WriteLine($"{idx.Offset} {idx.CompressedSize} {idx.UncompressedSize} {idx.IsCompressed}");
 						}

@@ -2,7 +2,7 @@
 
 namespace CMNDAT
 {
-	interface ILineAnalysis
+	internal interface ILineAnalysis
 	{
 		bool Line(String[] oneLine);
 	}

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace STGDAT
 {
-	class BlockInfo : ILineAnalysis, IComparable
+	internal class BlockInfo : ILineAnalysis, IComparable
 	{
 		public uint Value { get; private set; }
 		public String Name { get; private set; }

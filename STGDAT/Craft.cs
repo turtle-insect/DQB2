@@ -1,6 +1,12 @@
-﻿namespace STGDAT
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace STGDAT
 {
-	class Craft
+	internal class Craft
 	{
 		private readonly uint mAddress;
 

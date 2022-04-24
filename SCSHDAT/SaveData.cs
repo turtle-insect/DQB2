@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SCSHDAT
 {
-	class SaveData
+	internal class SaveData
 	{
 		private static SaveData mThis;
 		private String mFileName = null;

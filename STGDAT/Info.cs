@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace STGDAT
 {
-	class Info
+	internal class Info
 	{
 		private static Info mThis;
 		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();

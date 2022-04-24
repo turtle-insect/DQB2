@@ -4,12 +4,12 @@ using System.Windows.Data;
 
 namespace CMNDAT
 {
-	class IslandIDConverter : IValueConverter
+	internal class IslandIDConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			uint id = (uint)value;
-			for(int i = 0; i < Info.Instance().StoryIsland.Count; i++)
+			for (int i = 0; i < Info.Instance().StoryIsland.Count; i++)
 			{
 				if (id == Info.Instance().StoryIsland[i].Value) return i;
 			}

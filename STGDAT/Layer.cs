@@ -1,6 +1,6 @@
 ﻿namespace STGDAT
 {
-	class Layer
+	internal class Layer
 	{
 		public uint Height { get; set; }
 		public uint Block { get; set; }

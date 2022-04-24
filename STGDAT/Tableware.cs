@@ -1,6 +1,6 @@
 ﻿namespace STGDAT
 {
-	class Tableware
+	internal class Tableware
 	{
 		private readonly uint mAddress;
 		public Item Item { get; set; }

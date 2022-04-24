@@ -4,18 +4,20 @@ using System.Windows.Media.Imaging;
 
 namespace SCSHDAT
 {
-	class Photo : INotifyPropertyChanged
+	internal class Photo : INotifyPropertyChanged
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		private readonly uint mAddress;
+		private readonly uint mSize;
 		private Byte[] mJpeg;
 		private JpegBitmapDecoder mDecoder;
 
-		public Photo(uint address)
+		public Photo(uint address, uint size)
 		{
 			mAddress = address;
-			mJpeg = SaveData.Instance().ReadValue(mAddress, Util.PHOTO_SIZE);
+			mSize = size;
+			mJpeg = SaveData.Instance().ReadValue(mAddress, mSize);
 			if (!(mJpeg[0] == 0xFF && mJpeg[1] == 0xD8)) return;
 
 			int length = mJpeg.Length - 1;
@@ -33,11 +35,11 @@ namespace SCSHDAT
 
 			Byte[] tmp = System.IO.File.ReadAllBytes(filename);
 			if (!(tmp[0] == 0xFF && tmp[1] == 0xD8)) return;
-			if (tmp.Length > Util.PHOTO_SIZE) return;
+			if (tmp.Length > mSize) return;
 
 			mJpeg = tmp;
 			CreateDecoder(mJpeg);
-			SaveData.Instance().Fill(mAddress, Util.PHOTO_SIZE, 0);
+			SaveData.Instance().Fill(mAddress, mSize, 0);
 			SaveData.Instance().WriteValue(mAddress, mJpeg);
 
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Image)));
@@ -62,6 +64,5 @@ namespace SCSHDAT
 		{
 			mDecoder = new JpegBitmapDecoder(new System.IO.MemoryStream(jpeg), BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
 		}
-
 	}
 }

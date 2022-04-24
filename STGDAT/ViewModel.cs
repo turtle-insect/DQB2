@@ -2,16 +2,16 @@
 
 namespace STGDAT
 {
-	class ViewModel
+	internal class ViewModel
 	{
 		public Info Info { get; private set; } = Info.Instance();
-		public MapGenerator Map { get; set; } = new MapGenerator();
-		public ObservableCollection<Strage> Boxes { get; set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Strage> Cabinets { get; set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Strage> ShelfChests { get; set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Strage> ShelfDrawers{ get; set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Tableware> Tablewares { get; set; } = new ObservableCollection<Tableware>();
-		public ObservableCollection<Craft> Crafts { get; set; } = new ObservableCollection<Craft>();
+		public MapGenerator Map { get; private set; } = new MapGenerator();
+		public ObservableCollection<Strage> Boxes { get; private set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Strage> Cabinets { get; private set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Strage> ShelfChests { get; private set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Strage> ShelfDrawers { get; private set; } = new ObservableCollection<Strage>();
+		public ObservableCollection<Tableware> Tablewares { get; private set; } = new ObservableCollection<Tableware>();
+		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
 
 		public uint Heart
 		{

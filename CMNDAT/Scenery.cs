@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace CMNDAT
 {
-	class Scenery : INotifyPropertyChanged
+	internal class Scenery : INotifyPropertyChanged
 	{
 		private readonly uint mAddress;
 

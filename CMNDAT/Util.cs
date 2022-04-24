@@ -1,6 +1,12 @@
-﻿namespace CMNDAT
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CMNDAT
 {
-	class Util
+	internal class Util
 	{
 		public const uint CraftAddress = 0x22C5C0;
 

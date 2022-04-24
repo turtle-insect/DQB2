@@ -2,7 +2,7 @@
 
 namespace CMNDAT
 {
-	class NameValueInfo : ILineAnalysis, IComparable
+	internal class NameValueInfo : ILineAnalysis, IComparable
 	{
 		public uint Value { get; private set; }
 		public String Name { get; private set; }

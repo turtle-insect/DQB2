@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace CMNDAT
 {
-	class ViewModel
+	internal class ViewModel
 	{
 		public Info Info { get; private set; } = Info.Instance();
 		public Player Player { get; private set; } = new Player();
@@ -70,12 +73,12 @@ namespace CMNDAT
 				Bag.Add(new Item(0x55B2C9 + i * 4));
 			}
 
-			for(uint i = 0; i < Info.MaterialIsland.Count; i++)
+			for (uint i = 0; i < Info.MaterialIsland.Count; i++)
 			{
 				Island.Add(new MaterialIsland(0x69F8D + i * 7, Info.MaterialIsland[(int)i].Name));
 			}
 
-			for(uint i = 0; i < 3; i++)
+			for (uint i = 0; i < 3; i++)
 			{
 				Party.Add(new Party(0x6A9DC + i * 4));
 			}
@@ -169,8 +172,8 @@ namespace CMNDAT
 			{
 				int size = 320 * 180 * 3;
 				Byte[] pixel = new Byte[size];
-				
-				for(int i = 0; i < size; i++)
+
+				for (int i = 0; i < size; i++)
 				{
 					pixel[i] = (Byte)SaveData.Instance().ReadNumber_Header(0x10D + (uint)i, 1);
 				}
@@ -203,7 +206,7 @@ namespace CMNDAT
 			set { SaveData.Instance().WriteBit(0x22CD3E, 4, value); }
 		}
 
-		 // かいたく島の地図表示
+		// かいたく島の地図表示
 		public bool PioneerLand
 		{
 			get { return SaveData.Instance().ReadBit(0x22E785, 3); }
@@ -262,11 +265,11 @@ namespace CMNDAT
 				var item = new Pelple(Util.ResidentAddress + i * Util.PeopleSize, i + 1024);
 				if (ResidentFilter == 0 || item.Island == filter)
 				{
-					if(ResidentExist == 0 ||
+					if (ResidentExist == 0 ||
 						(ResidentExist == 1 && item.Exist() == true) ||
 						(ResidentExist == 2 && item.Exist() == false)
 						)
-					Residents.Add(item);
+						Residents.Add(item);
 				}
 			}
 		}

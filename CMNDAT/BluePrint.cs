@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace CMNDAT
 {
-	class BluePrint : INotifyPropertyChanged
+	internal class BluePrint : INotifyPropertyChanged
 	{
 		public uint Address { get; private set; }
 		public Brush Brush { get; private set; }
@@ -51,6 +51,6 @@ namespace CMNDAT
 			Z = Z;
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 	}
 }

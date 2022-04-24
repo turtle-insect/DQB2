@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace CMNDAT
 {
-	class Pelple : INotifyPropertyChanged
+	internal class Pelple : INotifyPropertyChanged
 	{
 		public uint Address { get; private set; }
 		public Item Weapon { get; set; }
@@ -40,7 +40,7 @@ namespace CMNDAT
 			ID = id;
 			Weapon = new Item(address + 199);
 			Armor = new Item(address + 207);
-			for(uint i = 0; i < 15; i++)
+			for (uint i = 0; i < 15; i++)
 			{
 				Items.Add(new Item(address + 32 + i * 4));
 			}
@@ -239,7 +239,7 @@ namespace CMNDAT
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public void Reload()
 		{

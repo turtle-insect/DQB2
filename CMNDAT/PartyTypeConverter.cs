@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace CMNDAT
 {
-	class PartyTypeConverter : IValueConverter
+	internal class PartyTypeConverter : IValueConverter
 	{
 		// Type
 		// Human = 1
@@ -14,7 +14,7 @@ namespace CMNDAT
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			
+
 			uint type = (uint)value;
 			for (int i = 0; i < mTypes.Length; i++)
 			{

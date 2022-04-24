@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace STGDAT
 {
-	class MapGenerator
+	internal class MapGenerator
 	{
 		public bool AllObjectClear { get; set; } = false;
 		public ObservableCollection<Layer> Layers { get; set; } = new ObservableCollection<Layer>();
@@ -69,7 +69,7 @@ namespace STGDAT
 				}
 			}
 
-			for (uint ch = 0;; ch++)
+			for (uint ch = 0; ; ch++)
 			{
 				uint address = 0x183FEF0 + ch * 0x30000;
 				if (SaveData.Instance().Length() < address + 0x30000) break;

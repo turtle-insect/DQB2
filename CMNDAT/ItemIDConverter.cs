@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace CMNDAT
 {
-	class ItemIDConverter : IValueConverter
+	internal class ItemIDConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{

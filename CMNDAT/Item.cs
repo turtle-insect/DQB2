@@ -2,7 +2,7 @@
 
 namespace CMNDAT
 {
-	class Item : INotifyPropertyChanged
+	internal class Item : INotifyPropertyChanged
 	{
 		readonly uint mAddress;
 
@@ -33,6 +33,6 @@ namespace CMNDAT
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 	}
 }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Windows;
-using Microsoft.Win32;
 
 namespace SCSHDAT
 {
 	/// <summary>
-	/// MainWindow.xaml の相互作用ロジック
+	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window
 	{

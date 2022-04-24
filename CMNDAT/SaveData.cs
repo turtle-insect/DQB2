@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CMNDAT
 {
-	class SaveData
+	internal class SaveData
 	{
-		private static SaveData mThis;
+		private static SaveData mThis = new SaveData();
 		private String mFileName = null;
 		private Byte[] mHeader = new Byte[0x2A444];
 		private Byte[] mBuffer = null;
@@ -17,7 +20,6 @@ namespace CMNDAT
 
 		public static SaveData Instance()
 		{
-			if (mThis == null) mThis = new SaveData();
 			return mThis;
 		}
 

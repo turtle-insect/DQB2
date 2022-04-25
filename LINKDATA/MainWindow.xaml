@@ -10,23 +10,80 @@
 	<Window.DataContext>
 		<local:ViewModel/>
 	</Window.DataContext>
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-			<ColumnDefinition Width="10*"/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition/>
-			<RowDefinition/>
-			<RowDefinition Height="10*"/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		<Label Content="Original"/>
-		<TextBox Grid.Column="1" Text="{Binding OriginalFile, UpdateSourceTrigger=PropertyChanged}"/>
-		<Button Grid.Column="2" Content="..." Click="ButtonSelectOriginalFile_Click"/>
-		<Label Grid.Row="1" Content="Output"/>
-		<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OutputPath, UpdateSourceTrigger=PropertyChanged}"/>
-		<Button Grid.Row="3" Grid.ColumnSpan="3" Content="Decryption" Click="ButtonDecryption_Click"/>
-	</Grid>
+	<DockPanel>
+		<Grid DockPanel.Dock="Top">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100"/>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="50"/>
+			</Grid.ColumnDefinitions>
+			<Label Content="LINKDATA Path"/>
+			<TextBox Grid.Column="1" Text="{Binding LinkDataPath, UpdateSourceTrigger=PropertyChanged}"/>
+			<Button Grid.Column="2" Content="..." Command="{Binding CommandOpenIDXFile}"/>
+		</Grid>
+		<TabControl>
+			<TabItem Header="IDX">
+				<DockPanel>
+					<Grid DockPanel.Dock="Top">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="80"/>
+							<ColumnDefinition/>
+							<ColumnDefinition Width="50"/>
+						</Grid.ColumnDefinitions>
+						<Label Content="IDX index"/>
+						<TextBox Grid.Column="1"/>
+						<Button Grid.Column="2" Content="..." Command="{Binding CommandIdx}"/>
+					</Grid>
+					<ListBox ItemsSource="{Binding IDXs}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<Label Content="IsCompressed"/>
+									<Button Content="Export"/>
+									<Button Content="Import"/>
+									<CheckBox IsChecked="{Binding IsCompressed}" IsEnabled="False" VerticalContentAlignment="Center"/>
+									<Label Margin="5,0,0,0" Content="index"/>
+									<Label Content="{Binding Index}"/>
+									<Label Content="Offset"/>
+									<Label Content="{Binding Offset}"/>
+									<Label Content="UncompressedSize"/>
+									<Label Content="{Binding UncompressedSize}"/>
+									<Label Content="CompressedSize"/>
+									<Label Content="{Binding CompressedSize}"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</DockPanel>
+			</TabItem>
+			<TabItem Header="idxzrc">
+				<DockPanel>
+					<Grid DockPanel.Dock="Top">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="80"/>
+							<ColumnDefinition/>
+							<ColumnDefinition Width="50"/>
+						</Grid.ColumnDefinitions>
+						<Label Content="idxzrc Path"/>
+						<TextBox Grid.Column="1" Text="{Binding IDXzrcPath}"/>
+						<Button Grid.Column="2" Content="..." Command="{Binding CommandOpenIDXzrcFile}"/>
+					</Grid>
+					<ListBox ItemsSource="{Binding IDXzrc.Chunks}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<Button Content="Export"/>
+									<Button Content="Import"/>
+									<Label Content="Offset"/>
+									<Label Content="{Binding Offset}"/>
+									<Label Content="Size"/>
+									<Label Content="{Binding Size}"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</DockPanel>
+			</TabItem>
+		</TabControl>
+	</DockPanel>
 </Window>

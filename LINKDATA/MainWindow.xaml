@@ -39,7 +39,9 @@
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
 									<Label Content="IsCompressed"/>
-									<Button Content="Export"/>
+									<Button Content="Export"
+											CommandParameter="{Binding}"
+											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:MainWindow}, Path=DataContext.CommandExportIDX}"/>
 									<Button Content="Import"/>
 									<CheckBox IsChecked="{Binding IsCompressed}" IsEnabled="False" VerticalContentAlignment="Center"/>
 									<Label Margin="5,0,0,0" Content="index"/>
@@ -68,12 +70,12 @@
 						<TextBox Grid.Column="1" Text="{Binding IDXzrcPath}"/>
 						<Button Grid.Column="2" Content="..." Command="{Binding CommandOpenIDXzrcFile}"/>
 					</Grid>
+					<Button DockPanel.Dock="Bottom" CommandParameter="{Binding IDXzrc}"
+							Content="unpack" Command="{Binding CommandExportIDXzrc}"/>
 					<ListBox ItemsSource="{Binding IDXzrc.Chunks}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal">
-									<Button Content="Export"/>
-									<Button Content="Import"/>
 									<Label Content="Offset"/>
 									<Label Content="{Binding Offset}"/>
 									<Label Content="Size"/>

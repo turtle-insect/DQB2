@@ -13,6 +13,8 @@ namespace LINKDATA
 		public CommandAction CommandOpenIDXFile { get; private set; }
 		public CommandAction CommandOpenIDXzrcFile { get; private set; }
 		public CommandAction CommandIdx { get; private set; }
+		public CommandActionParam CommandExportIDX { get; private set; }
+		public CommandActionParam CommandUnPackIDXzrc { get; private set; }
 		private String mLinkDataPath = "";
 		private String mIDXzrcPath = "";
 		public String LinkDataPath
@@ -39,6 +41,8 @@ namespace LINKDATA
 			CommandOpenIDXFile = new CommandAction(OpenIDXFile);
 			CommandOpenIDXzrcFile = new CommandAction(OpenIDXzrcFile);
 			CommandIdx = new CommandAction(CreateIdxList);
+			CommandExportIDX = new CommandActionParam(ExportIDX);
+			CommandUnPackIDXzrc = new CommandActionParam(UnPackIDXzrc);
 		}
 
 		private void OpenIDXFile()
@@ -76,7 +80,63 @@ namespace LINKDATA
 			if (dlg.ShowDialog() == false) return;
 
 			IDXzrcPath = dlg.FileName;
-			IDXzrc.Create(dlg.FileName);
+			IDXzrc.Read(dlg.FileName);
+		}
+
+		private void ExportIDX(object? param)
+		{
+			String path = mLinkDataPath;
+			if (!System.IO.File.Exists(path)) return;
+			path = path.Substring(0, path.Length - 3) + "BIN";
+			if (!System.IO.File.Exists(path)) return;
+
+			IDX? idx = param as IDX;
+			if (idx == null) return;
+
+			var dlg = new Microsoft.Win32.SaveFileDialog();
+			int size = (int)idx.UncompressedSize;
+			if (idx.IsCompressed == 0)
+			{
+				dlg.Filter = "idxout|*.idxout";
+			}
+			else
+			{
+				dlg.Filter = "idxzrc|*.idxzrc";
+				size = (int)idx.CompressedSize;
+			}
+			
+			if (dlg.ShowDialog() == false) return;
+
+			Byte[] bin = System.IO.File.ReadAllBytes(path);
+			Byte[] buffer = new Byte[size];
+			Array.Copy(bin, (int)idx.Offset, buffer, 0, buffer.Length);
+			System.IO.File.WriteAllBytes(dlg.FileName, buffer);
+		}
+
+		private void UnPackIDXzrc(object? param)
+		{
+			IDXzrc? idxzrd = param as IDXzrc;
+			if (idxzrd == null) return;
+			if(idxzrd.UncompressedSize == 0) return;
+
+			var dlg = new Microsoft.Win32.SaveFileDialog();
+			dlg.Filter = "unpack|*.unpack";
+
+			if (dlg.ShowDialog() == false) return;
+
+			Byte[] bin = System.IO.File.ReadAllBytes(mIDXzrcPath);
+			Byte[] buffer = new Byte[idxzrd.UncompressedSize];
+			int index = 0;
+			foreach (var chunk in idxzrd.Chunks)
+			{
+				int size = BitConverter.ToInt32(bin, (int)chunk.Offset);
+				Byte[] tmp = new Byte[size];
+				Array.Copy(bin, chunk.Offset + 4, tmp, 0, tmp.Length);
+				tmp = Ionic.Zlib.ZlibStream.UncompressBuffer(tmp);
+				Array.Copy(tmp, 0, buffer, index, tmp.Length);
+				index += tmp.Length;
+			}
+			System.IO.File.WriteAllBytes(dlg.FileName, buffer);
 		}
 	}
 }

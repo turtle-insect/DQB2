@@ -12,11 +12,14 @@ namespace LINKDATA
 		public IDXzrc IDXzrc { get; private set; } = new IDXzrc();
 		public CommandAction CommandOpenIDXFile { get; private set; }
 		public CommandAction CommandOpenIDXzrcFile { get; private set; }
+		public CommandAction CommandOpenUnPackIDXzrcFile { get; private set; }
 		public CommandAction CommandIdx { get; private set; }
 		public CommandActionParam CommandExportIDX { get; private set; }
 		public CommandActionParam CommandUnPackIDXzrc { get; private set; }
+		public CommandAction CommandPackIDXzrc { get; private set; }
 		private String mLinkDataPath = "";
 		private String mIDXzrcPath = "";
+		private String mUnPackIDXzrcPath = "";
 		public String LinkDataPath
 		{
 			get => mLinkDataPath;
@@ -36,13 +39,25 @@ namespace LINKDATA
 			}
 		}
 
+		public String UnPackIDXzrcPath
+		{
+			get => mUnPackIDXzrcPath;
+			set
+			{
+				mUnPackIDXzrcPath = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UnPackIDXzrcPath)));
+			}
+		}
+
 		public ViewModel()
 		{
 			CommandOpenIDXFile = new CommandAction(OpenIDXFile);
 			CommandOpenIDXzrcFile = new CommandAction(OpenIDXzrcFile);
+			CommandOpenUnPackIDXzrcFile = new CommandAction(OpenUnPackIDXzrcFile);
 			CommandIdx = new CommandAction(CreateIdxList);
 			CommandExportIDX = new CommandActionParam(ExportIDX);
 			CommandUnPackIDXzrc = new CommandActionParam(UnPackIDXzrc);
+			CommandPackIDXzrc = new CommandAction(PackIDXzrc);
 		}
 
 		private void OpenIDXFile()
@@ -137,6 +152,87 @@ namespace LINKDATA
 				index += tmp.Length;
 			}
 			System.IO.File.WriteAllBytes(dlg.FileName, buffer);
+		}
+
+		private void OpenUnPackIDXzrcFile()
+		{
+			var dlg = new Microsoft.Win32.OpenFileDialog();
+			dlg.Filter = "unpack|*.unpack";
+			if (dlg.ShowDialog() == false) return;
+
+			UnPackIDXzrcPath = dlg.FileName;
+		}
+
+		private void PackIDXzrc()
+		{
+			String path = mUnPackIDXzrcPath;
+			if (!System.IO.File.Exists(path)) return;
+
+			Byte[] Buffer = System.IO.File.ReadAllBytes(path);
+			Int32 packCount = (Buffer.Length + 0xFFFF) / 0x10000;
+
+			List<Byte> Packed = new List<Byte>();
+			// split size.
+			foreach (Byte b in BitConverter.GetBytes(0x10000))
+			{
+				Packed.Add(b);
+			}
+			// split count.
+			foreach (Byte b in BitConverter.GetBytes(packCount))
+			{
+				Packed.Add(b);
+			}
+			// unpack file size.
+			foreach (Byte b in BitConverter.GetBytes(Buffer.Length))
+			{
+				Packed.Add(b);
+			}
+
+			// padding.
+			int count = 0x80 - (Packed.Count % 0x80);
+			if(count == 0x80)count = 0;
+			for (int index = 0; index < count; index++)
+			{
+				Packed.Add(0);
+			}
+
+			// data
+			for (int pack = 0; pack < packCount; pack++)
+			{
+				int length = 0x10000;
+				if (pack + 1 == packCount) length = Buffer.Length % 0x10000;
+				Byte[] tmp = new Byte[length];
+				Array.Copy(Buffer, 0x10000 * pack, tmp, 0, tmp.Length);
+
+				tmp = Ionic.Zlib.ZlibStream.CompressBuffer(tmp);
+				int index = 0;
+				foreach (Byte b in BitConverter.GetBytes(tmp.Length + 4))
+				{
+					Packed[0x0C + pack * 4 + index] = b;
+					index++;
+				}
+				foreach (Byte b in BitConverter.GetBytes(tmp.Length))
+				{
+					Packed.Add(b);
+				}
+				foreach (Byte b in tmp)
+				{
+					Packed.Add(b);
+				}
+
+				// padding.
+				count = 0x80 - (Packed.Count % 0x80);
+				if (count == 0x80) count = 0;
+				for (index = 0; index < count; index++)
+				{
+					Packed.Add(0);
+				}
+			}
+
+			var dlg = new Microsoft.Win32.SaveFileDialog();
+			dlg.Filter = "idxzrc|*.idxzrc";
+			if (dlg.ShowDialog() == false) return;
+			System.IO.File.WriteAllBytes(dlg.FileName, Packed.ToArray());
 		}
 	}
 }

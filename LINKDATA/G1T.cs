@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using SFGraphics.GLObjects.Textures;
-using SFGraphics.GLObjects.Textures.TextureFormats;
-using OpenTK.Graphics.OpenGL;
-using System.Windows.Media.Imaging;
 using System.IO;
 
 namespace LINKDATA

@@ -28,11 +28,9 @@
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="80"/>
 							<ColumnDefinition/>
-							<ColumnDefinition Width="50"/>
 						</Grid.ColumnDefinitions>
 						<Label Content="IDX index"/>
 						<TextBox Grid.Column="1"/>
-						<Button Grid.Column="2" Content="..." Command="{Binding CommandIdx}"/>
 					</Grid>
 					<ListBox ItemsSource="{Binding IDXs}">
 						<ListBox.ItemTemplate>
@@ -42,7 +40,9 @@
 									<Button Content="Export"
 											CommandParameter="{Binding}"
 											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:MainWindow}, Path=DataContext.CommandExportIDX}"/>
-									<Button Content="Import"/>
+									<Button Content="Import"
+											CommandParameter="{Binding}"
+											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:MainWindow}, Path=DataContext.CommandImportIDX}"/>
 									<CheckBox IsChecked="{Binding IsCompressed}" IsEnabled="False" VerticalContentAlignment="Center"/>
 									<Label Margin="5,0,0,0" Content="index"/>
 									<Label Content="{Binding Index}"/>

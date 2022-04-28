@@ -13,8 +13,8 @@ namespace LINKDATA
 		public CommandAction CommandOpenIDXFile { get; private set; }
 		public CommandAction CommandOpenIDXzrcFile { get; private set; }
 		public CommandAction CommandOpenUnPackIDXzrcFile { get; private set; }
-		public CommandAction CommandIdx { get; private set; }
 		public CommandActionParam CommandExportIDX { get; private set; }
+		public CommandActionParam CommandImportIDX { get; private set; }
 		public CommandActionParam CommandUnPackIDXzrc { get; private set; }
 		public CommandAction CommandPackIDXzrc { get; private set; }
 		private String mLinkDataPath = "";
@@ -54,8 +54,8 @@ namespace LINKDATA
 			CommandOpenIDXFile = new CommandAction(OpenIDXFile);
 			CommandOpenIDXzrcFile = new CommandAction(OpenIDXzrcFile);
 			CommandOpenUnPackIDXzrcFile = new CommandAction(OpenUnPackIDXzrcFile);
-			CommandIdx = new CommandAction(CreateIdxList);
 			CommandExportIDX = new CommandActionParam(ExportIDX);
+			CommandImportIDX = new CommandActionParam(ImportIDX);
 			CommandUnPackIDXzrc = new CommandActionParam(UnPackIDXzrc);
 			CommandPackIDXzrc = new CommandAction(PackIDXzrc);
 		}
@@ -67,6 +67,7 @@ namespace LINKDATA
 			if (dlg.ShowDialog() == false) return;
 
 			LinkDataPath = dlg.FileName;
+			CreateIdxList();
 		}
 
 		private void CreateIdxList()
@@ -92,6 +93,7 @@ namespace LINKDATA
 		private void OpenIDXzrcFile()
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
+			dlg.Filter = "idxzrc|*.idxzrc";
 			if (dlg.ShowDialog() == false) return;
 
 			IDXzrcPath = dlg.FileName;
@@ -110,6 +112,7 @@ namespace LINKDATA
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
 			int size = (int)idx.UncompressedSize;
+			dlg.FileName = idx.Index.ToString("00000");
 			if (idx.IsCompressed == 0)
 			{
 				dlg.Filter = "idxout|*.idxout";
@@ -128,6 +131,55 @@ namespace LINKDATA
 			System.IO.File.WriteAllBytes(dlg.FileName, buffer);
 		}
 
+		private void ImportIDX(object? param)
+		{
+			String path = mLinkDataPath;
+			if (!System.IO.File.Exists(path)) return;
+			path = path.Substring(0, path.Length - 3) + "BIN";
+			if (!System.IO.File.Exists(path)) return;
+
+			IDX? idx = param as IDX;
+			if (idx == null) return;
+
+			var dlg = new Microsoft.Win32.OpenFileDialog();
+			dlg.Filter = "idxzrc|*.idxzrc";
+			if (dlg.ShowDialog() == false) return;
+			IDXzrc idxzrc = new IDXzrc();
+			idxzrc.Read(dlg.FileName);
+			if (idxzrc.UncompressedSize == 0) return;
+
+			Byte[] importFile = System.IO.File.ReadAllBytes(dlg.FileName);
+			Byte[] link_idx = System.IO.File.ReadAllBytes(mLinkDataPath);
+			Byte[] link_bin = System.IO.File.ReadAllBytes(path);
+
+			// original - after.
+			int offset = ((int)idx.CompressedSize + 0x80) / 0x100 * 0x100;
+			// after file
+			offset -= (importFile.Length + 0x80) / 0x100 * 0x100;
+			
+			
+			Byte[] bin = new Byte[link_bin.Length + offset];
+			Array.Copy(link_bin, 0, bin, 0, (int)IDXs[idx.Index].Offset);
+
+			Array.Fill<Byte>(link_idx, 0, idx.Index * 32 + 8, 24);
+			Array.Copy(BitConverter.GetBytes(idxzrc.UncompressedSize), 0, link_idx, idx.Index * 32 + 8, 4);
+			Array.Copy(BitConverter.GetBytes(importFile.Length), 0, link_idx, idx.Index * 32 + 16, 4);
+			Array.Copy(BitConverter.GetBytes(1), 0, link_idx, idx.Index * 32 + 24, 4);
+			Array.Copy(importFile, 0, bin, (int)IDXs[idx.Index].Offset, importFile.Length);
+
+			for (int index = idx.Index + 1; index < IDXs.Count; index++)
+			{
+				int address = (int)IDXs[index].Offset + offset;
+				Array.Copy(BitConverter.GetBytes((UInt64)address), 0, link_idx, index * 32, 8);
+				Array.Copy(link_bin, (int)IDXs[index].Offset, bin, address, (int)IDXs[index].CompressedSize);
+			}
+
+			System.IO.File.WriteAllBytes(mLinkDataPath, link_idx);
+			System.IO.File.WriteAllBytes(path, bin);
+
+			CreateIdxList();
+		}
+
 		private void UnPackIDXzrc(object? param)
 		{
 			IDXzrc? idxzrd = param as IDXzrc;
@@ -135,6 +187,7 @@ namespace LINKDATA
 			if(idxzrd.UncompressedSize == 0) return;
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
+			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(mIDXzrcPath));
 			dlg.Filter = "unpack|*.unpack";
 
 			if (dlg.ShowDialog() == false) return;

@@ -17,9 +17,11 @@ namespace LINKDATA
 		public CommandActionParam CommandImportIDX { get; private set; }
 		public CommandActionParam CommandUnPackIDXzrc { get; private set; }
 		public CommandAction CommandPackIDXzrc { get; private set; }
+		public Int32 PackSplitSize { get; set; } = 0x200000;
 		private String mLinkDataPath = "";
 		private String mIDXzrcPath = "";
 		private String mUnPackIDXzrcPath = "";
+		private String mItemResoucePath = "";
 		public String LinkDataPath
 		{
 			get => mLinkDataPath;
@@ -46,6 +48,16 @@ namespace LINKDATA
 			{
 				mUnPackIDXzrcPath = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UnPackIDXzrcPath)));
+			}
+		}
+
+		public String ItemResoucePath
+		{
+			get => mItemResoucePath;
+			set
+			{
+				mItemResoucePath = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ItemResoucePath)));
 			}
 		}
 
@@ -152,10 +164,11 @@ namespace LINKDATA
 			Byte[] link_idx = System.IO.File.ReadAllBytes(mLinkDataPath);
 			Byte[] link_bin = System.IO.File.ReadAllBytes(path);
 
-			// original - after.
+			// offset = after - original
+			// original file
 			int offset = ((int)idx.CompressedSize + 0x80) / 0x100 * 0x100;
 			// after file
-			offset -= (importFile.Length + 0x80) / 0x100 * 0x100;
+			offset = (importFile.Length + 0x80) / 0x100 * 0x100 - offset;
 			
 			
 			Byte[] bin = new Byte[link_bin.Length + offset];
@@ -186,13 +199,16 @@ namespace LINKDATA
 			if (idxzrd == null) return;
 			if(idxzrd.UncompressedSize == 0) return;
 
+			String path = mIDXzrcPath;
+			if (!System.IO.File.Exists(path)) return;
+
 			var dlg = new Microsoft.Win32.SaveFileDialog();
-			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(mIDXzrcPath));
+			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(path));
 			dlg.Filter = "unpack|*.unpack";
 
 			if (dlg.ShowDialog() == false) return;
 
-			Byte[] bin = System.IO.File.ReadAllBytes(mIDXzrcPath);
+			Byte[] bin = System.IO.File.ReadAllBytes(path);
 			Byte[] buffer = new Byte[idxzrd.UncompressedSize];
 			int index = 0;
 			foreach (var chunk in idxzrd.Chunks)
@@ -210,7 +226,7 @@ namespace LINKDATA
 		private void OpenUnPackIDXzrcFile()
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
-			dlg.Filter = "unpack|*.unpack";
+			dlg.Filter = "builder file|*.unpack;*.g1t;*.g1m;*.g2m";
 			if (dlg.ShowDialog() == false) return;
 
 			UnPackIDXzrcPath = dlg.FileName;
@@ -222,11 +238,11 @@ namespace LINKDATA
 			if (!System.IO.File.Exists(path)) return;
 
 			Byte[] Buffer = System.IO.File.ReadAllBytes(path);
-			Int32 packCount = (Buffer.Length + 0xFFFF) / 0x10000;
+			Int32 packCount = (Buffer.Length + PackSplitSize - 1) / PackSplitSize;
 
 			List<Byte> Packed = new List<Byte>();
 			// split size.
-			foreach (Byte b in BitConverter.GetBytes(0x10000))
+			foreach (Byte b in BitConverter.GetBytes(PackSplitSize))
 			{
 				Packed.Add(b);
 			}
@@ -241,6 +257,13 @@ namespace LINKDATA
 				Packed.Add(b);
 			}
 
+			// chunk size.
+			// reserve.
+			for (int index = 0; index < packCount * 4; index++)
+			{
+				Packed.Add(0);
+			}
+
 			// padding.
 			int count = 0x80 - (Packed.Count % 0x80);
 			if(count == 0x80)count = 0;
@@ -252,19 +275,20 @@ namespace LINKDATA
 			// data
 			for (int pack = 0; pack < packCount; pack++)
 			{
-				int length = 0x10000;
-				if (pack + 1 == packCount) length = Buffer.Length % 0x10000;
+				int length = PackSplitSize;
+				if (pack + 1 == packCount) length = Buffer.Length % PackSplitSize;
 				Byte[] tmp = new Byte[length];
-				Array.Copy(Buffer, 0x10000 * pack, tmp, 0, tmp.Length);
-
+				Array.Copy(Buffer, PackSplitSize * pack, tmp, 0, tmp.Length);
 				tmp = Ionic.Zlib.ZlibStream.CompressBuffer(tmp);
+
 				int index = 0;
-				foreach (Byte b in BitConverter.GetBytes(tmp.Length + 4))
+				int size = tmp.Length;
+				foreach (Byte b in BitConverter.GetBytes(size + 4))
 				{
 					Packed[0x0C + pack * 4 + index] = b;
 					index++;
 				}
-				foreach (Byte b in BitConverter.GetBytes(tmp.Length))
+				foreach (Byte b in BitConverter.GetBytes(size))
 				{
 					Packed.Add(b);
 				}
@@ -284,6 +308,7 @@ namespace LINKDATA
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
 			dlg.Filter = "idxzrc|*.idxzrc";
+			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(path));
 			if (dlg.ShowDialog() == false) return;
 			System.IO.File.WriteAllBytes(dlg.FileName, Packed.ToArray());
 		}

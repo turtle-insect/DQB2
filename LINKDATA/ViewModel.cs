@@ -8,6 +8,7 @@ namespace LINKDATA
 	internal class ViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;
+		
 		public ObservableCollection<IDX> IDXs { get; private set; } = new ObservableCollection<IDX>();
 		public IDXzrc IDXzrc { get; private set; } = new IDXzrc();
 		public CommandAction CommandOpenIDXFile { get; private set; }
@@ -18,6 +19,18 @@ namespace LINKDATA
 		public CommandActionParam CommandUnPackIDXzrc { get; private set; }
 		public CommandAction CommandPackIDXzrc { get; private set; }
 		public Int32 PackSplitSize { get; set; } = 0x200000;
+		public String IDXIndexFilter
+		{
+			get => mIDXIndexFilter;
+			set
+			{
+				mIDXIndexFilter = value;
+				FilterIdxList();
+			}
+		}
+
+		private List<IDX> mIDXs = new List<IDX>();
+		private String mIDXIndexFilter = "";
 		private String mLinkDataPath = "";
 		private String mIDXzrcPath = "";
 		private String mUnPackIDXzrcPath = "";
@@ -84,7 +97,7 @@ namespace LINKDATA
 
 		private void CreateIdxList()
 		{
-			IDXs.Clear();
+			mIDXs.Clear();
 			String path = mLinkDataPath;
 			if (!System.IO.File.Exists(path)) return;
 
@@ -96,10 +109,22 @@ namespace LINKDATA
 				idx.UncompressedSize = BitConverter.ToUInt64(buffer, index * 32 + 8);
 				idx.CompressedSize = BitConverter.ToUInt64(buffer, index * 32 + 16);
 				idx.IsCompressed = BitConverter.ToUInt64(buffer, index * 32 + 24);
-				IDXs.Add(idx);
+				mIDXs.Add(idx);
 			}
 
-			System.Windows.MessageBox.Show("Done");
+			FilterIdxList();
+		}
+
+		private void FilterIdxList()
+		{
+			IDXs.Clear();
+			foreach (IDX idx in mIDXs)
+			{
+				if (String.IsNullOrEmpty(IDXIndexFilter) || idx.Index.ToString().IndexOf(IDXIndexFilter) != -1)
+				{
+					IDXs.Add(idx);
+				}
+			}
 		}
 
 		private void OpenIDXzrcFile()

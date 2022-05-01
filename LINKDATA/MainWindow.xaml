@@ -30,7 +30,7 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Label Content="IDX index"/>
-						<TextBox Grid.Column="1"/>
+						<TextBox Grid.Column="1" Text="{Binding IDXIndexFilter, UpdateSourceTrigger=PropertyChanged}"/>
 					</Grid>
 					<ListBox ItemsSource="{Binding IDXs}">
 						<ListBox.ItemTemplate>

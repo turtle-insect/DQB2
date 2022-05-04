@@ -60,3 +60,40 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 # Special Thanks
 * https://docs.google.com/spreadsheets/d/1w8Njk2d0DolMqHw4ZycqsAR4asmEpn0By7m_QpUUArs
 * [TaoistYang](https://gbatemp.net/threads/dragon-quest-builders-2-save-editor-pc-steam.558947/#post-9504144)
+
+# LINKDATA edit
+## external Tool
+* g1t_tools_0.3.zip
+* gimp 2.10.30
+
+## Process
+* start LINKDATA.exe
+* load LINKDATA.IDX
+* Export index = 2659
+* change tab idxzrc
+* load 02659.idxzrc
+* unpack
+* rename 02659.unpack to 02659.g1t
+* start g1t_tools's qg1t_tool.exe
+* load 02659.g1t
+* Extract
+* start gimp
+* load 02659_0.dxt5
+* eny edit
+* export DDS
+* start g1t_tools's qg1t_tool.exe
+* Replace (browser)
+* select export's DDS
+* start LINKDATA.exe
+* change tab pack
+* load 02659.g1t
+* split size = 2097152(=0x200000)
+* change tab IDX
+* Import index = 2659
+
+ex)  
+Item's message resource  
+index = 90(jp), 91(us)  
+  
+Item's Inventory & Bag Icon resource  
+index = 795  

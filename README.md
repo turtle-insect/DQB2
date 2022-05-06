@@ -19,13 +19,13 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 
 # 実行に必要
 * Windows マシン
-* .NET Framework 4.8の導入
+* .NET 6の導入
 * セーブデータの吸い出し
 * セーブデータの書き戻し
 
 # Build環境
 * Windows 10(64bit)
-* Visual Studio 2019
+* Visual Studio 2022
 
 # セーブデータの構成
 * AUTOxx.BIN

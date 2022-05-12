@@ -336,7 +336,7 @@ namespace STGDAT
 		private void Backup()
 		{
 			DateTime now = DateTime.Now;
-			String path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+			String path = System.IO.Directory.GetCurrentDirectory();
 			path = System.IO.Path.Combine(path, "backup");
 			if (!System.IO.Directory.Exists(path))
 			{

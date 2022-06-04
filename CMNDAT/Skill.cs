@@ -14,7 +14,7 @@ namespace CMNDAT
 			set { SaveData.Instance().WriteNumber(0x635, 1, value == true ? 1u : 0); }
 		}
 
-		public bool WindCape
+		public bool Windbraker
 		{
 			get { return SaveData.Instance().ReadNumber(0x6A8A2, 1) == 2; }
 			set { SaveData.Instance().WriteNumber(0x6A8A2, 1, value == true ? 2u : 0); }
@@ -32,7 +32,7 @@ namespace CMNDAT
 			set { SaveData.Instance().WriteBit(0x502, 3, value); }
 		}
 
-		public bool ReformIron
+		public bool Transform
 		{
 			get { return SaveData.Instance().ReadBit(0x500, 6); }
 			set { SaveData.Instance().WriteBit(0x500, 6, value); }
@@ -44,13 +44,13 @@ namespace CMNDAT
 			set { SaveData.Instance().WriteBit(0x501, 1, !value); }
 		}
 
-		public bool ThirstPotUse
+		public bool BottomlessPotUse
 		{
 			get { return SaveData.Instance().ReadBit(0x504, 2); }
 			set { SaveData.Instance().WriteBit(0x504, 2, value); }
 		}
 
-		public bool ThirstPot
+		public bool BottomlessPot
 		{
 			get { return SaveData.Instance().ReadNumber(0x67D, 1) == 0xDE; }
 			set { SaveData.Instance().WriteNumber(0x67D, 1, value == true ? 0xDEu : 0); }
@@ -70,7 +70,7 @@ namespace CMNDAT
 			}
 		}
 
-		public bool BuilderEye
+		public bool Buildnoculars
 		{
 			get { return SaveData.Instance().ReadBit(0x502, 7); }
 			set { SaveData.Instance().WriteBit(0x502, 7, value); }

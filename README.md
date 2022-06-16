@@ -41,6 +41,7 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
     * 03：オッカムル島
     * 04：ムーンブルク島
     * 05：破壊天体シドー
+    * 09：ツリル島
     * 10：監獄島
     * 12：かいたく島1
     * 13：かいたく島2

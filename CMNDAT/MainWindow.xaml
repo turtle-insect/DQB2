@@ -372,8 +372,15 @@
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<DockPanel>
-										<Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonPeopleImport_Click"/>
-										<Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Export" Click="ButtonPeopleExport_Click"/>
+										<Grid DockPanel.Dock="Right" Margin="5,0,0,0">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition/>
+												<ColumnDefinition Width="5"/>
+												<ColumnDefinition/>
+											</Grid.ColumnDefinitions>
+											<Button Content="Export" Click="ButtonPeopleExport_Click"/>
+											<Button Grid.Column="2" Content="Import" Click="ButtonPeopleImport_Click"/>
+										</Grid>
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition/>
@@ -509,8 +516,15 @@
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<DockPanel>
-										<Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Import" Click="ButtonPeopleImport_Click"/>
-										<Button Margin="5,0,0,0" DockPanel.Dock="Right" Content="Export" Click="ButtonPeopleExport_Click"/>
+										<Grid DockPanel.Dock="Right" Margin="5,0,0,0">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition/>
+												<ColumnDefinition Width="5"/>
+												<ColumnDefinition/>
+											</Grid.ColumnDefinitions>
+											<Button Content="Export" Click="ButtonPeopleExport_Click"/>
+											<Button Grid.Column="2" Content="Import" Click="ButtonPeopleImport_Click"/>
+										</Grid>
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition/>

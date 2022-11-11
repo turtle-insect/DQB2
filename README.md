@@ -19,7 +19,7 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 
 # 実行に必要
 * Windows マシン
-* [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)の導入
+* [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)の導入
 * セーブデータの吸い出し
 * セーブデータの書き戻し
 

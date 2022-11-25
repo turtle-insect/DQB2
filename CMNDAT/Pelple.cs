@@ -34,6 +34,8 @@ namespace CMNDAT
 		//   えっち = 5
 		//   ノーマル = 6
 
+		// 302(4):グラフィックロック
+
 		public Pelple(uint address, uint id)
 		{
 			Address = address;
@@ -206,6 +208,16 @@ namespace CMNDAT
 			{
 				SaveData.Instance().WriteNumber(Address + 267, 1, value);
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VoiceType)));
+			}
+		}
+
+		public bool LockGraphic
+		{
+			get { return ! SaveData.Instance().ReadBit(Address + 302, 4); }
+			set
+			{
+				SaveData.Instance().WriteBit(Address + 302, 4, ! value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LockGraphic)));
 			}
 		}
 

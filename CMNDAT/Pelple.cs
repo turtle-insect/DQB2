@@ -111,6 +111,16 @@ namespace CMNDAT
 			}
 		}
 
+		public uint Home
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 275, 1); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 275, 1, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Home)));
+			}
+		}
+
 		public uint Island
 		{
 			get { return SaveData.Instance().ReadNumber(Address + 223, 1); }

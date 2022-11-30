@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
         Closed="Window_Closed"
-        Title="DQB2 CMNDAT Nintendo Switch &amp; Steam" Height="500" Width="800">
+        Title="DQB2 CMNDAT Nintendo Switch &amp; Steam" Height="500" Width="810">
 	<Window.DataContext>
 		<local:ViewModel/>
 	</Window.DataContext>
@@ -404,6 +404,7 @@
 												<RowDefinition/>
 												<RowDefinition/>
 												<RowDefinition/>
+												<RowDefinition/>
 											</Grid.RowDefinitions>
 											<Label Content="PartyID"/>
 											<Label Grid.Column="1" Content="{Binding ID}"/>
@@ -419,23 +420,26 @@
 											<TextBox Grid.Row="3" Grid.Column="1" Text="{Binding HP, UpdateSourceTrigger=PropertyChanged}"/>
 											<Label Grid.Row="4" Content="Job"/>
 											<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
-											<Label Grid.Row="5" Content="IsLand"/>
+											<Label Grid.Row="5" Content="Home"/>
 											<ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
+													  DisplayMemberPath="Name" SelectedIndex="{Binding Home, Converter={StaticResource IslandIDConverter}}"/>
+											<Label Grid.Row="6" Content="IsLand"/>
+											<ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
                                               DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
-											<Label Grid.Row="6" Content="Place"/>
-											<ComboBox Grid.Row="6" Grid.Column="1" SelectedIndex="{Binding Place}">
+											<Label Grid.Row="7" Content="Place"/>
+											<ComboBox Grid.Row="7" Grid.Column="1" SelectedIndex="{Binding Place}">
 												<ComboBoxItem Content="-"/>
 												<ComboBoxItem Content="Green"/>
 												<ComboBoxItem Content="Red"/>
 												<ComboBoxItem Content="Blue"/>
 											</ComboBox>
-											<Label Grid.Row="7" Content="Battle"/>
-											<StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+											<Label Grid.Row="8" Content="Battle"/>
+											<StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
 												<CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
 												<CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
 											</StackPanel>
-											<Label Grid.Row="8" Content="RoomSize"/>
-											<ComboBox Grid.Row="8" Grid.Column="1" SelectedIndex="{Binding RoomSize}">
+											<Label Grid.Row="9" Content="RoomSize"/>
+											<ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="{Binding RoomSize}">
 												<ComboBoxItem Content="-"/>
 												<ComboBoxItem Content="1"/>
 												<ComboBoxItem Content="2"/>
@@ -443,8 +447,8 @@
 												<ComboBoxItem Content="4"/>
 												<ComboBoxItem Content="5"/>
 											</ComboBox>
-											<Label Grid.Row="9" Content="Gorgeous"/>
-											<ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="{Binding RoomGorgeous}">
+											<Label Grid.Row="10" Content="Gorgeous"/>
+											<ComboBox Grid.Row="10" Grid.Column="1" SelectedIndex="{Binding RoomGorgeous}">
 												<ComboBoxItem Content="-"/>
 												<ComboBoxItem Content="1"/>
 												<ComboBoxItem Content="2"/>
@@ -452,8 +456,8 @@
 												<ComboBoxItem Content="4"/>
 												<ComboBoxItem Content="5"/>
 											</ComboBox>
-											<Label Grid.Row="10" Content="Mood"/>
-											<ComboBox Grid.Row="10" Grid.Column="1"
+											<Label Grid.Row="11" Content="Mood"/>
+											<ComboBox Grid.Row="11" Grid.Column="1"
                                                       ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
                                                       SelectedIndex="{Binding RoomMood}"
                                                       DisplayMemberPath="Name"/>
@@ -547,6 +551,7 @@
 												<RowDefinition/>
 												<RowDefinition/>
 												<RowDefinition/>
+												<RowDefinition/>
 											</Grid.RowDefinitions>
 											<Label Content="PartyID"/>
 											<Label Grid.Column="1" Content="{Binding ID}"/>
@@ -562,23 +567,26 @@
 											<TextBox Grid.Row="3" Grid.Column="1" Text="{Binding HP, UpdateSourceTrigger=PropertyChanged}"/>
 											<Label Grid.Row="4" Content="Job"/>
 											<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Job, UpdateSourceTrigger=PropertyChanged}"/>
-											<Label Grid.Row="5" Content="IsLand"/>
+											<Label Grid.Row="5" Content="Home"/>
 											<ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
-                                              DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
-											<Label Grid.Row="6" Content="Place"/>
-											<ComboBox Grid.Row="6" Grid.Column="1" SelectedIndex="{Binding Place}">
+													  DisplayMemberPath="Name" SelectedIndex="{Binding Home, Converter={StaticResource IslandIDConverter}}"/>
+											<Label Grid.Row="6" Content="IsLand"/>
+											<ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
+													  DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
+											<Label Grid.Row="7" Content="Place"/>
+											<ComboBox Grid.Row="7" Grid.Column="1" SelectedIndex="{Binding Place}">
 												<ComboBoxItem Content="-"/>
 												<ComboBoxItem Content="Green"/>
 												<ComboBoxItem Content="Red"/>
 												<ComboBoxItem Content="Blue"/>
 											</ComboBox>
-											<Label Grid.Row="7" Content="Battle"/>
-											<StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+											<Label Grid.Row="8" Content="Battle"/>
+											<StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
 												<CheckBox Content="equip" IsChecked="{Binding Equipment}" VerticalAlignment="Center"/>
 												<CheckBox Margin="5,0,0,0" Content="join" IsChecked="{Binding Battle}" VerticalAlignment="Center"/>
 											</StackPanel>
-											<Label Grid.Row="8" Content="RoomSize"/>
-											<ComboBox Grid.Row="8" Grid.Column="1" SelectedIndex="{Binding RoomSize}">
+											<Label Grid.Row="9" Content="RoomSize"/>
+											<ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="{Binding RoomSize}">
 												<ComboBoxItem Content="-"/>
 												<ComboBoxItem Content="1"/>
 												<ComboBoxItem Content="2"/>
@@ -586,8 +594,8 @@
 												<ComboBoxItem Content="4"/>
 												<ComboBoxItem Content="5"/>
 											</ComboBox>
-											<Label Grid.Row="9" Content="Gorgeous"/>
-											<ComboBox Grid.Row="9" Grid.Column="1" SelectedIndex="{Binding RoomGorgeous}">
+											<Label Grid.Row="10" Content="Gorgeous"/>
+											<ComboBox Grid.Row="10" Grid.Column="1" SelectedIndex="{Binding RoomGorgeous}">
 												<ComboBoxItem Content="-"/>
 												<ComboBoxItem Content="1"/>
 												<ComboBoxItem Content="2"/>
@@ -595,8 +603,8 @@
 												<ComboBoxItem Content="4"/>
 												<ComboBoxItem Content="5"/>
 											</ComboBox>
-											<Label Grid.Row="10" Content="Mood"/>
-											<ComboBox Grid.Row="10" Grid.Column="1"
+											<Label Grid.Row="11" Content="Mood"/>
+											<ComboBox Grid.Row="11" Grid.Column="1"
                                                       ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
                                                       SelectedIndex="{Binding RoomMood}"
                                                       DisplayMemberPath="Name"/>

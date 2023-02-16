@@ -158,9 +158,12 @@ namespace STGDAT
 		// 502Byte
 
 		/*
+		// filename is 『STGDATxx.BIN』
 		String filename = @"*********";
 		Byte[] buffer = System.IO.File.ReadAllBytes(filename);
 		int address = 0x24E7CD;
+
+		// If you want to clear objects, enable it.
 		//buffer[address] = 0;
 		//buffer[address + 1] = 0;
 		//buffer[address + 2] = 0;

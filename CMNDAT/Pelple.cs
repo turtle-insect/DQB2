@@ -11,21 +11,20 @@ namespace CMNDAT
 		public Item Armor { get; set; }
 		public ObservableCollection<Item> Items { get; set; } = new ObservableCollection<Item>();
 
-		// 229:顔(2)(顔の色、目の形、耳の形)
-		// 231:髪型(2)(0x19:青兵士、0x14:ボブ)
-		// 233:体(2)(0x69:青兵士、0x42:バニーガール)
-		// 235:目の色(2)
-		// 237:髪の色(2)
-		// 239:肌の色(2)
-		// 266:Message Type(1)
-		// 267:Voice Type(1)
-
-		// 301(7):名前命名
+		// Address[Byte] : Name
+		// 229[2]:顔(顔の色、目の形、耳の形)
+		// 231[2]:髪型(0x19:青兵士、0x14:ボブ)
+		// 233[2]:体(0x69:青兵士、0x42:バニーガール)
+		// 235[2]:目の色
+		// 237[2]:髪の色
+		// 239[2]:肌の色
+		// 266[1]:Message Type
+		// 267[1]:Voice Type
 
 		// 部屋の好み
-		// 263:ひろさ
-		// 264:ごうかさ(1)
-		// 265:ムード(1)
+		// 263[1]:ひろさ
+		// 264[1]:ごうかさ
+		// 265[1]:ムード
 		// ムード
 		//   キュート = 1
 		//   クール = 2
@@ -34,7 +33,11 @@ namespace CMNDAT
 		//   えっち = 5
 		//   ノーマル = 6
 
-		// 302(4):グラフィックロック
+		// フラグ
+		// 259[1:1]:戦闘参加可否
+		// 301[1:1]:名前命名有無
+		// 307[1:1]:装備可否
+		// 302[1:4]:グラフィックロック
 
 		public Pelple(uint address, uint id)
 		{
@@ -88,6 +91,16 @@ namespace CMNDAT
 			{
 				SaveData.Instance().WriteNumber(Address + 271, 1, value);
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Job)));
+			}
+		}
+
+		public uint Type
+		{
+			get { return SaveData.Instance().ReadNumber(Address + 144, 2); }
+			set
+			{
+				SaveData.Instance().WriteNumber(Address + 144, 2, value);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Type)));
 			}
 		}
 
@@ -269,6 +282,7 @@ namespace CMNDAT
 			Sex = Sex;
 			HP = HP;
 			Job = Job;
+			Type = Type;
 			Equipment = Equipment;
 			Battle = Battle;
 			Island = Island;
@@ -303,6 +317,7 @@ namespace CMNDAT
 			if (Sex != 0) return true;
 			if (HP != 0) return true;
 			if (Job != 0) return true;
+			if (Type != 0) return true;
 			if (Island != 0) return true;
 			if (Place != 0) return true;
 			if (Weapon.ID != 0) return true;

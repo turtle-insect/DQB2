@@ -5,7 +5,6 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>CMNDAT.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,11 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="CMNDAT.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
+    <Resource Include="resource\Open.png" />
+    <Resource Include="resource\Save.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,11 +30,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="resource\Open.png" />
-    <Resource Include="resource\Save.png" />
   </ItemGroup>
 
 </Project>

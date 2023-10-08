@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="resource\Open.png" />
     <Resource Include="resource\Save.png" />
   </ItemGroup>

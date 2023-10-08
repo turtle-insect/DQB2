@@ -7,8 +7,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
-  </ItemGroup>
-
 </Project>

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace CMNDAT
 {
@@ -39,7 +37,17 @@ namespace CMNDAT
 			Array.Copy(tmp, mHeader, mHeader.Length);
 			try
 			{
-				mBuffer = Ionic.Zlib.ZlibStream.UncompressBuffer(comp);
+				using (var input = new MemoryStream(comp))
+				{
+					using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
+					{
+						using (var output = new MemoryStream())
+						{
+							zlib.CopyTo(output);
+							mBuffer = output.ToArray();
+						}
+					}
+				}
 			}
 			catch
 			{
@@ -55,9 +63,25 @@ namespace CMNDAT
 			if (mFileName == null || mBuffer == null) return false;
 			Backup();
 
-			Byte[] comp = Ionic.Zlib.ZlibStream.CompressBuffer(mBuffer);
+			Byte[] comp = null;
+			using (var input = new MemoryStream(mBuffer))
+			{
+				using (var output = new MemoryStream())
+				{
+					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
+					{
+						input.CopyTo(zlib);
+					}
+					comp = output.ToArray();
+				}
+			}
 			Byte[] tmp = new Byte[mHeader.Length + comp.Length];
 			Array.Copy(mHeader, tmp, mHeader.Length);
+			Byte[] size = BitConverter.GetBytes(tmp.Length);
+			for (int i = 0; i < size.Length; i++)
+			{
+				tmp[0x10 + i] = size[i];
+			}
 			Array.Copy(comp, 0, tmp, mHeader.Length, comp.Length);
 			System.IO.File.WriteAllBytes(mFileName, tmp);
 			return true;

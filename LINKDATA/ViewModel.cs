@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace LINKDATA
 {
@@ -241,7 +242,7 @@ namespace LINKDATA
 				int size = BitConverter.ToInt32(bin, (int)chunk.Offset);
 				Byte[] tmp = new Byte[size];
 				Array.Copy(bin, chunk.Offset + 4, tmp, 0, tmp.Length);
-				tmp = Ionic.Zlib.ZlibStream.UncompressBuffer(tmp);
+				tmp = Decomp(tmp);
 				Array.Copy(tmp, 0, buffer, index, tmp.Length);
 				index += tmp.Length;
 			}
@@ -304,7 +305,7 @@ namespace LINKDATA
 				if (pack + 1 == packCount) length = Buffer.Length % PackSplitSize;
 				Byte[] tmp = new Byte[length];
 				Array.Copy(Buffer, PackSplitSize * pack, tmp, 0, tmp.Length);
-				tmp = Ionic.Zlib.ZlibStream.CompressBuffer(tmp);
+				tmp = Comp(tmp);
 
 				int index = 0;
 				int size = tmp.Length;
@@ -336,6 +337,40 @@ namespace LINKDATA
 			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(path));
 			if (dlg.ShowDialog() == false) return;
 			System.IO.File.WriteAllBytes(dlg.FileName, Packed.ToArray());
+		}
+
+		private Byte[] Comp(Byte[] data)
+		{
+			Byte[] result = null;
+			using (var input = new MemoryStream(data))
+			{
+				using (var output = new MemoryStream())
+				{
+					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
+					{
+						input.CopyTo(zlib);
+					}
+					result = output.ToArray();
+				}
+			}
+			return result;
+		}
+
+		private Byte[] Decomp(Byte[] data)
+		{
+			Byte[] result = null;
+			using (var input = new MemoryStream(data))
+			{
+				using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
+				{
+					using (var output = new MemoryStream())
+					{
+						zlib.CopyTo(output);
+						result = output.ToArray();
+					}
+				}
+			}
+			return result;
 		}
 	}
 }

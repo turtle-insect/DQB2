@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace STGDAT
 {
@@ -42,7 +43,7 @@ namespace STGDAT
 			Array.Copy(tmp, mHeader, mHeader.Length);
 			try
 			{
-				mBuffer = Ionic.Zlib.ZlibStream.UncompressBuffer(comp);
+				mBuffer = Decomp(comp);
 			}
 			catch
 			{
@@ -58,7 +59,7 @@ namespace STGDAT
 			if (mFileName == null || mBuffer == null) return false;
 			Backup();
 
-			Byte[] comp = Ionic.Zlib.ZlibStream.CompressBuffer(mBuffer);
+			Byte[] comp = Comp(mBuffer);
 			Byte[] tmp = new Byte[mHeader.Length + comp.Length];
 			Array.Copy(mHeader, tmp, mHeader.Length);
 			Array.Copy(comp, 0, tmp, mHeader.Length, comp.Length);
@@ -95,7 +96,7 @@ namespace STGDAT
 			Array.Copy(tmp, mHeader.Length, comp, 0, comp.Length);
 			try
 			{
-				buffer = Ionic.Zlib.ZlibStream.UncompressBuffer(comp);
+				buffer = Decomp(comp);
 			}
 			catch
 			{
@@ -113,7 +114,7 @@ namespace STGDAT
 			Byte[] buffer = System.IO.File.ReadAllBytes(filename);
 			try
 			{
-				buffer = Ionic.Zlib.ZlibStream.UncompressBuffer(buffer);
+				buffer = Decomp(buffer);
 			}
 			catch
 			{
@@ -344,6 +345,40 @@ namespace STGDAT
 			}
 			path = System.IO.Path.Combine(path, $"{now:yyyy-MM-dd HH-mm-ss} {System.IO.Path.GetFileName(mFileName)}");
 			System.IO.File.Copy(mFileName, path, true);
+		}
+
+		private Byte[] Comp(Byte[] data)
+		{
+			Byte[] result = null;
+			using (var input = new MemoryStream(data))
+			{
+				using (var output = new MemoryStream())
+				{
+					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
+					{
+						input.CopyTo(zlib);
+					}
+					result = output.ToArray();
+				}
+			}
+			return result;
+		}
+
+		private Byte[] Decomp(Byte[] data)
+		{
+			Byte[] result = null;
+			using (var input = new MemoryStream(data))
+			{
+				using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
+				{
+					using (var output = new MemoryStream())
+					{
+						zlib.CopyTo(output);
+						result = output.ToArray();
+					}
+				}
+			}
+			return result;
 		}
 	}
 }

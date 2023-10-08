@@ -5,11 +5,16 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>CMNDAT.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="resource\Open.png" />
     <None Remove="resource\Save.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="CMNDAT.ico" />
   </ItemGroup>
 
   <ItemGroup>

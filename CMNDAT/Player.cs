@@ -8,6 +8,12 @@ namespace CMNDAT
 {
 	internal class Player
 	{
+		public String Name
+		{
+			get { return SaveData.Instance().ReadText_Header(0xCD, 12); }
+			set { SaveData.Instance().WriteText_Header(0xCD, 12, value); }
+		}
+
 		public uint Lv
 		{
 			get { return SaveData.Instance().ReadNumber(0x6A9CF, 1); }
@@ -24,6 +30,18 @@ namespace CMNDAT
 		{
 			get { return SaveData.Instance().ReadNumber(0x6A890, 2); }
 			set { Util.WriteNumber(0x6A890, 2, value, 1, 999); }
+		}
+
+		public uint HPPlus
+		{
+			get { return SaveData.Instance().ReadNumber(0x6A892, 2); }
+			set { Util.WriteNumber(0x6A892, 2, value, 0, 999); }
+		}
+
+		public uint Hungry
+		{
+			get { return SaveData.Instance().ReadNumber(0x6A896, 2) / 100; }
+			set { Util.WriteNumber(0x6A896, 2, value * 100, 0, 10000); }
 		}
 
 		public uint Attack

@@ -168,6 +168,21 @@ namespace CMNDAT
 			return mEncode.GetString(tmp).Trim('\0');
 		}
 
+		public String ReadText_Header(uint address, uint size)
+		{
+			if (mHeader == null) return "";
+			address = CalcAddress(address);
+			if (address + size >= mHeader.Length) return "";
+
+			Byte[] tmp = new Byte[size];
+			for (uint i = 0; i < size; i++)
+			{
+				if (mHeader[address + i] == 0) break;
+				tmp[i] = mHeader[address + i];
+			}
+			return mEncode.GetString(tmp).Trim('\0');
+		}
+
 		public void WriteNumber(uint address, uint size, uint value)
 		{
 			if (mBuffer == null) return;
@@ -212,6 +227,16 @@ namespace CMNDAT
 			Byte[] tmp = mEncode.GetBytes(value);
 			Array.Resize(ref tmp, (int)size);
 			Array.Copy(tmp, 0, mBuffer, address, size);
+		}
+
+		public void WriteText_Header(uint address, uint size, String value)
+		{
+			if (mHeader == null) return;
+			address = CalcAddress(address);
+			if (address + size >= mHeader.Length) return;
+			Byte[] tmp = mEncode.GetBytes(value);
+			Array.Resize(ref tmp, (int)size);
+			Array.Copy(tmp, 0, mHeader, address, size);
 		}
 
 		public void WriteValue(uint address, Byte[] buffer)

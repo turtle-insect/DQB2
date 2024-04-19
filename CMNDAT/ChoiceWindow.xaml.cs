@@ -61,7 +61,7 @@ namespace CMNDAT
 
 			foreach (var item in items)
 			{
-				if (String.IsNullOrEmpty(filter) || item.Name.IndexOf(filter) >= 0)
+				if (String.IsNullOrEmpty(filter) || item.Name.IndexOf(filter) >= 0 || item.Value.ToString() == filter)
 				{
 					ListBoxItem.Items.Add(item);
 				}

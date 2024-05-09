@@ -354,10 +354,16 @@ namespace STGDAT
 			{
 				using (var output = new MemoryStream())
 				{
-					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
+					// CompressionLevel.Fastest sometimes causes DQB2 to misread the file and the southern half (approximately)
+					// of your IoA gets completely cleared. (Yes, even when all streams are flushed. This is very strange.)
+					// So far CompressionLevel.Optimal seems 100% reliable, knock on wood...
+					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Optimal))
 					{
 						input.CopyTo(zlib);
+						input.Flush();
+						zlib.Flush();
 					}
+					output.Flush();
 					result = output.ToArray();
 				}
 			}

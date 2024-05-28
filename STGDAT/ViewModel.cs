@@ -12,6 +12,7 @@ namespace STGDAT
 		public ObservableCollection<Strage> ShelfDrawers { get; private set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Tableware> Tablewares { get; private set; } = new ObservableCollection<Tableware>();
 		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
+		public ObservableCollection<Part> Parts { get; private set; } = new ObservableCollection<Part>();
 
 		public uint Heart
 		{
@@ -49,6 +50,12 @@ namespace STGDAT
 			for (uint i = 0; i < 128; i++)
 			{
 				Crafts.Add(new Craft(0x10EA5 + i * 52));
+			}
+
+			uint count = SaveData.Instance().ReadNumber(0x24E7CD, 3);
+			for (uint i = 0; i < count; i++)
+			{
+				Parts.Add(new Part(0x24E7D1 + i * 24));
 			}
 		}
 
@@ -147,7 +154,7 @@ namespace STGDAT
 		// 0x0C7FFF：最大数
 		// 1つのオブジェクトは24Byteで表現されている
 		// オブジェクトの数を0にするだけでオブジェクトは消える
-		// 0x24E7F1から開始
+		// 0x24E7D0から開始？
 
 		// 例
 		// 0層：岩盤、1層：土、2層：草原の土

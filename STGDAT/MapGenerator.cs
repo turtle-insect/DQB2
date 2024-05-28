@@ -55,9 +55,9 @@ namespace STGDAT
 			if (AllObjectClear)
 			{
 				SaveData.Instance().WriteNumber(0x24E7CD, 3, 1);
-				for(uint i = 0; i < 0xC7FFF; i++)
+				SaveData.Instance().Fill(0x24E7D1, 24 * 0xC8000, 0);
+				for (uint i = 0; i < 0xC7FFF; i++)
 				{
-					SaveData.Instance().Fill(0x24E7D1 + i * 24, 24, 0);
 					SaveData.Instance().WriteNumber(0x24E7D1 + i * 24 + 12, 3, i * 16);
 				}
 				//SaveData.Instance().WriteNumber(0x28708, 1, 0);

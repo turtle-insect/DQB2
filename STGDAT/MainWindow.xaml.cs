@@ -159,6 +159,14 @@ namespace STGDAT
 			vm.AllTablewareUnActive();
 		}
 
+		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			ViewModel vm = DataContext as ViewModel;
+			if (vm == null) return;
+
+			vm.FilterPart();
+		}
+
 		private void ItemChoice(Item item)
 		{
 			if (item == null) return;
@@ -170,5 +178,5 @@ namespace STGDAT
 
 			item.Count = item.ID == 0 ? 0 : 1u;
 		}
-	}
+    }
 }

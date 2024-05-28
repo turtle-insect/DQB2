@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace STGDAT
 {
@@ -13,6 +14,8 @@ namespace STGDAT
 		public ObservableCollection<Tableware> Tablewares { get; private set; } = new ObservableCollection<Tableware>();
 		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
 		public ObservableCollection<Part> Parts { get; private set; } = new ObservableCollection<Part>();
+		public string FilterPartID { get; set; } = "";
+		private List<Part> mPart = new List<Part>();
 
 		public uint Heart
 		{
@@ -22,6 +25,7 @@ namespace STGDAT
 
 		public ViewModel()
 		{
+			FilterPartID = "";
 			for (uint i = 0; i < 32; i++)
 			{
 				Boxes.Add(new Strage(0xF565 + i * 8, 0x2467CC + i * 120));
@@ -53,9 +57,11 @@ namespace STGDAT
 			}
 
 			uint count = SaveData.Instance().ReadNumber(0x24E7CD, 3);
-			for (uint i = 0; i < count; i++)
+			for (uint i = 1; i < count; i++)
 			{
-				Parts.Add(new Part(0x24E7D1 + i * 24));
+				var part = new Part(0x24E7D1 + i * 24, 0x150E7D1 + i * 4);
+				mPart.Add(part);
+				Parts.Add(part);
 			}
 		}
 
@@ -66,6 +72,19 @@ namespace STGDAT
 			foreach (var item in ShelfChests) item.Clear();
 			foreach (var item in ShelfDrawers) item.Clear();
 			SaveData.Instance().WriteNumber(0x28708, 4, 0);
+		}
+
+		public void FilterPart()
+		{
+			Parts.Clear();
+
+			uint id;
+			if (uint.TryParse(FilterPartID, out id) == false) return;
+
+			foreach (var part in mPart)
+			{
+				if (part.ItemID == id) Parts.Add(part);
+			}
 		}
 
 		public void AllTablewareUnActive()
@@ -155,6 +174,13 @@ namespace STGDAT
 		// 1つのオブジェクトは24Byteで表現されている
 		// オブジェクトの数を0にするだけでオブジェクトは消える
 		// 0x24E7D0から開始？
+		// チャンクは0x150E7D1から開始？
+		// 1つのチャンクは4Byteで表現されている
+		// ID：0Byte + (1Byte & 0xF) << 8
+		// Index：1Byte >> 4 + 2Byte << 4 + 3Byte << 12
+		// X+=32：0x01増える
+		// Z+=32：0x40増える
+		// X = 0, Z = 0, id = 0x820
 
 		// 例
 		// 0層：岩盤、1層：土、2層：草原の土

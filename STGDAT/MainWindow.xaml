@@ -62,22 +62,28 @@
 					</Grid>
 				</TabItem>
 				<TabItem Header="Parts">
-					<ListBox ItemsSource="{Binding Parts}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<Label Content="Item"/>
-									<Label Content="{Binding ItemID}"/>
-									<Label Content="PosX"/>
-									<Label Content="{Binding PosX}"/>
-									<Label Content="PosY"/>
-									<Label Content="{Binding PosY}"/>
-									<Label Content="PosZ"/>
-									<Label Content="{Binding PosZ}"/>
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
+					<DockPanel>
+						<DockPanel DockPanel.Dock="Top">
+							<Label Content="Filter Part ID"/>
+							<TextBox Text="{Binding FilterPartID, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
+						</DockPanel>
+						<ListBox ItemsSource="{Binding Parts}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal">
+										<Label Content="Item"/>
+										<Label Content="{Binding ItemID}"/>
+										<Label Content="PosX"/>
+										<Label Content="{Binding PosX}"/>
+										<Label Content="PosY"/>
+										<Label Content="{Binding PosY}"/>
+										<Label Content="PosZ"/>
+										<Label Content="{Binding PosZ}"/>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</DockPanel>
 				</TabItem>
 				<TabItem Header="Storage">
 					<DockPanel>

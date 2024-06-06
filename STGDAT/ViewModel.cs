@@ -13,9 +13,9 @@ namespace STGDAT
 		public ObservableCollection<Strage> ShelfDrawers { get; private set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Tableware> Tablewares { get; private set; } = new ObservableCollection<Tableware>();
 		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
-		public ObservableCollection<Part> Parts { get; private set; } = new ObservableCollection<Part>();
-		public string FilterPartID { get; set; } = "";
-		private List<Part> mPart = new List<Part>();
+		public ObservableCollection<Entity> Entitys { get; private set; } = new ObservableCollection<Entity>();
+		public string FilterEntityID { get; set; } = "";
+		private List<Entity> mEntity = new List<Entity>();
 
 		public uint Heart
 		{
@@ -25,7 +25,7 @@ namespace STGDAT
 
 		public ViewModel()
 		{
-			FilterPartID = "";
+			FilterEntityID = "";
 			for (uint i = 0; i < 32; i++)
 			{
 				Boxes.Add(new Strage(0xF565 + i * 8, 0x2467CC + i * 120));
@@ -59,9 +59,9 @@ namespace STGDAT
 			uint count = SaveData.Instance().ReadNumber(0x24E7CD, 3);
 			for (uint i = 1; i < count; i++)
 			{
-				var part = new Part(0x24E7D1 + i * 24, 0x150E7D1 + i * 4);
-				mPart.Add(part);
-				Parts.Add(part);
+				var part = new Entity(0x24E7D1 + i * 24, 0x150E7D1 + i * 4);
+				mEntity.Add(part);
+				Entitys.Add(part);
 			}
 		}
 
@@ -76,14 +76,14 @@ namespace STGDAT
 
 		public void FilterPart()
 		{
-			Parts.Clear();
+			Entitys.Clear();
 
 			uint id;
-			if (uint.TryParse(FilterPartID, out id) == false) return;
+			if (uint.TryParse(FilterEntityID, out id) == false) return;
 
-			foreach (var part in mPart)
+			foreach (var part in mEntity)
 			{
-				if (part.ItemID == id) Parts.Add(part);
+				if (part.ItemID == id) Entitys.Add(part);
 			}
 		}
 

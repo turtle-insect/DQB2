@@ -7,14 +7,14 @@ using System.Windows.Media.TextFormatting;
 
 namespace STGDAT
 {
-	internal class Part
+	internal class Entity
 	{
 		public uint ItemID { get; }
 		public int PosX { get; }
 		public uint PosY { get; }
 		public int PosZ { get; }
 
-		public Part(uint baseAddress, uint chunkAddress)
+		public Entity(uint baseAddress, uint chunkAddress)
 		{
 			ItemID = SaveData.Instance().ReadNumber(baseAddress + 8, 1);
 			var tmp = SaveData.Instance().ReadNumber(baseAddress + 9, 1) & 0x1F;

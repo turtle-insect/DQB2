@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -60,6 +57,27 @@ namespace CMNDAT
 		// 100Byte
 		// 未訪問:0x00
 		// 訪問済み:0x01
+
+		// マップの解放
+		// 1 Map Size = 0x20004Byte
+		// 0-3 ????
+		// 4-0x20004 Block
+		//
+		// 1Block Size = 2Byte
+		// 0(7bit) = Open Flag
+		//
+		// からっぽ島
+		// 0x24A60C - 
+		// モンゾーラ
+		// 0x26A610 - 
+		// かいたく島
+		// 0x38A634 - 0x3AA634(= 0x20000)
+		//
+		// Map Full Open
+		// for (uint index = 0; index < 0x10000; index++)
+		// {
+		// 	SaveData.Instance().WriteBit(0x24A60C + index * 2, 7, true);
+		// }
 
 		public ViewModel()
 		{

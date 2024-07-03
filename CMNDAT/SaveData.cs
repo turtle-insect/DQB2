@@ -78,10 +78,7 @@ namespace CMNDAT
 			Byte[] tmp = new Byte[mHeader.Length + comp.Length];
 			Array.Copy(mHeader, tmp, mHeader.Length);
 			Byte[] size = BitConverter.GetBytes(tmp.Length);
-			for (int i = 0; i < size.Length; i++)
-			{
-				tmp[0x10 + i] = size[i];
-			}
+			Array.Copy(size, 0, tmp, 0x10, size.Length);
 			Array.Copy(comp, 0, tmp, mHeader.Length, comp.Length);
 			System.IO.File.WriteAllBytes(mFileName, tmp);
 			return true;

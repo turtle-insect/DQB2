@@ -78,20 +78,22 @@
 						<CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Skill.Bag}" VerticalAlignment="Center"/>
 						<Label Grid.Row="5" Content="Windbraker"/>
 						<CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding Skill.Windbraker}" VerticalAlignment="Center"/>
-						<Label Grid.Row="6" Content="Hammer3x"/>
-						<CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Skill.Hammer3x}" VerticalAlignment="Center"/>
-						<Label Grid.Row="7" Content="Hammer5x"/>
-						<CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Skill.Hammer5x}" VerticalAlignment="Center"/>
-						<Label Grid.Row="8" Content="Transform-O-Trowel(grade up)"/>
-						<CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Skill.Transform}" VerticalAlignment="Center"/>
-						<Label Grid.Row="9" Content="Bottomless Pot(use)"/>
-						<CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Skill.BottomlessPotUse}" VerticalAlignment="Center"/>
-						<Label Grid.Row="10" Content="Bottomless Pot(grade up)"/>
-						<CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding Skill.BottomlessPot}" VerticalAlignment="Center"/>
+						<Label Grid.Row="6" Content="DivingFlipper"/>
+						<CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding Skill.DivingFlipper}" VerticalAlignment="Center"/>
+						<Label Grid.Row="7" Content="Hammer3x"/>
+						<CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding Skill.Hammer3x}" VerticalAlignment="Center"/>
+						<Label Grid.Row="8" Content="Hammer5x"/>
+						<CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding Skill.Hammer5x}" VerticalAlignment="Center"/>
+						<Label Grid.Row="9" Content="Transform-O-Trowel(grade up)"/>
+						<CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding Skill.Transform}" VerticalAlignment="Center"/>
+						<Label Grid.Row="10" Content="Bottomless Pot(use)"/>
+						<CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding Skill.BottomlessPotUse}" VerticalAlignment="Center"/>
+						<Label Grid.Row="11" Content="Bottomless Pot(grade up)"/>
+						<CheckBox Grid.Row="11" Grid.Column="1" IsChecked="{Binding Skill.BottomlessPot}" VerticalAlignment="Center"/>
 
 						<!--
-                        <Label Grid.Row="12" Content="WateringType"/>
-                        <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding Skill.WateringType}" VerticalAlignment="Center"/>
+                        <Label Grid.Row="13" Content="WateringType"/>
+                        <CheckBox Grid.Row="13" Grid.Column="1" IsChecked="{Binding Skill.WateringType}" VerticalAlignment="Center"/>
                         -->
 
 						<Label Grid.Row="12" Content="Buildnoculars"/>

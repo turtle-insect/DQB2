@@ -16,8 +16,14 @@ namespace CMNDAT
 
 		public bool Windbraker
 		{
-			get { return SaveData.Instance().ReadNumber(0x6A8A2, 1) == 2; }
-			set { SaveData.Instance().WriteNumber(0x6A8A2, 1, value == true ? 2u : 0); }
+			get { return SaveData.Instance().ReadBit(0x6A8A2, 1); }
+			set { SaveData.Instance().WriteBit(0x6A8A2, 1, value); }
+		}
+
+		public bool DivingFlipper
+		{
+			get { return SaveData.Instance().ReadBit(0x6A8A3, 1); }
+			set { SaveData.Instance().WriteBit(0x6A8A3, 1, value); }
 		}
 
 		public bool Hammer3x

@@ -44,6 +44,13 @@ namespace CMNDAT
 			set { Util.WriteNumber(0x6A896, 2, value * 100, 0, 10000); }
 		}
 
+		// but game play initial value...
+		public uint Stamina
+		{
+			get { return SaveData.Instance().ReadNumber(0x6A8A0, 2); }
+			set { SaveData.Instance().WriteNumber(0x6A8A0, 2, value); }
+		}
+
 		public uint Attack
 		{
 			get { return SaveData.Instance().ReadNumber(0x6A898, 2); }

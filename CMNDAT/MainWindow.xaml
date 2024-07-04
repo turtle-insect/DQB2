@@ -170,7 +170,8 @@
 							<RowDefinition/>
 							<RowDefinition/>
 							<RowDefinition/>
-							<RowDefinition Height="2*"/>
+							<RowDefinition/>
+							<RowDefinition Height="1*"/>
 						</Grid.RowDefinitions>
 						<Label Content="Name"/>
 						<TextBox Grid.Column="1" Text="{Binding Player.Name, UpdateSourceTrigger=PropertyChanged}"/>

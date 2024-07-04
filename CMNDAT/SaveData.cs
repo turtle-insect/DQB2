@@ -26,11 +26,8 @@ namespace CMNDAT
 			if (System.IO.File.Exists(filename) == false) return false;
 
 			Byte[] tmp = System.IO.File.ReadAllBytes(filename);
-			Byte[] check = { 0x61, 0x65, 0x72, 0x43, };
-			for (int i = 0; i < check.Length; i++)
-			{
-				if (check[i] != tmp[i]) return false;
-			}
+			String prefix = mEncode.GetString(tmp, 0, 4);
+			if (prefix != "aerC") return false;
 
 			Byte[] comp = new Byte[tmp.Length - mHeader.Length];
 			Array.Copy(tmp, mHeader.Length, comp, 0, comp.Length);

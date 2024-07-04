@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
+using System.Reflection;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -58,22 +60,40 @@ namespace CMNDAT
 		// 未訪問:0x00
 		// 訪問済み:0x01
 
-		// マップの解放
+		// マップタイル(mini map)
 		// 1 Map Size = 0x20004Byte
 		// 0-3 ????
-		// 4-0x20004 Block
+		// 4-0x20004 Tile
 		//
-		// 1Block Size = 2Byte
-		// 0(7bit) = Open Flag
+		// width = 256
+		// height = 256
+		// 256 * 256 * 2 = 0x20000
+		// 1Tile = 8 x 8 Block
+		//
+		// 1Tile Size = 2Byte
+		// 0-1 = Tile Chip
+		// 1(7bit) = Open Flag
+		//
+		// Tile Chip
+		// (ID - 1) / 11 = background
+		//
+		// (ID - 1) % 11 = object
+		// 01 : 森林
+		// 02 : 塔
+		// 03 : ヤシの木
+		// 07 : 黄山岩
+		// 08 : 白い岩
+		// 09 : 赤山岩
+		// 10 : グレー岩
 		//
 		// からっぽ島
-		// 0x24A60C - 
+		// 0x24A60B - 
 		// モンゾーラ
-		// 0x26A610 - 
+		// 0x26A60F - 
 		// かいたく島
-		// 0x38A634 - 0x3AA634(= 0x20000)
+		// 0x38A633 - 0x3AA633(= 0x20000)
 		//
-		// Map Full Open
+		// Tile Full Open
 		// for (uint index = 0; index < 0x10000; index++)
 		// {
 		// 	SaveData.Instance().WriteBit(0x24A60C + index * 2, 7, true);

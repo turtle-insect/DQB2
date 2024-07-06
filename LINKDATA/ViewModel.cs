@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Input;
 
 namespace LINKDATA
 {
@@ -12,13 +13,13 @@ namespace LINKDATA
 		
 		public ObservableCollection<IDX> IDXs { get; private set; } = new ObservableCollection<IDX>();
 		public IDXzrc IDXzrc { get; private set; } = new IDXzrc();
-		public CommandAction CommandOpenIDXFile { get; private set; }
-		public CommandAction CommandOpenIDXzrcFile { get; private set; }
-		public CommandAction CommandOpenUnPackIDXzrcFile { get; private set; }
-		public CommandActionParam CommandExportIDX { get; private set; }
-		public CommandActionParam CommandImportIDX { get; private set; }
-		public CommandActionParam CommandUnPackIDXzrc { get; private set; }
-		public CommandAction CommandPackIDXzrc { get; private set; }
+		public ICommand CommandOpenIDXFile { get; private set; }
+		public ICommand CommandOpenIDXzrcFile { get; private set; }
+		public ICommand CommandOpenUnPackIDXzrcFile { get; private set; }
+		public ICommand CommandExportIDX { get; private set; }
+		public ICommand CommandImportIDX { get; private set; }
+		public ICommand CommandUnPackIDXzrc { get; private set; }
+		public ICommand CommandPackIDXzrc { get; private set; }
 		public Int32 PackSplitSize { get; set; } = 0x200000;
 		public String IDXIndexFilter
 		{
@@ -80,13 +81,13 @@ namespace LINKDATA
 			CommandOpenIDXFile = new CommandAction(OpenIDXFile);
 			CommandOpenIDXzrcFile = new CommandAction(OpenIDXzrcFile);
 			CommandOpenUnPackIDXzrcFile = new CommandAction(OpenUnPackIDXzrcFile);
-			CommandExportIDX = new CommandActionParam(ExportIDX);
-			CommandImportIDX = new CommandActionParam(ImportIDX);
-			CommandUnPackIDXzrc = new CommandActionParam(UnPackIDXzrc);
+			CommandExportIDX = new CommandAction(ExportIDX);
+			CommandImportIDX = new CommandAction(ImportIDX);
+			CommandUnPackIDXzrc = new CommandAction(UnPackIDXzrc);
 			CommandPackIDXzrc = new CommandAction(PackIDXzrc);
 		}
 
-		private void OpenIDXFile()
+		private void OpenIDXFile(object? param)
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
 			dlg.Filter = "LINKDATA|LINKDATA.IDX";
@@ -128,7 +129,7 @@ namespace LINKDATA
 			}
 		}
 
-		private void OpenIDXzrcFile()
+		private void OpenIDXzrcFile(object? param)
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
 			dlg.Filter = "idxzrc|*.idxzrc";
@@ -249,7 +250,7 @@ namespace LINKDATA
 			System.IO.File.WriteAllBytes(dlg.FileName, buffer);
 		}
 
-		private void OpenUnPackIDXzrcFile()
+		private void OpenUnPackIDXzrcFile(object? param)
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
 			dlg.Filter = "builder file|*.unpack;*.g1t;*.g1m;*.g2m";
@@ -258,7 +259,7 @@ namespace LINKDATA
 			UnPackIDXzrcPath = dlg.FileName;
 		}
 
-		private void PackIDXzrc()
+		private void PackIDXzrc(object? param)
 		{
 			String path = mUnPackIDXzrcPath;
 			if (!System.IO.File.Exists(path)) return;

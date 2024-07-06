@@ -10,15 +10,19 @@ namespace SCSHDAT
 
 		private readonly uint mAddress;
 		private readonly uint mSize;
-		private Byte[] mJpeg;
-		private JpegBitmapDecoder mDecoder;
+		private Byte[]? mJpeg;
+		private JpegBitmapDecoder? mDecoder;
 
 		public Photo(uint address, uint size)
 		{
 			mAddress = address;
 			mSize = size;
 			mJpeg = SaveData.Instance().ReadValue(mAddress, mSize);
-			if (!(mJpeg[0] == 0xFF && mJpeg[1] == 0xD8)) return;
+			if (!(mJpeg[0] == 0xFF && mJpeg[1] == 0xD8))
+			{
+				mJpeg = null;
+				return;
+			}
 
 			int length = mJpeg.Length - 1;
 			for (; length > 1; length--)
@@ -51,7 +55,7 @@ namespace SCSHDAT
 			System.IO.File.WriteAllBytes(filename, mJpeg);
 		}
 
-		public System.Windows.Media.ImageSource Image
+		public System.Windows.Media.ImageSource? Image
 		{
 			get
 			{

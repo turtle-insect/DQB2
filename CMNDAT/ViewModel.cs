@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Net;
-using System.Reflection;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 

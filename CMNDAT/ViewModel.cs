@@ -18,7 +18,8 @@ namespace CMNDAT
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
 		public ObservableCollection<Item> Bag { get; private set; } = new ObservableCollection<Item>();
-		public ObservableCollection<MaterialIsland> Island { get; private set; } = new ObservableCollection<MaterialIsland>();
+		public ObservableCollection<StoryIsland> StoryIslands { get; private set; } = new ObservableCollection<StoryIsland>();
+		public ObservableCollection<MaterialIsland> MaterialIslands { get; private set; } = new ObservableCollection<MaterialIsland>();
 		public ObservableCollection<Pelple> Residents { get; private set; } = new ObservableCollection<Pelple>();
 		public ObservableCollection<Pelple> StoryPeople { get; private set; } = new ObservableCollection<Pelple>();
 		public ObservableCollection<Party> Party { get; private set; } = new ObservableCollection<Party>();
@@ -115,9 +116,15 @@ namespace CMNDAT
 				Bag.Add(new Item(0x55B2C9 + i * 4));
 			}
 
+			foreach (var island in Info.Instance().StoryIsland)
+			{
+				if (island.Value == 0) continue;
+				StoryIslands.Add(new StoryIsland(0x535 + island.Value * 8, island.Name));
+			}
+
 			for (uint i = 0; i < Info.MaterialIsland.Count; i++)
 			{
-				Island.Add(new MaterialIsland(0x69F8D + i * 7, Info.MaterialIsland[(int)i].Name));
+				MaterialIslands.Add(new MaterialIsland(0x69F8D + i * 7, Info.MaterialIsland[(int)i].Name));
 			}
 
 			for (uint i = 0; i < 3; i++)

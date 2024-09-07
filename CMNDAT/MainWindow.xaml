@@ -301,8 +301,22 @@
 						</ListBox.ItemTemplate>
 					</ListBox>
 				</TabItem>
+				<TabItem Header="Story Island">
+					<ListBox ItemsSource="{Binding StoryIslands}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<Label Content="Name"/>
+									<Label Content="{Binding Name}" Width="120"/>
+									<CheckBox Content="Map" IsChecked="{Binding Map}" VerticalAlignment="Center"/>
+									<CheckBox Content="Move" IsChecked="{Binding Move}" VerticalAlignment="Center"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</TabItem>
 				<TabItem Header="Material Island">
-					<ListBox ItemsSource="{Binding Island}">
+					<ListBox ItemsSource="{Binding MaterialIslands}">
 						<ListBox.Resources>
 							<local:MaterialIslandStateConverter x:Key="MaterialIslandStateConverter"/>
 						</ListBox.Resources>

@@ -332,6 +332,9 @@
 				</TabItem>
 				<TabItem Header="Crafts">
 					<DockPanel>
+						<StackPanel DockPanel.Dock="Top">
+							<Button Content="Infinity All" Command="{Binding CommandCraftAllInfinite}"/>
+						</StackPanel>
 						<DockPanel DockPanel.Dock="Top">
 							<Label Content="Filter"/>
 							<TextBox Text="{Binding CraftNameFilter, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxCraftItem_TextChanged"/>

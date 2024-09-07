@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -11,6 +12,9 @@ namespace CMNDAT
 		public Info Info { get; private set; } = Info.Instance();
 		public Player Player { get; private set; } = new Player();
 		public Skill Skill { get; private set; } = new Skill();
+
+		public ICommand CommandCraftAllInfinite { get; private set; }
+
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
 		public ObservableCollection<Item> Bag { get; private set; } = new ObservableCollection<Item>();
@@ -99,6 +103,8 @@ namespace CMNDAT
 
 		public ViewModel()
 		{
+			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
+
 			for (uint i = 0; i < 15; i++)
 			{
 				Inventory.Add(new Item(0x55B28D + i * 4));
@@ -322,6 +328,14 @@ namespace CMNDAT
 				{
 					Crafts.Add(new Craft(Util.CraftAddress + item.Value, item.Value));
 				}
+			}
+		}
+
+		private void CraftAllInfinite(Object? obj)
+		{
+			foreach (var craft in Crafts)
+			{
+				craft.Infinite = true;
 			}
 		}
 	}

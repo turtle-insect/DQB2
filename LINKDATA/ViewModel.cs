@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Security.Cryptography;
 using System.Windows.Input;
 
 namespace LINKDATA
@@ -21,6 +22,17 @@ namespace LINKDATA
 		public ICommand CommandUnPackIDXzrc { get; private set; }
 		public ICommand CommandPackIDXzrc { get; private set; }
 		public Int32 PackSplitSize { get; set; } = 0x200000;
+		
+		public bool ZeroSizeFilter
+		{
+			get => mZeroSizeFilter;
+			set
+			{
+				mZeroSizeFilter = value;
+				FilterIdxList();
+			}
+		}
+
 		public String IDXIndexFilter
 		{
 			get => mIDXIndexFilter;
@@ -32,6 +44,7 @@ namespace LINKDATA
 		}
 
 		private List<IDX> mIDXs = new List<IDX>();
+		private bool mZeroSizeFilter = false;
 		private String mIDXIndexFilter = "";
 		private String mLinkDataPath = "";
 		private String mIDXzrcPath = "";
@@ -104,6 +117,8 @@ namespace LINKDATA
 			if (!System.IO.File.Exists(path)) return;
 
 			Byte[] buffer = System.IO.File.ReadAllBytes(path);
+
+			int gameIndex = 0;
 			for (int index = 0; index < buffer.Length / 32; index++)
 			{
 				var idx = new IDX(index);
@@ -111,6 +126,12 @@ namespace LINKDATA
 				idx.UncompressedSize = BitConverter.ToUInt64(buffer, index * 32 + 8);
 				idx.CompressedSize = BitConverter.ToUInt64(buffer, index * 32 + 16);
 				idx.IsCompressed = BitConverter.ToUInt64(buffer, index * 32 + 24);
+
+				if (idx.UncompressedSize != 0)
+				{
+					idx.GameIndex = gameIndex;
+					gameIndex++;
+				}
 				mIDXs.Add(idx);
 			}
 
@@ -122,9 +143,16 @@ namespace LINKDATA
 			IDXs.Clear();
 			foreach (IDX idx in mIDXs)
 			{
-				if (String.IsNullOrEmpty(IDXIndexFilter) || idx.Index.ToString().IndexOf(IDXIndexFilter) != -1)
+				if (mZeroSizeFilter && idx.UncompressedSize == 0) continue;
+
+				if (String.IsNullOrEmpty(IDXIndexFilter))
 				{
 					IDXs.Add(idx);
+				}
+				else
+				{
+					if (idx.Index.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
+					if (idx.GameIndex.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
 				}
 			}
 		}

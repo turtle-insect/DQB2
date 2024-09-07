@@ -8,6 +8,7 @@ namespace LINKDATA
 		public UInt64 UncompressedSize { get; set; }
 		public UInt64 CompressedSize { get; set; }
 		public UInt64 IsCompressed { get; set; }
+		public int GameIndex { get; set; } = -1;
 
 		public int Index { get; private set; }
 

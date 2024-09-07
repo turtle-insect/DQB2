@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LINKDATA"
         mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-        Title="DQB2 LINKDATA Nintendo Switch &amp; Steam" Height="450" Width="800">
+        Title="DQB2 LINKDATA Nintendo Switch &amp; Steam" Height="500" Width="870">
 	<Window.DataContext>
 		<local:ViewModel/>
 	</Window.DataContext>
@@ -29,8 +29,14 @@
 							<ColumnDefinition Width="80"/>
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
 						<Label Content="IDX index"/>
 						<TextBox Grid.Column="1" Text="{Binding IDXIndexFilter, UpdateSourceTrigger=PropertyChanged}"/>
+						<Label Grid.Row="1" Content="Filter"/>
+						<CheckBox Grid.Row="1" Grid.Column="1" Content="Zero Size" IsChecked="{Binding ZeroSizeFilter}" VerticalAlignment="Center"/>
 					</Grid>
 					<ListBox ItemsSource="{Binding IDXs}">
 						<ListBox.ItemTemplate>
@@ -42,16 +48,18 @@
 									<Button Content="Import"
 											CommandParameter="{Binding}"
 											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:MainWindow}, Path=DataContext.CommandImportIDX}"/>
-									<Label Content="IsCompressed"/>
+									<Label Content="comp"/>
 									<CheckBox IsChecked="{Binding IsCompressed}" IsEnabled="False" VerticalContentAlignment="Center"/>
 									<Label Margin="5,0,0,0" Content="index"/>
-									<Label Content="{Binding Index}"/>
+									<Label Content="{Binding Index}" Width="45"/>
+									<Label Content="game index"/>
+									<Label Content="{Binding GameIndex}" Width="45"/>
 									<Label Content="Offset"/>
-									<Label Content="{Binding Offset}"/>
+									<Label Content="{Binding Offset}" Width="80"/>
 									<Label Content="UncompressedSize"/>
-									<Label Content="{Binding UncompressedSize}"/>
+									<Label Content="{Binding UncompressedSize}" Width="70"/>
 									<Label Content="CompressedSize"/>
-									<Label Content="{Binding CompressedSize}"/>
+									<Label Content="{Binding CompressedSize}" Width="70"/>
 								</StackPanel>
 							</DataTemplate>
 						</ListBox.ItemTemplate>

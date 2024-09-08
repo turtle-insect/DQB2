@@ -68,7 +68,7 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 # LINKDATA edit
 ## external Tool
 * g1t_tools_0.3.zip
-* [gimp](https://www.gimp.org/) 2.10.30
+* [gimp](https://www.gimp.org/) 2.10.38
 
 ## Process
 * start LINKDATA.exe

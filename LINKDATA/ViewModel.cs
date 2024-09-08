@@ -152,7 +152,7 @@ namespace LINKDATA
 				else
 				{
 					if (idx.Index.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
-					if (idx.GameIndex.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
+					else if (idx.GameIndex.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
 				}
 			}
 		}

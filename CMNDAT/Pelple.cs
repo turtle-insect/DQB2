@@ -285,6 +285,7 @@ namespace CMNDAT
 			Type = Type;
 			Equipment = Equipment;
 			Battle = Battle;
+   			Home = Home;
 			Island = Island;
 			Place = Place;
 			Weapon.ID = Weapon.ID;

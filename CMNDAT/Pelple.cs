@@ -285,6 +285,7 @@ namespace CMNDAT
 			Type = Type;
 			Equipment = Equipment;
 			Battle = Battle;
+			Home = Home;
 			Island = Island;
 			Place = Place;
 			Weapon.ID = Weapon.ID;
@@ -297,6 +298,7 @@ namespace CMNDAT
 				item.Count = item.Count;
 			}
 
+			LockGraphic = LockGraphic;
 			FaceType = FaceType;
 			HeadType = HeadType;
 			BodyType = BodyType;
@@ -318,6 +320,7 @@ namespace CMNDAT
 			if (HP != 0) return true;
 			if (Job != 0) return true;
 			if (Type != 0) return true;
+			if (Home != 0) return true;
 			if (Island != 0) return true;
 			if (Place != 0) return true;
 			if (Weapon.ID != 0) return true;

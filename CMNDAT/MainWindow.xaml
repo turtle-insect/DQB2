@@ -465,6 +465,7 @@
 												<ComboBoxItem Content="Green"/>
 												<ComboBoxItem Content="Red"/>
 												<ComboBoxItem Content="Blue"/>
+												<ComboBoxItem Content="Beach"/>
 											</ComboBox>
 											<Label Grid.Row="9" Content="Battle"/>
 											<StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
@@ -616,6 +617,7 @@
 												<ComboBoxItem Content="Green"/>
 												<ComboBoxItem Content="Red"/>
 												<ComboBoxItem Content="Blue"/>
+												<ComboBoxItem Content="Beach"/>
 											</ComboBox>
 											<Label Grid.Row="9" Content="Battle"/>
 											<StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">

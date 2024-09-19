@@ -33,5 +33,17 @@ namespace CMNDAT
 			get => SaveData.Instance().ReadBit(mAddress, 1);
 			set => SaveData.Instance().WriteBit(mAddress, 1, value);
 		}
+
+		public bool New
+		{
+			get => SaveData.Instance().ReadBit(mAddress, 2);
+			set => SaveData.Instance().WriteBit(mAddress, 2, value);
+		}
+
+		public bool Clear
+		{
+			get => SaveData.Instance().ReadBit(mAddress, 3);
+			set => SaveData.Instance().WriteBit(mAddress, 3, value);
+		}
 	}
 }

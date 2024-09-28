@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Security.Cryptography;
 using System.Windows.Input;
 
 namespace LINKDATA
@@ -14,6 +13,7 @@ namespace LINKDATA
 		
 		public ObservableCollection<IDX> IDXs { get; private set; } = new ObservableCollection<IDX>();
 		public IDXzrc IDXzrc { get; private set; } = new IDXzrc();
+		public ICommand CommandOpenWorkPath { get; private set; }
 		public ICommand CommandOpenIDXFile { get; private set; }
 		public ICommand CommandOpenIDXzrcFile { get; private set; }
 		public ICommand CommandOpenUnPackIDXzrcFile { get; private set; }
@@ -44,12 +44,23 @@ namespace LINKDATA
 		}
 
 		private List<IDX> mIDXs = new List<IDX>();
+		private String mWorkPath = "";
 		private bool mZeroSizeFilter = false;
 		private String mIDXIndexFilter = "";
 		private String mLinkDataPath = "";
 		private String mIDXzrcPath = "";
 		private String mUnPackIDXzrcPath = "";
 		private String mItemResoucePath = "";
+		public String WorkPath
+		{
+			get => mWorkPath;
+			set
+			{
+				mWorkPath = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(WorkPath)));
+			}
+		}
+
 		public String LinkDataPath
 		{
 			get => mLinkDataPath;
@@ -91,6 +102,8 @@ namespace LINKDATA
 
 		public ViewModel()
 		{
+			mWorkPath = Environment.CurrentDirectory;
+			CommandOpenWorkPath = new CommandAction(OpenWorkPath);
 			CommandOpenIDXFile = new CommandAction(OpenIDXFile);
 			CommandOpenIDXzrcFile = new CommandAction(OpenIDXzrcFile);
 			CommandOpenUnPackIDXzrcFile = new CommandAction(OpenUnPackIDXzrcFile);
@@ -98,6 +111,15 @@ namespace LINKDATA
 			CommandImportIDX = new CommandAction(ImportIDX);
 			CommandUnPackIDXzrc = new CommandAction(UnPackIDXzrc);
 			CommandPackIDXzrc = new CommandAction(PackIDXzrc);
+		}
+
+		private void OpenWorkPath(object? param)
+		{
+			var dlg = new Microsoft.Win32.OpenFolderDialog();
+			dlg.FolderName = WorkPath;
+			if (dlg.ShowDialog() == false) return;
+
+			WorkPath = dlg.FolderName;
 		}
 
 		private void OpenIDXFile(object? param)
@@ -161,10 +183,11 @@ namespace LINKDATA
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
 			dlg.Filter = "idxzrc|*.idxzrc";
+			dlg.InitialDirectory = WorkPath;
 			if (dlg.ShowDialog() == false) return;
 
 			IDXzrcPath = dlg.FileName;
-			IDXzrc.Read(dlg.FileName);
+			IDXzrc.Read(IDXzrcPath);
 		}
 
 		private void ExportIDX(object? param)
@@ -179,7 +202,6 @@ namespace LINKDATA
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
 			int size = (int)idx.UncompressedSize;
-			dlg.FileName = idx.Index.ToString("d5");
 			if (idx.IsCompressed == 0)
 			{
 				dlg.Filter = "unpack|*.unpack";
@@ -189,7 +211,9 @@ namespace LINKDATA
 				dlg.Filter = "idxzrc|*.idxzrc";
 				size = (int)idx.CompressedSize;
 			}
-			
+			dlg.InitialDirectory = WorkPath;
+			dlg.FileName = idx.Index.ToString("d5");
+
 			if (dlg.ShowDialog() == false) return;
 
 			Byte[] bin = System.IO.File.ReadAllBytes(path);
@@ -210,6 +234,7 @@ namespace LINKDATA
 
 			var dlg = new Microsoft.Win32.OpenFileDialog();
 			dlg.Filter = "idxzrc|*.idxzrc";
+			dlg.InitialDirectory = WorkPath;
 			if (dlg.ShowDialog() == false) return;
 			IDXzrc idxzrc = new IDXzrc();
 			idxzrc.Read(dlg.FileName);
@@ -258,8 +283,9 @@ namespace LINKDATA
 			if (!System.IO.File.Exists(path)) return;
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
-			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(path));
 			dlg.Filter = "unpack|*.unpack";
+			dlg.InitialDirectory = WorkPath;
+			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(path));
 
 			if (dlg.ShowDialog() == false) return;
 
@@ -282,6 +308,7 @@ namespace LINKDATA
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
 			dlg.Filter = "builder file|*.unpack;*.g1t;*.g1m;*.g2m";
+			dlg.InitialDirectory = WorkPath;
 			if (dlg.ShowDialog() == false) return;
 
 			UnPackIDXzrcPath = dlg.FileName;
@@ -363,6 +390,7 @@ namespace LINKDATA
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
 			dlg.Filter = "idxzrc|*.idxzrc";
+			dlg.InitialDirectory = WorkPath;
 			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(path));
 			if (dlg.ShowDialog() == false) return;
 			System.IO.File.WriteAllBytes(dlg.FileName, Packed.ToArray());

@@ -179,7 +179,7 @@ namespace LINKDATA
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
 			int size = (int)idx.UncompressedSize;
-			dlg.FileName = idx.Index.ToString("00000");
+			dlg.FileName = idx.Index.ToString("d5");
 			if (idx.IsCompressed == 0)
 			{
 				dlg.Filter = "idxout|*.idxout";
@@ -227,19 +227,19 @@ namespace LINKDATA
 			
 			
 			Byte[] bin = new Byte[link_bin.Length + offset];
-			Array.Copy(link_bin, 0, bin, 0, (int)IDXs[idx.Index].Offset);
+			Array.Copy(link_bin, 0, bin, 0, (int)idx.Offset);
 
 			Array.Fill<Byte>(link_idx, 0, idx.Index * 32 + 8, 24);
 			Array.Copy(BitConverter.GetBytes(idxzrc.UncompressedSize), 0, link_idx, idx.Index * 32 + 8, 4);
 			Array.Copy(BitConverter.GetBytes(importFile.Length), 0, link_idx, idx.Index * 32 + 16, 4);
 			Array.Copy(BitConverter.GetBytes(1), 0, link_idx, idx.Index * 32 + 24, 4);
-			Array.Copy(importFile, 0, bin, (int)IDXs[idx.Index].Offset, importFile.Length);
+			Array.Copy(importFile, 0, bin, (int)idx.Offset, importFile.Length);
 
-			for (int index = idx.Index + 1; index < IDXs.Count; index++)
+			for (int index = idx.Index + 1; index < mIDXs.Count; index++)
 			{
-				int address = (int)IDXs[index].Offset + offset;
+				int address = (int)mIDXs[index].Offset + offset;
 				Array.Copy(BitConverter.GetBytes((UInt64)address), 0, link_idx, index * 32, 8);
-				Array.Copy(link_bin, (int)IDXs[index].Offset, bin, address, (int)IDXs[index].CompressedSize);
+				Array.Copy(link_bin, (int)mIDXs[index].Offset, bin, address, (int)mIDXs[index].CompressedSize);
 			}
 
 			System.IO.File.WriteAllBytes(mLinkDataPath, link_idx);

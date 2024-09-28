@@ -182,7 +182,7 @@ namespace LINKDATA
 			dlg.FileName = idx.Index.ToString("d5");
 			if (idx.IsCompressed == 0)
 			{
-				dlg.Filter = "idxout|*.idxout";
+				dlg.Filter = "unpack|*.unpack";
 			}
 			else
 			{

@@ -73,12 +73,6 @@ namespace CMNDAT
 			Close();
 		}
 
-		private void ButtonItemChoice_Click(object sender, RoutedEventArgs e)
-		{
-			Item item = (sender as Button)?.DataContext as Item;
-			ItemChoice(item);
-		}
-
 		private void ButtonBluePrintExport_Click(object sender, RoutedEventArgs e)
 		{
 			BluePrint item = (sender as Button)?.DataContext as BluePrint;
@@ -172,21 +166,6 @@ namespace CMNDAT
 			if (vm == null) return;
 
 			vm.CreateCraft();
-		}
-
-		private void ItemChoice(Item item)
-		{
-			if (item == null) return;
-
-			var window = new ChoiceWindow();
-			window.ID = item.ID;
-			window.ShowDialog();
-			item.ID = window.ID;
-
-			if (item.mCountForce)
-			{
-				item.Count = item.ID == 0 ? 0 : 1u;
-			}
 		}
 
 		private void SceneriesCheck(bool isCheck)

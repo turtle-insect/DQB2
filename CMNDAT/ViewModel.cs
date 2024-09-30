@@ -14,6 +14,7 @@ namespace CMNDAT
 		public Skill Skill { get; private set; } = new Skill();
 
 		public ICommand CommandCraftAllInfinite { get; private set; }
+		public ICommand CommandChoiceItem { get; private set; }
 
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
@@ -105,6 +106,7 @@ namespace CMNDAT
 		public ViewModel()
 		{
 			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
+			CommandChoiceItem = new CommandAction(ChoiceItem);
 
 			for (uint i = 0; i < 15; i++)
 			{
@@ -343,6 +345,22 @@ namespace CMNDAT
 			foreach (var craft in Crafts)
 			{
 				craft.Infinite = true;
+			}
+		}
+
+		private void ChoiceItem(Object? obj)
+		{
+			Item? item = obj as Item;
+			if (item == null) return;
+
+			var window = new ChoiceWindow();
+			window.ID = item.ID;
+			window.ShowDialog();
+			item.ID = window.ID;
+
+			if (item.mCountForce)
+			{
+				item.Count = item.ID == 0 ? 0 : 1u;
 			}
 		}
 	}

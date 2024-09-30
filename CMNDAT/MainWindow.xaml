@@ -191,22 +191,22 @@
 						<TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Player.Defense, UpdateSourceTrigger=PropertyChanged}"/>
 						<Label Grid.Row="8" Content="Weapon"/>
 						<StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Player.Weapon}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Player.Weapon}"/>
 							<Label Content="{Binding Player.Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="9" Content="Armor"/>
 						<StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Player.Armor}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Player.Armor}"/>
 							<Label Content="{Binding Player.Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="10" Content="Shield"/>
 						<StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Player.Shield}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Player.Shield}"/>
 							<Label Content="{Binding Player.Shield.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="11" Content="Hammer"/>
 						<StackPanel Grid.Row="11" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Player.Hammer}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Player.Hammer}"/>
 							<Label Content="{Binding Player.Hammer.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 					</Grid>
@@ -233,42 +233,42 @@
 						</Grid.RowDefinitions>
 						<Label Content="Hammer"/>
 						<StackPanel Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Hammer}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Hammer}"/>
 							<Label Content="{Binding Appearance.Hammer.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="1" Content="Weapon"/>
 						<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Weapon}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Weapon}"/>
 							<Label Content="{Binding Appearance.Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="2" Content="Armmer"/>
 						<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Armmer}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Armmer}"/>
 							<Label Content="{Binding Appearance.Armmer.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="3" Content="Shield"/>
 						<StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Shield}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Shield}"/>
 							<Label Content="{Binding Appearance.Shield.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="4" Content="Head"/>
 						<StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Head}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Head}"/>
 							<Label Content="{Binding Appearance.Head.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="5" Content="Accessories"/>
 						<StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Accessories1}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Accessories1}"/>
 							<Label Content="{Binding Appearance.Accessories1.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="6" Content="Accessories"/>
 						<StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Accessories2}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Accessories2}"/>
 							<Label Content="{Binding Appearance.Accessories2.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 						<Label Grid.Row="7" Content="Accessories"/>
 						<StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
-							<Button Content="..." DataContext="{Binding Appearance.Accessories3}" Width="30" Click="ButtonItemChoice_Click"/>
+							<Button Content="..." Width="30" Command="{Binding CommandChoiceItem}" CommandParameter="{Binding Appearance.Accessories3}"/>
 							<Label Content="{Binding Appearance.Accessories3.ID, Converter={StaticResource ItemIDConverter}}"/>
 						</StackPanel>
 					</Grid>
@@ -280,7 +280,9 @@
 								<StackPanel Orientation="Horizontal">
 									<Label Content="  Count: "/>
 									<TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-									<Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+									<Button Content="..." Width="30"
+											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+											CommandParameter="{Binding}"/>
 									<Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
 								</StackPanel>
 							</DataTemplate>
@@ -294,7 +296,9 @@
 								<StackPanel Orientation="Horizontal">
 									<Label Content="  Count: "/>
 									<TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-									<Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+									<Button Content="..." Width="30"
+											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+											CommandParameter="{Binding}"/>
 									<Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
 								</StackPanel>
 							</DataTemplate>
@@ -511,18 +515,22 @@
 											</ComboBox>
 											<Label Grid.Row="11" Grid.Column="3" Content="Mood"/>
 											<ComboBox Grid.Row="11" Grid.Column="4"
-											  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
-											  SelectedIndex="{Binding RoomMood}"
-											  DisplayMemberPath="Name"/>
+													  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
+													  SelectedIndex="{Binding RoomMood}"
+													  DisplayMemberPath="Name"/>
 
 											<Label Grid.Row="1" Grid.Column="6" Content="Weapon"/>
 											<StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
-												<Button Content="..." DataContext="{Binding Weapon}" Click="ButtonItemChoice_Click" Width="30"/>
+												<Button Content="..." Width="30"
+														Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+														CommandParameter="{Binding Weapon}"/>
 												<Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
 											</StackPanel>
 											<Label Grid.Row="2" Grid.Column="6" Content="Armor"/>
 											<StackPanel Grid.Row="2" Grid.Column="7" Orientation="Horizontal">
-												<Button Content="..." DataContext="{Binding Armor}" Click="ButtonItemChoice_Click" Width="30"/>
+												<Button Content="..." Width="30"
+														Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+														CommandParameter="{Binding Armor}"/>
 												<Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
 											</StackPanel>
 											<ListBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="9" ItemsSource="{Binding Items}" Height="240">
@@ -531,7 +539,9 @@
 														<StackPanel Orientation="Horizontal">
 															<Label Content="  Count: "/>
 															<TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-															<Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+															<Button Content="..." Width="30"
+																	Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+																	CommandParameter="{Binding}"/>
 															<Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
 														</StackPanel>
 													</DataTemplate>
@@ -609,10 +619,10 @@
 											<TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Type, UpdateSourceTrigger=PropertyChanged}"/>
 											<Label Grid.Row="6" Content="Home"/>
 											<ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
-									  DisplayMemberPath="Name" SelectedIndex="{Binding Home, Converter={StaticResource IslandIDConverter}}"/>
+													  DisplayMemberPath="Name" SelectedIndex="{Binding Home, Converter={StaticResource IslandIDConverter}}"/>
 											<Label Grid.Row="7" Content="IsLand"/>
 											<ComboBox Grid.Row="7" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.StoryIsland}"
-									  DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
+													  DisplayMemberPath="Name" SelectedIndex="{Binding Island, Converter={StaticResource IslandIDConverter}}"/>
 											<Label Grid.Row="8" Content="Place"/>
 											<ComboBox Grid.Row="8" Grid.Column="1" SelectedIndex="{Binding Place}">
 												<ComboBoxItem Content="-"/>
@@ -663,18 +673,22 @@
 											</ComboBox>
 											<Label Grid.Row="11" Grid.Column="3" Content="Mood"/>
 											<ComboBox Grid.Row="11" Grid.Column="4"
-									  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
-									  SelectedIndex="{Binding RoomMood}"
-									  DisplayMemberPath="Name"/>
+													  ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Mood}"
+													  SelectedIndex="{Binding RoomMood}"
+													  DisplayMemberPath="Name"/>
 
 											<Label Grid.Row="1" Grid.Column="6" Content="Weapon"/>
 											<StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
-												<Button Content="..." DataContext="{Binding Weapon}" Click="ButtonItemChoice_Click" Width="30"/>
+												<Button Content="..." Width="30"
+														Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+														CommandParameter="{Binding Weapon}"/>
 												<Label Margin="5,0,0,0" Content="{Binding Weapon.ID, Converter={StaticResource ItemIDConverter}}"/>
 											</StackPanel>
 											<Label Grid.Row="2" Grid.Column="6" Content="Armor"/>
 											<StackPanel Grid.Row="2" Grid.Column="7" Orientation="Horizontal">
-												<Button Content="..." DataContext="{Binding Armor}" Click="ButtonItemChoice_Click" Width="30"/>
+												<Button Content="..." Width="30"
+														Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+														CommandParameter="{Binding Armor}"/>
 												<Label Margin="5,0,0,0" Content="{Binding Armor.ID, Converter={StaticResource ItemIDConverter}}"/>
 											</StackPanel>
 											<ListBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="9" ItemsSource="{Binding Items}" Height="240">
@@ -683,7 +697,9 @@
 														<StackPanel Orientation="Horizontal">
 															<Label Content="  Count: "/>
 															<TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-															<Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+															<Button Content="..." Width="30"
+																	Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+																	CommandParameter="{Binding}"/>
 															<Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
 														</StackPanel>
 													</DataTemplate>

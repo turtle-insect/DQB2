@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -13,8 +14,10 @@ namespace CMNDAT
 		public Player Player { get; private set; } = new Player();
 		public Skill Skill { get; private set; } = new Skill();
 
-		public ICommand CommandCraftAllInfinite { get; private set; }
+		public ICommand CommandImportFile { get; private set; }
+		public ICommand CommandExportFile { get; private set; }
 		public ICommand CommandChoiceItem { get; private set; }
+		public ICommand CommandCraftAllInfinite { get; private set; }
 
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
@@ -105,8 +108,10 @@ namespace CMNDAT
 
 		public ViewModel()
 		{
-			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
+			CommandImportFile = new CommandAction(ImportFile);
+			CommandExportFile = new CommandAction(ExportFile);
 			CommandChoiceItem = new CommandAction(ChoiceItem);
+			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
 
 			for (uint i = 0; i < 15; i++)
 			{
@@ -340,12 +345,20 @@ namespace CMNDAT
 			}
 		}
 
-		private void CraftAllInfinite(Object? obj)
+		private void ImportFile(Object? parameter)
 		{
-			foreach (var craft in Crafts)
-			{
-				craft.Infinite = true;
-			}
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().Import(dlg.FileName);
+		}
+
+		private void ExportFile(Object? parameter)
+		{
+			var dlg = new SaveFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().Export(dlg.FileName);
 		}
 
 		private void ChoiceItem(Object? obj)
@@ -361,6 +374,14 @@ namespace CMNDAT
 			if (item.mCountForce)
 			{
 				item.Count = item.ID == 0 ? 0 : 1u;
+			}
+		}
+
+		private void CraftAllInfinite(Object? obj)
+		{
+			foreach (var craft in Crafts)
+			{
+				craft.Infinite = true;
 			}
 		}
 	}

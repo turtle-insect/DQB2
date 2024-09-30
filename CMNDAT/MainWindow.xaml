@@ -25,8 +25,8 @@
 					<MenuItem Header="Open" Click="MenuItemFileOpen_Click"/>
 					<MenuItem Header="Save" Click="MenuItemFileSave_Click"/>
 					<Separator/>
-					<MenuItem Header="Import" Click="MenuItemFileImport_Click"/>
-					<MenuItem Header="Export" Click="MenuItemFileExport_Click"/>
+					<MenuItem Header="Import" Command="{Binding CommandImportFile}"/>
+					<MenuItem Header="Export" Command="{Binding CommandExportFile}"/>
 					<Separator/>
 					<MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
 				</MenuItem>

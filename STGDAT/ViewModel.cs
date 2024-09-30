@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace STGDAT
 {
@@ -7,6 +10,10 @@ namespace STGDAT
 	{
 		public Info Info { get; private set; } = Info.Instance();
 		public MapGenerator Map { get; private set; } = new MapGenerator();
+
+		public ICommand CommandImportFile { get; private set; }
+		public ICommand CommandExportFile { get; private set; }
+
 		public ObservableCollection<Strage> Boxes { get; private set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Strage> Cabinets { get; private set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Strage> ShelfChests { get; private set; } = new ObservableCollection<Strage>();
@@ -14,6 +21,7 @@ namespace STGDAT
 		public ObservableCollection<Tableware> Tablewares { get; private set; } = new ObservableCollection<Tableware>();
 		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
 		public ObservableCollection<Entity> Entitys { get; private set; } = new ObservableCollection<Entity>();
+
 		public string FilterEntityID { get; set; } = "";
 		private List<Entity> mEntity = new List<Entity>();
 
@@ -25,7 +33,9 @@ namespace STGDAT
 
 		public ViewModel()
 		{
-			FilterEntityID = "";
+			CommandImportFile = new CommandAction(ImportFile);
+			CommandExportFile = new CommandAction(ExportFile);
+
 			for (uint i = 0; i < 32; i++)
 			{
 				Boxes.Add(new Strage(0xF565 + i * 8, 0x2467CC + i * 120));
@@ -217,5 +227,21 @@ namespace STGDAT
 		}
 		System.IO.File.WriteAllBytes(filename + "_", buffer);
 		*/
+
+		private void ImportFile(Object? parameter)
+		{
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().Import(dlg.FileName);
+		}
+
+		private void ExportFile(Object? parameter)
+		{
+			var dlg = new SaveFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().Export(dlg.FileName);
+		}
 	}
 }

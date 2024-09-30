@@ -27,9 +27,9 @@
 					<MenuItem Header="Export" Command="{Binding CommandExportFile}"/>
 
 					<!--
-                    <MenuItem Header="Other's Map" Click="MenuItemFileOtherMap_Click"/>
-                    <MenuItem Header="DL Map" Click="MenuItemFileDLMap_Click"/>
-                    -->
+                    <MenuItem Header="Other's Map" Command="{Binding CommandImportOtherMapFile}"/>
+                    <MenuItem Header="DL Map" Command="{Binding CommandImportDLMapFile}"/>
+					-->
 
 					<Separator/>
 					<MenuItem Header="Exit" Click="MenuItemFileExit_Click"/>
@@ -65,7 +65,7 @@
 					<DockPanel>
 						<DockPanel DockPanel.Dock="Top">
 							<Label Content="Filter Part ID"/>
-							<TextBox Text="{Binding FilterPartID, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
+							<TextBox Text="{Binding FilterEntityID, UpdateSourceTrigger=PropertyChanged}"/>
 						</DockPanel>
 						<ListBox ItemsSource="{Binding Entitys}">
 							<ListBox.ItemTemplate>
@@ -106,7 +106,9 @@
 												<StackPanel Orientation="Horizontal">
 													<Label Content="  Count: "/>
 													<TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-													<Button Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+													<Button Content="..." Width="30"
+															Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+															CommandParameter="{Binding}"/>
 													<Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
 												</StackPanel>
 											</DataTemplate>
@@ -126,7 +128,9 @@
 									<StackPanel Orientation="Horizontal">
 										<Label Content="  Count: "/>
 										<TextBox Text="{Binding Item.Count, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-										<Button DataContext="{Binding Item}" Content="..." Click="ButtonItemChoice_Click" Width="30"/>
+										<Button Content="..." Width="30"
+												Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandChoiceItem}"
+												CommandParameter="{Binding Item}"/>
 										<Label Content="{Binding Item.ID, Converter={StaticResource ItemIDConverter}}"/>
 									</StackPanel>
 								</DataTemplate>

@@ -13,6 +13,9 @@ namespace STGDAT
 
 		public ICommand CommandImportFile { get; private set; }
 		public ICommand CommandExportFile { get; private set; }
+		public ICommand CommandImportOtherMapFile { get; private set; }
+		public ICommand CommandImportDLMapFile { get; private set; }
+		public ICommand CommandChoiceItem { get; private set; }
 
 		public ObservableCollection<Strage> Boxes { get; private set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Strage> Cabinets { get; private set; } = new ObservableCollection<Strage>();
@@ -22,7 +25,17 @@ namespace STGDAT
 		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
 		public ObservableCollection<Entity> Entitys { get; private set; } = new ObservableCollection<Entity>();
 
-		public string FilterEntityID { get; set; } = "";
+		public string FilterEntityID
+		{
+			get => mFilterEntityID;
+			set
+			{
+				mFilterEntityID = value;
+				FilterPart();
+			}
+		}
+		private string mFilterEntityID = "";
+
 		private List<Entity> mEntity = new List<Entity>();
 
 		public uint Heart
@@ -35,6 +48,9 @@ namespace STGDAT
 		{
 			CommandImportFile = new CommandAction(ImportFile);
 			CommandExportFile = new CommandAction(ExportFile);
+			CommandImportOtherMapFile = new CommandAction(ImportOtherMapFile);
+			CommandImportDLMapFile = new CommandAction(ImportDLMapFile);
+			CommandChoiceItem = new CommandAction(ChoiceItem);
 
 			for (uint i = 0; i < 32; i++)
 			{
@@ -82,19 +98,6 @@ namespace STGDAT
 			foreach (var item in ShelfChests) item.Clear();
 			foreach (var item in ShelfDrawers) item.Clear();
 			SaveData.Instance().WriteNumber(0x28708, 4, 0);
-		}
-
-		public void FilterPart()
-		{
-			Entitys.Clear();
-
-			uint id;
-			if (uint.TryParse(FilterEntityID, out id) == false) return;
-
-			foreach (var part in mEntity)
-			{
-				if (part.ItemID == id) Entitys.Add(part);
-			}
 		}
 
 		public void AllTablewareUnActive()
@@ -242,6 +245,47 @@ namespace STGDAT
 			if (dlg.ShowDialog() == false) return;
 
 			SaveData.Instance().Export(dlg.FileName);
+		}
+
+		private void ImportOtherMapFile(Object? parameter)
+		{
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().OtherMap(dlg.FileName);
+		}
+
+		private void ImportDLMapFile(Object? parameter)
+		{
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			SaveData.Instance().DLMap(dlg.FileName);
+		}
+
+		private void ChoiceItem(Object? obj)
+		{
+			Item? item = obj as Item;
+			if (item == null) return;
+
+			var window = new ChoiceWindow();
+			window.ID = item.ID;
+			window.ShowDialog();
+			item.ID = window.ID;
+
+			item.Count = item.ID == 0 ? 0 : 1u;
+		}
+
+		private void FilterPart()
+		{
+			Entitys.Clear();
+			uint id;
+			uint.TryParse(FilterEntityID, out id);
+
+			foreach (var entity in mEntity)
+			{
+				if (string.IsNullOrEmpty(FilterEntityID) || entity.ItemID == id) Entitys.Add(entity);
+			}
 		}
 	}
 }

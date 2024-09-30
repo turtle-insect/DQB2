@@ -55,34 +55,5 @@ namespace CMNDAT
 		{
 			Close();
 		}
-
-		private void ButtonSceneriesAllCheck_Click(object sender, RoutedEventArgs e)
-		{
-			SceneriesCheck(true);
-		}
-
-		private void ButtonSceneriesAllUnCheck_Click(object sender, RoutedEventArgs e)
-		{
-			SceneriesCheck(false);
-		}
-
-		private void TextBoxCraftItem_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			ViewModel vm = DataContext as ViewModel;
-			if (vm == null) return;
-
-			vm.CreateCraft();
-		}
-
-		private void SceneriesCheck(bool isCheck)
-		{
-			ViewModel vm = DataContext as ViewModel;
-			if (vm == null) return;
-
-			foreach (var item in vm.Sceneries)
-			{
-				item.Visit = isCheck;
-			}
-		}
 	}
 }

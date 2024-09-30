@@ -357,7 +357,7 @@
 						</StackPanel>
 						<DockPanel DockPanel.Dock="Top">
 							<Label Content="Filter"/>
-							<TextBox Text="{Binding CraftNameFilter, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBoxCraftItem_TextChanged"/>
+							<TextBox Text="{Binding CraftNameFilter, UpdateSourceTrigger=PropertyChanged}"/>
 						</DockPanel>
 						<ListBox ItemsSource="{Binding Crafts}">
 							<ListBox.ItemTemplate>
@@ -747,8 +747,8 @@
 								<ColumnDefinition/>
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
-							<Button Content="All Check" Click="ButtonSceneriesAllCheck_Click"/>
-							<Button Grid.Column="1" Content="All UnCheck" Click="ButtonSceneriesAllUnCheck_Click"/>
+							<Button Content="All Check" Command="{Binding CommandAllCheckSceneries}"/>
+							<Button Grid.Column="1" Content="All UnCheck" Command="{Binding CommandAllUnCheckSceneries}"/>
 						</Grid>
 						<ListBox ItemsSource="{Binding Sceneries}">
 							<ListBox.ItemTemplate>

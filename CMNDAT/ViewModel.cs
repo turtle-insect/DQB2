@@ -16,12 +16,14 @@ namespace CMNDAT
 
 		public ICommand CommandImportFile { get; private set; }
 		public ICommand CommandExportFile { get; private set; }
-		public ICommand CommandChoiceItem { get; private set; }
-		public ICommand CommandCraftAllInfinite { get; private set; }
 		public ICommand CommandImportBluePrint { get; private set; }
 		public ICommand CommandExportBluePrint { get; private set; }
 		public ICommand CommandImportPeople { get; private set; }
 		public ICommand CommandExportPeople { get; private set; }
+		public ICommand CommandChoiceItem { get; private set; }
+		public ICommand CommandCraftAllInfinite { get; private set; }
+		public ICommand CommandAllCheckSceneries { get; private set; }
+		public ICommand CommandAllUnCheckSceneries { get; private set; }
 
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
@@ -114,12 +116,15 @@ namespace CMNDAT
 		{
 			CommandImportFile = new CommandAction(ImportFile);
 			CommandExportFile = new CommandAction(ExportFile);
-			CommandChoiceItem = new CommandAction(ChoiceItem);
-			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
 			CommandImportBluePrint = new CommandAction(ImportBluePrint);
 			CommandExportBluePrint = new CommandAction(ExportBluePrint);
 			CommandImportPeople = new CommandAction(ImportPeople);
 			CommandExportPeople = new CommandAction(ExportPeople);
+			CommandChoiceItem = new CommandAction(ChoiceItem);
+			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
+			CommandAllCheckSceneries = new CommandAction(AllCheckSceneries);
+			CommandAllUnCheckSceneries = new CommandAction(AllUnCheckSceneries);
+
 
 			for (uint i = 0; i < 15; i++)
 			{
@@ -216,7 +221,16 @@ namespace CMNDAT
 		}
 		private int mResidentExist;
 
-		public String CraftNameFilter { get; set; } = "";
+		public String CraftNameFilter
+		{
+			get => mCraftNameFilter;
+			set
+			{
+				mCraftNameFilter = value;
+				CreateCraft();
+			}
+		}
+		private String mCraftNameFilter = "";
 
 		public uint From
 		{
@@ -368,7 +382,7 @@ namespace CMNDAT
 			}
 		}
 
-		public void CreateCraft()
+		private void CreateCraft()
 		{
 			Crafts.Clear();
 			for (uint i = 0; i < Info.Instance().Item.Count; i++)
@@ -397,30 +411,6 @@ namespace CMNDAT
 			if (dlg.ShowDialog() == false) return;
 
 			SaveData.Instance().Export(dlg.FileName);
-		}
-
-		private void ChoiceItem(Object? obj)
-		{
-			Item? item = obj as Item;
-			if (item == null) return;
-
-			var window = new ChoiceWindow();
-			window.ID = item.ID;
-			window.ShowDialog();
-			item.ID = window.ID;
-
-			if (item.mCountForce)
-			{
-				item.Count = item.ID == 0 ? 0 : 1u;
-			}
-		}
-
-		private void CraftAllInfinite(Object? obj)
-		{
-			foreach (var craft in Crafts)
-			{
-				craft.Infinite = true;
-			}
 		}
 
 		private void ImportBluePrint(Object? parameter)
@@ -474,6 +464,48 @@ namespace CMNDAT
 			if (dlg.ShowDialog() == false) return;
 
 			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(people.Address, Util.PeopleSize));
+		}
+
+		private void ChoiceItem(Object? obj)
+		{
+			Item? item = obj as Item;
+			if (item == null) return;
+
+			var window = new ChoiceWindow();
+			window.ID = item.ID;
+			window.ShowDialog();
+			item.ID = window.ID;
+
+			if (item.mCountForce)
+			{
+				item.Count = item.ID == 0 ? 0 : 1u;
+			}
+		}
+
+		private void CraftAllInfinite(Object? obj)
+		{
+			foreach (var craft in Crafts)
+			{
+				craft.Infinite = true;
+			}
+		}
+
+		private void AllCheckSceneries(Object? obj)
+		{
+			UpdateSceneries(true);
+		}
+
+		private void AllUnCheckSceneries(Object? obj)
+		{
+			UpdateSceneries(false);
+		}
+
+		private void UpdateSceneries(bool flag)
+		{
+			foreach (var scene in Sceneries)
+			{
+				scene.Visit = flag;
+			}
 		}
 	}
 }

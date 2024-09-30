@@ -398,14 +398,12 @@
 					<DockPanel>
 						<DockPanel DockPanel.Dock="Top">
 							<Label Content="Filter"/>
-							<ComboBox DockPanel.Dock="Right" SelectedIndex="{Binding ResidentExist}" Width="100"
-                                      SelectionChanged="ComboBoxResidentExist_SelectionChanged">
+							<ComboBox DockPanel.Dock="Right" SelectedIndex="{Binding ResidentExist}" Width="100">
 								<ComboBoxItem Content="-"/>
 								<ComboBoxItem Content="Exist"/>
 								<ComboBoxItem Content="Not Exist"/>
 							</ComboBox>
-							<ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
-                                      SelectedIndex="{Binding ResidentFilter}" SelectionChanged="ComboBoxResidentFilter_SelectionChanged"/>
+							<ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectedIndex="{Binding ResidentFilter}"/>
 						</DockPanel>
 						<ListBox ItemsSource="{Binding Residents}">
 							<ListBox.ItemTemplate>
@@ -566,8 +564,7 @@
 					<DockPanel>
 						<DockPanel DockPanel.Dock="Top">
 							<Label Content="Filter"/>
-							<ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name"
-                                      SelectedIndex="{Binding StoryPeopleFilter}" SelectionChanged="ComboBoxStoryPeopleFilter_SelectionChanged"/>
+							<ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectedIndex="{Binding StoryPeopleFilter}"/>
 						</DockPanel>
 						<ListBox ItemsSource="{Binding StoryPeople}">
 							<ListBox.ItemTemplate>

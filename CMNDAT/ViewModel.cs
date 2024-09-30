@@ -183,9 +183,39 @@ namespace CMNDAT
 			}
 		}
 
-		public int StoryPeopleFilter { get; set; }
-		public int ResidentFilter { get; set; }
-		public int ResidentExist { get; set; }
+		public int StoryPeopleFilter
+		{
+			get => mStoryPeopleFilter;
+			set
+			{
+				mStoryPeopleFilter = value;
+				CreateStoryPeople();
+			}
+		}
+		private int mStoryPeopleFilter;
+
+		public int ResidentFilter
+		{
+			get => mResidentFilter;
+			set
+			{
+				mResidentFilter = value;
+				CreateResident();
+			}
+		}
+		private int mResidentFilter;
+
+		public int ResidentExist
+		{
+			get => mResidentExist;
+			set
+			{
+				mResidentExist = value;
+				CreateResident();
+			}
+		}
+		private int mResidentExist;
+
 		public String CraftNameFilter { get; set; } = "";
 
 		public uint From
@@ -302,7 +332,7 @@ namespace CMNDAT
 		}
 
 
-		public void CreateStoryPeople()
+		private void CreateStoryPeople()
 		{
 			StoryPeople.Clear();
 			if (Info.StoryIsland.Count == 0) return;
@@ -318,7 +348,7 @@ namespace CMNDAT
 			}
 		}
 
-		public void CreateResident()
+		private void CreateResident()
 		{
 			Residents.Clear();
 			if (Info.StoryIsland.Count == 0) return;

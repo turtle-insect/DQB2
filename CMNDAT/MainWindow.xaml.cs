@@ -66,30 +66,6 @@ namespace CMNDAT
 			SceneriesCheck(false);
 		}
 
-		private void ComboBoxResidentFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			ViewModel vm = DataContext as ViewModel;
-			if (vm == null) return;
-
-			vm.CreateResident();
-		}
-
-		private void ComboBoxResidentExist_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			ViewModel vm = DataContext as ViewModel;
-			if (vm == null) return;
-
-			vm.CreateResident();
-		}
-
-		private void ComboBoxStoryPeopleFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			ViewModel vm = DataContext as ViewModel;
-			if (vm == null) return;
-
-			vm.CreateStoryPeople();
-		}
-
 		private void TextBoxCraftItem_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			ViewModel vm = DataContext as ViewModel;

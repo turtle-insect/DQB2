@@ -18,14 +18,18 @@ namespace CMNDAT
 		public ICommand CommandExportFile { get; private set; }
 		public ICommand CommandChoiceItem { get; private set; }
 		public ICommand CommandCraftAllInfinite { get; private set; }
+		public ICommand CommandImportBluePrint { get; private set; }
+		public ICommand CommandExportBluePrint { get; private set; }
+		public ICommand CommandImportPeople { get; private set; }
+		public ICommand CommandExportPeople { get; private set; }
 
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
 		public ObservableCollection<Item> Bag { get; private set; } = new ObservableCollection<Item>();
 		public ObservableCollection<StoryIsland> StoryIslands { get; private set; } = new ObservableCollection<StoryIsland>();
 		public ObservableCollection<MaterialIsland> MaterialIslands { get; private set; } = new ObservableCollection<MaterialIsland>();
-		public ObservableCollection<Pelple> Residents { get; private set; } = new ObservableCollection<Pelple>();
-		public ObservableCollection<Pelple> StoryPeople { get; private set; } = new ObservableCollection<Pelple>();
+		public ObservableCollection<People> Residents { get; private set; } = new ObservableCollection<People>();
+		public ObservableCollection<People> StoryPeople { get; private set; } = new ObservableCollection<People>();
 		public ObservableCollection<Party> Party { get; private set; } = new ObservableCollection<Party>();
 		public ObservableCollection<BluePrint> BluePrints { get; private set; } = new ObservableCollection<BluePrint>();
 		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
@@ -112,6 +116,10 @@ namespace CMNDAT
 			CommandExportFile = new CommandAction(ExportFile);
 			CommandChoiceItem = new CommandAction(ChoiceItem);
 			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
+			CommandImportBluePrint = new CommandAction(ImportBluePrint);
+			CommandExportBluePrint = new CommandAction(ExportBluePrint);
+			CommandImportPeople = new CommandAction(ImportPeople);
+			CommandExportPeople = new CommandAction(ExportPeople);
 
 			for (uint i = 0; i < 15; i++)
 			{
@@ -178,7 +186,7 @@ namespace CMNDAT
 		public int StoryPeopleFilter { get; set; }
 		public int ResidentFilter { get; set; }
 		public int ResidentExist { get; set; }
-		public String CraftNameFilter { get; set; }
+		public String CraftNameFilter { get; set; } = "";
 
 		public uint From
 		{
@@ -302,7 +310,7 @@ namespace CMNDAT
 			uint filter = Info.StoryIsland[StoryPeopleFilter].Value;
 			for (uint i = 0; i < Util.StoryPeopleCount; i++)
 			{
-				var item = new Pelple(Util.StoryPeopleAddress + i * Util.PeopleSize, i + 1);
+				var item = new People(Util.StoryPeopleAddress + i * Util.PeopleSize, i + 1);
 				if (StoryPeopleFilter == 0 || item.Island == filter)
 				{
 					StoryPeople.Add(item);
@@ -318,7 +326,7 @@ namespace CMNDAT
 			uint filter = Info.StoryIsland[ResidentFilter].Value;
 			for (uint i = 0; i < Util.ResidentCount; i++)
 			{
-				var item = new Pelple(Util.ResidentAddress + i * Util.PeopleSize, i + 1024);
+				var item = new People(Util.ResidentAddress + i * Util.PeopleSize, i + 1024);
 				if (ResidentFilter == 0 || item.Island == filter)
 				{
 					if (ResidentExist == 0 ||
@@ -383,6 +391,59 @@ namespace CMNDAT
 			{
 				craft.Infinite = true;
 			}
+		}
+
+		private void ImportBluePrint(Object? parameter)
+		{
+			BluePrint? bp = parameter as BluePrint;
+			if (bp == null) return;
+
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
+			if (buf.Length != Util.BluePrintSize) return;
+			SaveData.Instance().WriteValue(bp.Address, buf);
+
+			bp.Reload();
+		}
+
+		private void ExportBluePrint(Object? parameter)
+		{
+			BluePrint? bp = parameter as BluePrint;
+			if (bp == null) return;
+
+			var dlg = new SaveFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(bp.Address, Util.BluePrintSize));
+		}
+
+		private void ImportPeople(Object? parameter)
+		{
+			People? people = parameter as People;
+			if (people == null) return;
+
+			var dlg = new OpenFileDialog();
+			if (dlg.ShowDialog() == false) return;
+
+			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
+			if (buf.Length != Util.PeopleSize) return;
+			SaveData.Instance().WriteValue(people.Address, buf);
+
+			people.Reload();
+		}
+
+		private void ExportPeople(Object? parameter)
+		{
+			People? people = parameter as People;
+			if (people == null) return;
+
+			var dlg = new SaveFileDialog();
+			dlg.FileName = people.Name;
+			if (dlg.ShowDialog() == false) return;
+
+			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(people.Address, Util.PeopleSize));
 		}
 	}
 }

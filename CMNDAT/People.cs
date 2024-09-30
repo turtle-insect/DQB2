@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace CMNDAT
 {
-	internal class Pelple : INotifyPropertyChanged
+	internal class People : INotifyPropertyChanged
 	{
 		public uint Address { get; private set; }
 		public Item Weapon { get; set; }
@@ -39,7 +39,7 @@ namespace CMNDAT
 		// 307[1:1]:装備可否
 		// 302[1:4]:グラフィックロック
 
-		public Pelple(uint address, uint id)
+		public People(uint address, uint id)
 		{
 			Address = address;
 			ID = id;

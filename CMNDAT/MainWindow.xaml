@@ -383,8 +383,12 @@
 									<TextBox Text="{Binding Y, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
 									<Label Content="Z"/>
 									<TextBox Text="{Binding Z, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
-									<Button Margin="5,0,0,0" Content="Export" Click="ButtonBluePrintExport_Click"/>
-									<Button Margin="5,0,0,0" Content="Import" Click="ButtonBluePrintImport_Click"/>
+									<Button Margin="5,0,0,0" Content="Export"
+											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandExportBluePrint}"
+											CommandParameter="{Binding}"/>
+									<Button Margin="5,0,0,0" Content="Import"
+											Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandImportBluePrint}"
+											CommandParameter="{Binding}"/>
 								</StackPanel>
 							</DataTemplate>
 						</ListBox.ItemTemplate>
@@ -413,8 +417,12 @@
 												<ColumnDefinition Width="5"/>
 												<ColumnDefinition/>
 											</Grid.ColumnDefinitions>
-											<Button Content="Export" Click="ButtonPeopleExport_Click"/>
-											<Button Grid.Column="2" Content="Import" Click="ButtonPeopleImport_Click"/>
+											<Button Content="Export"
+													Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandExportPeople}"
+													CommandParameter="{Binding}"/>
+											<Button Grid.Column="2" Content="Import"
+													Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandImportPeople}"
+													CommandParameter="{Binding}"/>
 										</Grid>
 										<Grid>
 											<Grid.ColumnDefinitions>
@@ -571,8 +579,12 @@
 												<ColumnDefinition Width="5"/>
 												<ColumnDefinition/>
 											</Grid.ColumnDefinitions>
-											<Button Content="Export" Click="ButtonPeopleExport_Click"/>
-											<Button Grid.Column="2" Content="Import" Click="ButtonPeopleImport_Click"/>
+											<Button Content="Export"
+													Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandExportPeople}"
+													CommandParameter="{Binding}"/>
+											<Button Grid.Column="2" Content="Import"
+													Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.CommandImportPeople}"
+													CommandParameter="{Binding}"/>
 										</Grid>
 										<Grid>
 											<Grid.ColumnDefinitions>

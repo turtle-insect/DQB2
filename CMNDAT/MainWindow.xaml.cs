@@ -51,79 +51,9 @@ namespace CMNDAT
 			SaveData.Instance().Save();
 		}
 
-		private void MenuItemFileImport_Click(object sender, RoutedEventArgs e)
-		{
-			var dlg = new OpenFileDialog();
-			if (dlg.ShowDialog() == false) return;
-
-			SaveData.Instance().Import(dlg.FileName);
-		}
-
-		private void MenuItemFileExport_Click(object sender, RoutedEventArgs e)
-		{
-			var dlg = new SaveFileDialog();
-			if (dlg.ShowDialog() == false) return;
-
-			SaveData.Instance().Export(dlg.FileName);
-		}
-
-
 		private void MenuItemFileExit_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
-		}
-
-		private void ButtonBluePrintExport_Click(object sender, RoutedEventArgs e)
-		{
-			BluePrint item = (sender as Button)?.DataContext as BluePrint;
-			if (item == null) return;
-
-			var dlg = new SaveFileDialog();
-			if (dlg.ShowDialog() == false) return;
-
-			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, Util.BluePrintSize));
-		}
-
-		private void ButtonBluePrintImport_Click(object sender, RoutedEventArgs e)
-		{
-			BluePrint item = (sender as Button)?.DataContext as BluePrint;
-			if (item == null) return;
-
-			var dlg = new OpenFileDialog();
-			if (dlg.ShowDialog() == false) return;
-
-			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
-			if (buf.Length != Util.BluePrintSize) return;
-			SaveData.Instance().WriteValue(item.Address, buf);
-
-			item.Reload();
-		}
-
-		private void ButtonPeopleExport_Click(object sender, RoutedEventArgs e)
-		{
-			Pelple item = (sender as Button)?.DataContext as Pelple;
-			if (item == null) return;
-
-			var dlg = new SaveFileDialog();
-			dlg.FileName = item.Name;
-			if (dlg.ShowDialog() == false) return;
-
-			System.IO.File.WriteAllBytes(dlg.FileName, SaveData.Instance().ReadValue(item.Address, Util.PeopleSize));
-		}
-
-		private void ButtonPeopleImport_Click(object sender, RoutedEventArgs e)
-		{
-			Pelple item = (sender as Button)?.DataContext as Pelple;
-			if (item == null) return;
-
-			var dlg = new OpenFileDialog();
-			if (dlg.ShowDialog() == false) return;
-
-			Byte[] buf = System.IO.File.ReadAllBytes(dlg.FileName);
-			if (buf.Length != Util.PeopleSize) return;
-			SaveData.Instance().WriteValue(item.Address, buf);
-
-			item.Reload();
 		}
 
 		private void ButtonSceneriesAllCheck_Click(object sender, RoutedEventArgs e)

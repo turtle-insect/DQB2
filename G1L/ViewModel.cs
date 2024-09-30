@@ -11,7 +11,7 @@ namespace G1L
 
 		public ViewModel()
 		{
-			ExecuteCommand = new ExecuteCommand(Execute);
+			ExecuteCommand = new CommandAction(Execute);
 		}
 
 		private void Execute()

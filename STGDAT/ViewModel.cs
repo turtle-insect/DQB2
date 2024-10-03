@@ -16,6 +16,12 @@ namespace STGDAT
 		public ICommand CommandImportOtherMapFile { get; private set; }
 		public ICommand CommandImportDLMapFile { get; private set; }
 		public ICommand CommandChoiceItem { get; private set; }
+		public ICommand CommandMapGeneratorUp { get; private set; }
+		public ICommand CommandMapGeneratorDown { get; private set; }
+		public ICommand CommandMapGeneratorAppend { get; private set; }
+		public ICommand CommandMapGeneratorRemove { get; private set; }
+		public ICommand CommandMapGeneratorClear { get; private set; }
+		public ICommand CommandMapGeneratorExecute { get; private set; }
 
 		public ObservableCollection<Strage> Boxes { get; private set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Strage> Cabinets { get; private set; } = new ObservableCollection<Strage>();
@@ -51,6 +57,12 @@ namespace STGDAT
 			CommandImportOtherMapFile = new CommandAction(ImportOtherMapFile);
 			CommandImportDLMapFile = new CommandAction(ImportDLMapFile);
 			CommandChoiceItem = new CommandAction(ChoiceItem);
+			CommandMapGeneratorUp = new CommandAction(MapGeneratorUp);
+			CommandMapGeneratorDown = new CommandAction(MapGeneratorDown);
+			CommandMapGeneratorAppend = new CommandAction(MapGeneratorAppend);
+			CommandMapGeneratorRemove = new CommandAction(MapGeneratorRemove);
+			CommandMapGeneratorClear = new CommandAction(MapGeneratorClear);
+			CommandMapGeneratorExecute = new CommandAction(MapGeneratorExecute);
 
 			for (uint i = 0; i < 32; i++)
 			{
@@ -274,6 +286,47 @@ namespace STGDAT
 			item.ID = window.ID;
 
 			item.Count = item.ID == 0 ? 0 : 1u;
+		}
+
+		private void MapGeneratorUp(Object? obj)
+		{
+			Map.Front(MapGeneratorIndex(obj));
+        }
+
+		private void MapGeneratorDown(Object? obj)
+		{
+			Map.Back(MapGeneratorIndex(obj));
+		}
+
+		private void MapGeneratorAppend(Object? obj)
+		{
+			Map.Append();
+		}
+
+		private void MapGeneratorRemove(Object? obj)
+		{
+			Map.RemoveAt(MapGeneratorIndex(obj));
+		}
+
+		private void MapGeneratorClear(Object? obj)
+		{
+			Map.Clear();
+		}
+
+		private void MapGeneratorExecute(Object? obj)
+		{
+			Map.Execution();
+		}
+
+		private int MapGeneratorIndex(Object? obj)
+		{
+			if (obj == null) return -1;
+
+			var str = obj.ToString();
+			if (str == null) return -1;
+
+			int index = int.Parse(str);
+			return index;
 		}
 
 		private void FilterPart()

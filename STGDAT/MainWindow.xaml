@@ -154,12 +154,18 @@
 								<ColumnDefinition/>
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
-							<Button Content="↑" Click="ButtonMapGeneratorUp_Click"/>
-							<Button Grid.Column="1" Content="↓" Click="ButtonMapGeneratorDown_Click"/>
-							<Button Grid.Column="2" Content="Append" Click="ButtonMapGeneratorAppend_Click"/>
-							<Button Grid.Column="3" Content="Remove" Click="ButtonMapGeneratorRemove_Click"/>
-							<Button Grid.Column="4" Content="Clear" Click="ButtonMapGeneratorClear_Click"/>
-							<Button Grid.Column="5" Content="Execution" Click="ButtonMapGeneratorExecution_Click"/>
+							<Button Content="↑"
+									Command="{Binding CommandMapGeneratorUp}"
+									CommandParameter="{Binding ElementName=ListBoxMap, Path=SelectedIndex}"/>
+							<Button Grid.Column="1" Content="↓"
+									Command="{Binding CommandMapGeneratorDown}"
+									CommandParameter="{Binding ElementName=ListBoxMap, Path=SelectedIndex}"/>
+							<Button Grid.Column="2" Content="Append" Command="{Binding CommandMapGeneratorAppend}"/>
+							<Button Grid.Column="3" Content="Remove"
+									Command="{Binding CommandMapGeneratorRemove}"
+									CommandParameter="{Binding ElementName=ListBoxMap, Path=SelectedIndex}"/>
+							<Button Grid.Column="4" Content="Clear" Command="{Binding CommandMapGeneratorClear}"/>
+							<Button Grid.Column="5" Content="Execution" Command="{Binding CommandMapGeneratorExecute}"/>
 						</Grid>
 						<ListBox x:Name="ListBoxMap" ItemsSource="{Binding Map.Layers}">
 							<ListBox.Resources>

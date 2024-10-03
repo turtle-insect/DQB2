@@ -25,6 +25,7 @@ namespace STGDAT
 
 		public void RemoveAt(int index)
 		{
+			if (index < 0) return;
 			if (Layers.Count <= index) return;
 			Layers.RemoveAt(index);
 		}
@@ -39,6 +40,7 @@ namespace STGDAT
 
 		public void Back(int index)
 		{
+			if (index < 0) return;
 			if (index >= Layers.Count - 1) return;
 			Layer layer = Layers.ElementAt(index);
 			Layers.RemoveAt(index);

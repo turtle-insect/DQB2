@@ -58,7 +58,7 @@ namespace STGDAT
 			{
 				SaveData.Instance().WriteNumber(0x24E7CD, 3, 1);
 				SaveData.Instance().Fill(0x24E7D1, 24 * 0xC8000, 0);
-				for (uint i = 0; i < 0xC7FFF; i++)
+				for (uint i = 0; i < 0xC8000; i++)
 				{
 					SaveData.Instance().WriteNumber(0x24E7D1 + i * 24 + 12, 3, i * 16);
 				}

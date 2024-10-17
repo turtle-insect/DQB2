@@ -188,6 +188,26 @@ namespace STGDAT
 		// 1つのチャンクは2Byteで表現されている
 		// 無効なchunkは0xFFFF
 		// 有効なchunkは0始まりで1加算
+		// 0x24E7C5(2Byte) chunk count？
+		// 0x24E7C9(2Byte) X Max Block count？ (64 * 32)
+		// 0x24E7CB(2Byte) Z Max Block count？ (64 * 32)
+		/*
+		// chunk extension
+		// filename is 『STGDAT01.BIN』
+		String filename = @"*********";
+		Byte[] buffer = System.IO.File.ReadAllBytes(filename);
+		// append chunk ID
+		buffer[0x24DC7F] = 0x71;
+		buffer[0x24DC80] = 0x01;
+
+		// change chunk count
+		buffer[0x24E7C5] = 0x72;
+		// buffer[0x24E7C6] = 0x01;
+
+		// ??? chunk's block region ???
+		// ??? file size +0x30000{(x=32,z=32,y=96) * 2Byte} ???
+		*/
+
 		//
 		// chunk entity
 		// 0x150E7D1から開始？

@@ -62,7 +62,7 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 * https://docs.google.com/spreadsheets/d/1w8Njk2d0DolMqHw4ZycqsAR4asmEpn0By7m_QpUUArs
 * [TaoistYang](https://gbatemp.net/threads/dragon-quest-builders-2-save-editor-pc-steam.558947/post-9504144)
 * [dqb2thank](https://gbatemp.net/threads/dragon-quest-builders-2-save-editor-pc-steam.558947/post-10008029)
-* [MiyT645](https://github.com/Sapphire645)
+* [Sapphire645](https://github.com/Sapphire645)
 * [Ryan Kramer](https://github.com/default-kramer)
 
 # LINKDATA edit

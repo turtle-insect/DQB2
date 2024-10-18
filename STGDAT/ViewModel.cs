@@ -174,42 +174,45 @@ namespace STGDAT
 		// 食事テーブルの数
 		// 0x144E7F
 
-		// entity
+		// ?????
+		// 0xC8F21
+		// 502Byte
+
+		// Entity
 		// 0x24E7CD : オブジェクトの数 : 3Byte
 		// 0x0C7FFF：最大数
 		// 0x24E7D1から開始？
 		// 1つのオブジェクトは24Byteで表現されている
 		// オブジェクトの数を0にするだけでオブジェクトは消える
 		//
-		// chunk index
+		// Chunk Index
 		// https://github.com/default-kramer/HermitsHeresy/discussions/3#discussioncomment-10952063
-		// map = 64(x) * 64(z) = 4096 chunk
+		// map = 64(x) * 64(z) = 4096 Chunk
 		// 0x24C7C1から開始
 		// 1つのチャンクは2Byteで表現されている
-		// 無効なchunkは0xFFFF
-		// 有効なchunkは0始まりで1加算
-		// 0x24E7C5(2Byte) chunk count？
-		// 0x24E7C9(2Byte) X Max Block count？ (64 * 32)
-		// 0x24E7CB(2Byte) Z Max Block count？ (64 * 32)
+		// 無効なChunkは0xFFFF
+		// 有効なChunkは0始まりで1加算
+		// 0x24E7C5(2Byte) Chunk Count？
+		// 0x24E7C9(2Byte) X Max Block Count？ (64 * 32)
+		// 0x24E7CB(2Byte) Z Max Block Count？ (64 * 32)
 		/*
-		// chunk extension
+		// Chunk extension
 		// filename is 『STGDAT01.BIN』
 		String filename = @"*********";
 		Byte[] buffer = System.IO.File.ReadAllBytes(filename);
-		// append chunk ID
+		// append Chunk ID
 		buffer[0x24DC7F] = 0x71;
 		buffer[0x24DC80] = 0x01;
 
-		// change chunk count
+		// change Chunk Count
 		buffer[0x24E7C5] = 0x72;
 		// buffer[0x24E7C6] = 0x01;
 
-		// ??? chunk's block region ???
+		// ??? Chunk's block region ???
 		// ??? file size +0x30000{(x=32,z=32,y=96) * 2Byte} ???
 		*/
 
-		//
-		// chunk entity
+		// Chunk Entity
 		// 0x150E7D1から開始？
 		// 1つのチャンクは4Byteで表現されている
 		// ID：0Byte + (1Byte & 0xF) << 8
@@ -218,14 +221,18 @@ namespace STGDAT
 		// Z+=32：0x40増える
 		// X = 0, Z = 0, id = 0x820
 
+		// File Size
+		// 前提
+		// セーブデータの容量割り当てにはミスがある様に見える
+		// 具体的には
+		// (EOF - 0x183FEF0) / 0x30000 ≠ 0
+		// (EOF - 0x183FEF0 + 0x110) / 0x30000 = 0
+		// ファイルサイズが0x110(272)Byte小さく設定されている
+		// mistake？
+		// 0x183FEF0 + (Chunk Count + (Chunk Count == 700 ? 0 : 1 )) * 0x30000 - 0x110
+
 		// Block
-		// からっぽ島
-		// 0x183FEF0 - 0x86DFEF0くらいが書き換え可能そう
-		// = 590チャンク
-		// 横 = 可変
-		// かいたく島(大きい)
-		// 0x183FEF0 - 0x3B0FEF0くらいが書き換え可能そう
-		// = 185チャンク
+		// 0x183FEF0 - EOF
 		// 座標の考え方
 		// x = 32, z = 32, y = 96を一塊にしたチャンク方式
 		// yは岩盤地点も含めて保存されている
@@ -234,11 +241,6 @@ namespace STGDAT
 		// 例
 		// 0層：岩盤、1層：土、2層：草原の土
 		// ブロック以外のオブジェクト無し
-
-		// ?????
-		// 0xC8F21
-		// 502Byte
-
 		/*
 		// filename is 『STGDATxx.BIN』
 		String filename = @"*********";

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,10 +12,12 @@ namespace STGDAT
 	{
 		private readonly int Column = 64;
 		private readonly int Size = 10;
+		private Point mPoint;
 
 		public OnOffGridCanvas()
 		{
-			//MouseDown += OnMouseDown;
+			MouseDown += OnMouseDown;
+			MouseUp += OnMouseUp;
 		}
 
 		public void ClearElement()
@@ -74,11 +77,33 @@ namespace STGDAT
 
 		private void OnMouseDown(object sender, MouseButtonEventArgs e)
 		{
+			mPoint = e.GetPosition(this);
+		}
+
+		private void OnMouseUp(object sender, MouseButtonEventArgs e)
+		{
 			var pos = e.GetPosition(this);
-			var index = ((int)pos.Y / Size) * Column + ((int)pos.X / Size);
-			var rect = Children[index] as Rectangle;
-			if (rect == null) return;
-			rect.Fill = Brushes.Red;
+			var minX = (int)Math.Min(pos.X, mPoint.X) / Size;
+			var maxX = (int)Math.Max(pos.X, mPoint.X) / Size;
+			var minY = (int)Math.Min(pos.Y, mPoint.Y) / Size;
+			var maxY = (int)Math.Max(pos.Y, mPoint.Y) / Size;
+
+			Brush brush = Brushes.Red;
+			// block disable chunk
+			// if disable chunk
+			// brush = Brushes.Blue;
+
+			for (var y = minY; y <= maxY; y++)
+			{
+				for (var x = minX; x <= maxX; x++)
+				{
+					var index = y * Column + x;
+					var rect = Children[index] as Rectangle;
+					if (rect == null) continue;
+
+					rect.Fill = brush;
+				}
+			}
 		}
 	}
 }

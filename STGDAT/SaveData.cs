@@ -92,6 +92,32 @@ namespace STGDAT
 			Array.Resize(ref mBuffer, (int)size);
 		}
 
+		public void Extension(uint address, uint size)
+		{
+			if (mFileName == null) return;
+
+			var length = mBuffer.Length + size;
+			var tmp = new Byte[length];
+			Array.Copy(mBuffer, tmp, address);
+			Array.Copy(mBuffer, address, tmp, address + size, mBuffer.Length - address);
+			mBuffer = tmp;
+		}
+
+		public void Reducion(uint address, uint size)
+		{
+			if (mFileName == null) return;
+			if (mBuffer.Length < address + size)
+			{
+				size = (uint)mBuffer.Length - address;
+			}
+
+			var length = mBuffer.Length - size;
+			var tmp = new Byte[length];
+			Array.Copy(mBuffer, tmp, address);
+			Array.Copy(mBuffer, address + size, tmp, address, length - address);
+			mBuffer = tmp;
+		}
+
 		public void OtherMap(String filename)
 		{
 			if (mFileName == null) return;

@@ -192,6 +192,10 @@ namespace STGDAT
 		// 1つのチャンクは2Byteで表現されている
 		// 無効なChunkは0xFFFF
 		// 有効なChunkは0始まりで1加算
+		// IDは連続した整数である必要がある
+		// マップによって最大チャンク数が設定されている？
+		// = 既存のファイルサイズ分のChunk以上の生成は出来ない？
+		// Chunk自体をIDとして認識させても、Y座標が0のBlockID = 0のChunkは操作出来ない？
 		// 0x24E7C5(2Byte) Chunk Count？
 		// 0x24E7C9(2Byte) X Max Block Count？ (64 * 32)
 		// 0x24E7CB(2Byte) Z Max Block Count？ (64 * 32)

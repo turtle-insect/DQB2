@@ -185,6 +185,11 @@
 						</ListBox>
 					</DockPanel>
 				</TabItem>
+				<TabItem Header="Chunk">
+					<ScrollViewer>
+						<local:OnOffGridCanvas Width="640" Height="640" x:Name="ChunkCanvas"/>
+					</ScrollViewer>
+				</TabItem>
 			</TabControl>
 		</DockPanel>
 	</Grid>

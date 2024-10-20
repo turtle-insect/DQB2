@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -37,6 +38,7 @@ namespace STGDAT
 
 			SaveData.Instance().Open(dlg.FileName);
 			DataContext = new ViewModel();
+			LoadChunk();
 		}
 
 		private void MenuItemFileSave_Click(object sender, RoutedEventArgs e)
@@ -71,6 +73,17 @@ namespace STGDAT
 			if (vm == null) return;
 
 			vm.AllTablewareUnActive();
+		}
+
+		private void LoadChunk()
+		{
+			ChunkCanvas.ClearElement();
+
+			for (uint i = 0; i < 64 * 64; i++)
+			{
+				ChunkCanvas.AddElement(SaveData.Instance().ReadNumber(0x24C7C1 + i * 2, 2) != 0xFFFF);
+			}
+			ChunkCanvas.AddGuidElement();
 		}
     }
 }

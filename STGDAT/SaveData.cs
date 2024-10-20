@@ -85,6 +85,13 @@ namespace STGDAT
 			System.IO.File.WriteAllBytes(filename, mBuffer);
 		}
 
+		public void Resize(uint size)
+		{
+			if (mBuffer == null) return;
+
+			Array.Resize(ref mBuffer, (int)size);
+		}
+
 		public void OtherMap(String filename)
 		{
 			if (mFileName == null) return;

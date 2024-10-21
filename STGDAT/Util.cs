@@ -8,5 +8,10 @@
 			if (value > max) value = max;
 			SaveData.Instance().WriteNumber(address, size, value);
 		}
+
+		public static uint CalcChunkAddress(uint chunkID)
+		{
+			return 0x183FEF0 + chunkID * 0x30000;
+		}
 	}
 }

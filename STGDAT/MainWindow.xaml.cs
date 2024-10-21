@@ -44,7 +44,6 @@ namespace STGDAT
 
 		private void MenuItemFileSave_Click(object sender, RoutedEventArgs e)
 		{
-			SaveChunk();
 			SaveData.Instance().Save();
 		}
 
@@ -88,7 +87,7 @@ namespace STGDAT
 			ChunkCanvas.AddGuidElement();
 		}
 
-		private void SaveChunk()
+		private void ButtonChunkUpdate_Click(object sender, RoutedEventArgs e)
 		{
 			// There are two possible methods:
 			// [1] one is to generate an array after completion and fill it with contents
@@ -102,26 +101,26 @@ namespace STGDAT
 			if (flagCount > chunkSize) return;
 
 			var count = 0u;
-			for (uint i = 0; i < 64 * 64; i++)
+			for (uint i = 0; i < chunkFlags.Count; i++)
 			{
 				var chunkindex = SaveData.Instance().ReadNumber(0x24C7C1 + i * 2, 2);
 				var flag = chunkFlags[(int)i];
-				var address = 0x183FEF0 + count * 0x30000;
+				var address = Util.CalcChunkAddress(count);
 				if (chunkindex == 0xFFFF && flag == true)
 				{
 					SaveData.Instance().Extension(address, 0x30000);
 					// append bedrock
-					for (uint j = 0; j < 32 * 32; j++)
+					for (uint xz = 0; xz < 32 * 32; xz++)
 					{
-						SaveData.Instance().WriteNumber(address + j * 2, 2, 1);
+						SaveData.Instance().WriteNumber(address + xz * 2, 2, 1);
 					}
 				}
 				else if (chunkindex != 0xFFFF && flag == false)
 				{
-					SaveData.Instance().Extension(address, 0x30000);
+					SaveData.Instance().Reducion(address, 0x30000);
 
-					// TBD.
-					// Entities in chunks remain
+					// ？？？？
+					// format Entity Block？
 				}
 
 				SaveData.Instance().WriteNumber(0x24C7C1 + i * 2, 2, flag ? count : 0xFFFF);
@@ -132,7 +131,7 @@ namespace STGDAT
 			}
 
 			SaveData.Instance().WriteNumber(0x24E7C5, 2, count);
-			SaveData.Instance().Resize(0x183FEF0 + (uint)chunkSize * 0x30000 - 0x110);
+			SaveData.Instance().Resize(Util.CalcChunkAddress((uint)chunkSize) - 0x110);
 		}
     }
 }

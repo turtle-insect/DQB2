@@ -12,6 +12,9 @@ namespace STGDAT
 	{
 		private readonly int Column = 64;
 		private readonly int Size = 10;
+		private static readonly Brush ON = Brushes.Red;
+		private static readonly Brush OFF = Brushes.Blue;
+
 		private Point mPoint;
 
 		public OnOffGridCanvas()
@@ -23,6 +26,7 @@ namespace STGDAT
 		public void ClearElement()
 		{
 			Children.Clear();
+			mPoint = new Point(-1, -1);
 		}
 
 		public void AddElement(bool flag)
@@ -34,7 +38,7 @@ namespace STGDAT
 			rect.Height = Size;
 			rect.Stroke = Brushes.Black;
 			rect.StrokeThickness = 0.5;
-			rect.Fill = flag ? Brushes.Red : Brushes.Blue;
+			rect.Fill = flag ? ON : OFF;
 			Canvas.SetLeft(rect, index % Column * Size);
 			Canvas.SetTop(rect, index / Column * Size);
 			Children.Add(rect);
@@ -82,16 +86,13 @@ namespace STGDAT
 
 		private void OnMouseUp(object sender, MouseButtonEventArgs e)
 		{
+			if (mPoint.X < 0 && mPoint.Y < 0) return;
+
 			var pos = e.GetPosition(this);
 			var minX = (int)Math.Min(pos.X, mPoint.X) / Size;
 			var maxX = (int)Math.Max(pos.X, mPoint.X) / Size;
 			var minY = (int)Math.Min(pos.Y, mPoint.Y) / Size;
 			var maxY = (int)Math.Max(pos.Y, mPoint.Y) / Size;
-
-			Brush brush = Brushes.Red;
-			// block disable chunk
-			// if disable chunk
-			// brush = Brushes.Blue;
 
 			for (var y = minY; y <= maxY; y++)
 			{
@@ -101,7 +102,8 @@ namespace STGDAT
 					var rect = Children[index] as Rectangle;
 					if (rect == null) continue;
 
-					rect.Fill = brush;
+					// turn over
+					rect.Fill = rect.Fill == ON ? OFF : ON;
 				}
 			}
 		}

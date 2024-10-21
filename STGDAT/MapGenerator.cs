@@ -67,19 +67,18 @@ namespace STGDAT
 			}
 
 			List<uint> BlockList = new List<uint>();
-			for (int index = Layers.Count - 1; index >= 0; index--)
+			for (int layerIndex = Layers.Count - 1; layerIndex >= 0; layerIndex--)
 			{
-				for (int y = 0; BlockList.Count < 96 && y < Layers[index].Height; y++)
+				for (int y = 0; BlockList.Count < 96 && y < Layers[layerIndex].Height; y++)
 				{
-					BlockList.Add(Layers[index].Block);
+					BlockList.Add(Layers[layerIndex].Block);
 				}
 			}
 
-			for (uint ch = 0; ; ch++)
+			var chunkCount = SaveData.Instance().ReadNumber(0x24E7C5, 2);
+			for (uint chunkIndex = 0; chunkIndex < chunkCount; chunkIndex++)
 			{
-				uint address = 0x183FEF0 + ch * 0x30000;
-				if (SaveData.Instance().Length() < address + 0x30000) break;
-
+				uint address = Util.CalcChunkAddress(chunkIndex);
 				foreach (var block in BlockList)
 				{
 					for (int i = 0; i < 32 * 32; i++)

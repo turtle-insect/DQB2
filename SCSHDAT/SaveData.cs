@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace SCSHDAT
 {
 	internal class SaveData
 	{
+		private const int HeaderLength = 0x40;
 		private static SaveData mThis;
 		private String mFileName = null;
-		private Byte[] mHeader = new Byte[0x40];
+		private Byte[] mHeader = [];
 		private Byte[] mBuffer = null;
 		private readonly System.Text.Encoding mEncode = System.Text.Encoding.UTF8;
 		public uint Adventure { private get; set; } = 0;
@@ -30,11 +32,9 @@ namespace SCSHDAT
 			String prefix = mEncode.GetString(tmp, 0, 4);
 			if (prefix != "aerC") return false;
 
-			Byte[] comp = new Byte[tmp.Length - mHeader.Length];
-			Array.Copy(tmp, mHeader.Length, comp, 0, comp.Length);
-			Array.Copy(tmp, mHeader, mHeader.Length);
 			try
 			{
+				Byte[] comp = tmp[HeaderLength..^0];
 				using (var input = new MemoryStream(comp))
 				{
 					using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
@@ -52,6 +52,7 @@ namespace SCSHDAT
 				return false;
 			}
 
+			mHeader = tmp[0..HeaderLength];
 			mFileName = filename;
 			return true;
 		}
@@ -61,7 +62,7 @@ namespace SCSHDAT
 			if (mFileName == null || mBuffer == null) return false;
 			Backup();
 
-			Byte[] comp = null;
+			Byte[] comp = [];
 			using (var input = new MemoryStream(mBuffer))
 			{
 				using (var output = new MemoryStream())
@@ -73,11 +74,9 @@ namespace SCSHDAT
 					comp = output.ToArray();
 				}
 			}
-			Byte[] tmp = new Byte[mHeader.Length + comp.Length];
-			Array.Copy(mHeader, tmp, mHeader.Length);
+			Byte[] tmp = mHeader.Concat(comp).ToArray();
 			Byte[] size = BitConverter.GetBytes(tmp.Length);
 			Array.Copy(size, 0, tmp, 0x10, size.Length);
-			Array.Copy(comp, 0, tmp, mHeader.Length, comp.Length);
 			System.IO.File.WriteAllBytes(mFileName, tmp);
 			return true;
 		}

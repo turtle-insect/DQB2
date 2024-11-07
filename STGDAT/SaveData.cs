@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace STGDAT
 {
 	internal class SaveData
 	{
+		private const int HeaderLength = 0x110;
 		private static SaveData mThis = new SaveData();
 		private String mFileName = null;
-		private Byte[] mHeader = new Byte[0x110];
+		private Byte[] mHeader = [];
 		private Byte[] mBuffer = null;
 		private readonly System.Text.Encoding mEncode = System.Text.Encoding.UTF8;
 		public uint Adventure { private get; set; } = 0;
@@ -35,11 +37,9 @@ namespace STGDAT
 			String prefix = mEncode.GetString(tmp, 0, 4);
 			if (prefix != "aerC") return false;
 
-			Byte[] comp = new Byte[tmp.Length - mHeader.Length];
-			Array.Copy(tmp, mHeader.Length, comp, 0, comp.Length);
-			Array.Copy(tmp, mHeader, mHeader.Length);
 			try
 			{
+				Byte[] comp = tmp[HeaderLength..^0];
 				mBuffer = Decomp(comp);
 			}
 			catch
@@ -57,11 +57,9 @@ namespace STGDAT
 			Backup();
 
 			Byte[] comp = Comp(mBuffer);
-			Byte[] tmp = new Byte[mHeader.Length + comp.Length];
-			Array.Copy(mHeader, tmp, mHeader.Length);
+			Byte[] tmp = mHeader.Concat(comp).ToArray();
 			Byte[] size = BitConverter.GetBytes(tmp.Length);
 			Array.Copy(size, 0, tmp, 0x10, size.Length);
-			Array.Copy(comp, 0, tmp, mHeader.Length, comp.Length);
 			System.IO.File.WriteAllBytes(mFileName, tmp);
 			return true;
 		}
@@ -381,7 +379,7 @@ namespace STGDAT
 
 		private Byte[] Comp(Byte[] data)
 		{
-			Byte[] result = null;
+			Byte[] result = [];
 			using (var input = new MemoryStream(data))
 			{
 				using (var output = new MemoryStream())
@@ -399,7 +397,7 @@ namespace STGDAT
 
 		private Byte[] Decomp(Byte[] data)
 		{
-			Byte[] result = null;
+			Byte[] result = [];
 			using (var input = new MemoryStream(data))
 			{
 				using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))

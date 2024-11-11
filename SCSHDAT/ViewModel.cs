@@ -6,12 +6,12 @@ namespace SCSHDAT
 {
 	internal class ViewModel
 	{
-		public ICommand OpenFileCommand { get; private set; }
-		public ICommand SaveFileCommand { get; private set; }
-		public ICommand ImportFileCommand { get; private set; }
-		public ICommand ExportFileCommand { get; private set; }
-		public ICommand ImportPhotoCommand { get; private set; }
-		public ICommand ExportPhotoCommand { get; private set; }
+		public ICommand OpenFileCommand { get; init; }
+		public ICommand SaveFileCommand { get; init; }
+		public ICommand ImportFileCommand { get; init; }
+		public ICommand ExportFileCommand { get; init; }
+		public ICommand ImportPhotoCommand { get; init; }
+		public ICommand ExportPhotoCommand { get; init; }
 
 		public ObservableCollection<Photo> Photos { get; private set; } = new ObservableCollection<Photo>();
 

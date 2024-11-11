@@ -14,16 +14,16 @@ namespace CMNDAT
 		public Player Player { get; private set; } = new Player();
 		public Skill Skill { get; private set; } = new Skill();
 
-		public ICommand CommandImportFile { get; private set; }
-		public ICommand CommandExportFile { get; private set; }
-		public ICommand CommandImportBluePrint { get; private set; }
-		public ICommand CommandExportBluePrint { get; private set; }
-		public ICommand CommandImportPeople { get; private set; }
-		public ICommand CommandExportPeople { get; private set; }
-		public ICommand CommandChoiceItem { get; private set; }
-		public ICommand CommandCraftAllInfinite { get; private set; }
-		public ICommand CommandAllCheckSceneries { get; private set; }
-		public ICommand CommandAllUnCheckSceneries { get; private set; }
+		public ICommand CommandImportFile { get; init; }
+		public ICommand CommandExportFile { get; init; }
+		public ICommand CommandImportBluePrint { get; init; }
+		public ICommand CommandExportBluePrint { get; init; }
+		public ICommand CommandImportPeople { get; init; }
+		public ICommand CommandExportPeople { get; init; }
+		public ICommand CommandChoiceItem { get; init; }
+		public ICommand CommandCraftAllInfinite { get; init; }
+		public ICommand CommandAllCheckSceneries { get; init; }
+		public ICommand CommandAllUnCheckSceneries { get; init; }
 
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();

@@ -13,14 +13,14 @@ namespace LINKDATA
 		
 		public ObservableCollection<IDX> IDXs { get; private set; } = new ObservableCollection<IDX>();
 		public IDXzrc IDXzrc { get; private set; } = new IDXzrc();
-		public ICommand CommandOpenWorkPath { get; private set; }
-		public ICommand CommandOpenIDXFile { get; private set; }
-		public ICommand CommandOpenIDXzrcFile { get; private set; }
-		public ICommand CommandOpenUnPackIDXzrcFile { get; private set; }
-		public ICommand CommandExportIDX { get; private set; }
-		public ICommand CommandImportIDX { get; private set; }
-		public ICommand CommandUnPackIDXzrc { get; private set; }
-		public ICommand CommandPackIDXzrc { get; private set; }
+		public ICommand CommandOpenWorkPath { get; init; }
+		public ICommand CommandOpenIDXFile { get; init; }
+		public ICommand CommandOpenIDXzrcFile { get; init; }
+		public ICommand CommandOpenUnPackIDXzrcFile { get; init; }
+		public ICommand CommandExportIDX { get; init; }
+		public ICommand CommandImportIDX { get; init; }
+		public ICommand CommandUnPackIDXzrc { get; init; }
+		public ICommand CommandPackIDXzrc { get; init; }
 		public Int32 PackSplitSize { get; set; } = 0x200000;
 		
 		public bool ZeroSizeFilter

@@ -11,17 +11,17 @@ namespace STGDAT
 		public Info Info { get; private set; } = Info.Instance();
 		public MapGenerator Map { get; private set; } = new MapGenerator();
 
-		public ICommand CommandImportFile { get; private set; }
-		public ICommand CommandExportFile { get; private set; }
-		public ICommand CommandImportOtherMapFile { get; private set; }
-		public ICommand CommandImportDLMapFile { get; private set; }
-		public ICommand CommandChoiceItem { get; private set; }
-		public ICommand CommandMapGeneratorUp { get; private set; }
-		public ICommand CommandMapGeneratorDown { get; private set; }
-		public ICommand CommandMapGeneratorAppend { get; private set; }
-		public ICommand CommandMapGeneratorRemove { get; private set; }
-		public ICommand CommandMapGeneratorClear { get; private set; }
-		public ICommand CommandMapGeneratorExecute { get; private set; }
+		public ICommand CommandImportFile { get; init; }
+		public ICommand CommandExportFile { get; init; }
+		public ICommand CommandImportOtherMapFile { get; init; }
+		public ICommand CommandImportDLMapFile { get; init; }
+		public ICommand CommandChoiceItem { get; init; }
+		public ICommand CommandMapGeneratorUp { get; init; }
+		public ICommand CommandMapGeneratorDown { get; init; }
+		public ICommand CommandMapGeneratorAppend { get; init; }
+		public ICommand CommandMapGeneratorRemove { get; init; }
+		public ICommand CommandMapGeneratorClear { get; init; }
+		public ICommand CommandMapGeneratorExecute { get; init; }
 
 		public ObservableCollection<Strage> Boxes { get; private set; } = new ObservableCollection<Strage>();
 		public ObservableCollection<Strage> Cabinets { get; private set; } = new ObservableCollection<Strage>();

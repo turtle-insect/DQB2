@@ -201,7 +201,7 @@ namespace LINKDATA
 			if (idx == null) return;
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
-			int size = (int)idx.UncompressedSize;
+			uint size = (uint)idx.UncompressedSize;
 			if (idx.IsCompressed == 0)
 			{
 				dlg.Filter = "unpack|*.unpack";
@@ -209,7 +209,7 @@ namespace LINKDATA
 			else
 			{
 				dlg.Filter = "idxzrc|*.idxzrc";
-				size = (int)idx.CompressedSize;
+				size = (uint)idx.CompressedSize;
 			}
 			dlg.InitialDirectory = WorkPath;
 			dlg.FileName = idx.Index.ToString("d5");
@@ -233,12 +233,29 @@ namespace LINKDATA
 			if (idx == null) return;
 
 			var dlg = new Microsoft.Win32.OpenFileDialog();
-			dlg.Filter = "idxzrc|*.idxzrc";
+			if(idx.IsCompressed == 0)
+			{
+				dlg.Filter = "unpack|*.unpack";
+			}
+			else
+			{
+				dlg.Filter = "idxzrc|*.idxzrc";
+			}
 			dlg.InitialDirectory = WorkPath;
 			if (dlg.ShowDialog() == false) return;
-			IDXzrc idxzrc = new IDXzrc();
-			idxzrc.Read(dlg.FileName);
-			if (idxzrc.UncompressedSize == 0) return;
+
+			uint size = 0;
+			if (idx.IsCompressed == 0)
+			{
+				var info = new System.IO.FileInfo(dlg.FileName);
+				size = (uint)info.Length;
+			}
+			else
+			{
+				IDXzrc idxzrc = new IDXzrc();
+				idxzrc.Read(dlg.FileName);
+				size = idxzrc.UncompressedSize;
+			}
 
 			Byte[] importFile = System.IO.File.ReadAllBytes(dlg.FileName);
 			Byte[] link_idx = System.IO.File.ReadAllBytes(mLinkDataPath);
@@ -255,9 +272,9 @@ namespace LINKDATA
 			Array.Copy(link_bin, 0, bin, 0, (int)idx.Offset);
 
 			Array.Fill<Byte>(link_idx, 0, idx.Index * 32 + 8, 24);
-			Array.Copy(BitConverter.GetBytes(idxzrc.UncompressedSize), 0, link_idx, idx.Index * 32 + 8, 4);
+			Array.Copy(BitConverter.GetBytes(size), 0, link_idx, idx.Index * 32 + 8, 4);
 			Array.Copy(BitConverter.GetBytes(importFile.Length), 0, link_idx, idx.Index * 32 + 16, 4);
-			Array.Copy(BitConverter.GetBytes(1), 0, link_idx, idx.Index * 32 + 24, 4);
+			Array.Copy(BitConverter.GetBytes(idx.IsCompressed), 0, link_idx, idx.Index * 32 + 24, 4);
 			Array.Copy(importFile, 0, bin, (int)idx.Offset, importFile.Length);
 
 			for (int index = idx.Index + 1; index < mIDXs.Count; index++)

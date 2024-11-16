@@ -33,7 +33,7 @@ namespace CMNDAT
 
 			try
 			{
-				Byte[] comp = tmp[HeaderLength..^0];
+				Byte[] comp = tmp[HeaderLength..];
 				using (var input = new MemoryStream(comp))
 				{
 					using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
@@ -51,7 +51,7 @@ namespace CMNDAT
 				return false;
 			}
 
-			mHeader = tmp[0..HeaderLength];
+			mHeader = tmp[..HeaderLength];
 			mFileName = filename;
 			return true;
 		}

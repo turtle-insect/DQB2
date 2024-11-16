@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 
 namespace STGDAT
 {
@@ -39,7 +40,7 @@ namespace STGDAT
 
 			try
 			{
-				Byte[] comp = tmp[HeaderLength..^0];
+				Byte[] comp = tmp[HeaderLength..];
 				mBuffer = Decomp(comp);
 			}
 			catch
@@ -47,6 +48,7 @@ namespace STGDAT
 				return false;
 			}
 
+			mHeader = tmp[..HeaderLength];
 			mFileName = filename;
 			return true;
 		}

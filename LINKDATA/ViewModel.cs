@@ -22,13 +22,13 @@ namespace LINKDATA
 		public ICommand CommandUnPackIDXzrc { get; init; }
 		public ICommand CommandPackIDXzrc { get; init; }
 		public Int32 PackSplitSize { get; set; } = 0x200000;
-		
-		public bool ZeroSizeFilter
+
+		public uint IDXSizeFilter
 		{
-			get => mZeroSizeFilter;
+			get => mIDXSizeFilter;
 			set
 			{
-				mZeroSizeFilter = value;
+				mIDXSizeFilter = value;
 				FilterIdxList();
 			}
 		}
@@ -43,10 +43,21 @@ namespace LINKDATA
 			}
 		}
 
+		public uint IDXFilterType
+		{
+			get => mIDXFilterType;
+			set
+			{
+				mIDXFilterType = value;
+				FilterIdxList();
+			}
+		}
+
 		private List<IDX> mIDXs = new List<IDX>();
 		private String mWorkPath = "";
-		private bool mZeroSizeFilter = false;
+		private uint mIDXSizeFilter = 0;
 		private String mIDXIndexFilter = "";
+		private uint mIDXFilterType = 0;
 		private String mLinkDataPath = "";
 		private String mIDXzrcPath = "";
 		private String mUnPackIDXzrcPath = "";
@@ -165,7 +176,7 @@ namespace LINKDATA
 			IDXs.Clear();
 			foreach (IDX idx in mIDXs)
 			{
-				if (mZeroSizeFilter && idx.UncompressedSize == 0) continue;
+				if (idx.UncompressedSize < mIDXSizeFilter) continue;
 
 				if (String.IsNullOrEmpty(IDXIndexFilter))
 				{
@@ -173,8 +184,21 @@ namespace LINKDATA
 				}
 				else
 				{
-					if (idx.Index.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
-					else if (idx.GameIndex.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
+					if(mIDXFilterType == 0)
+					{
+						// contain
+						if (idx.Index.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
+						else if (idx.GameIndex.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
+					}
+					else if (mIDXFilterType == 1)
+					{
+						// >=
+						uint index;
+						if (uint.TryParse(IDXIndexFilter, out index) == true)
+						{
+							if(idx.Index >= index) IDXs.Add(idx);
+						}
+					}
 				}
 			}
 		}

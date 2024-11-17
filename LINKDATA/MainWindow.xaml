@@ -34,6 +34,7 @@
 					<Grid DockPanel.Dock="Top">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="80"/>
+							<ColumnDefinition Width="80"/>
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
@@ -41,9 +42,14 @@
 							<RowDefinition/>
 						</Grid.RowDefinitions>
 						<Label Content="IDX index"/>
-						<TextBox Grid.Column="1" Text="{Binding IDXIndexFilter, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="1" Content="Filter"/>
-						<CheckBox Grid.Row="1" Grid.Column="1" Content="Zero Size" IsChecked="{Binding ZeroSizeFilter}" VerticalAlignment="Center"/>
+						<ComboBox Grid.Column="1" SelectedIndex="{Binding IDXFilterType}">
+							<ComboBoxItem Content="contain"/>
+							<ComboBoxItem Content=">="/>
+						</ComboBox>
+						<TextBox Grid.Column="2" Text="{Binding IDXIndexFilter, UpdateSourceTrigger=PropertyChanged}"/>
+						<Label Grid.Row="1" Content="Size"/>
+						<Label Grid.Row="1" Grid.Column="1" Content=">="/>
+						<TextBox Grid.Row="1" Grid.Column="2" Text="{Binding IDXSizeFilter, UpdateSourceTrigger=PropertyChanged}"/>
 					</Grid>
 					<ListBox ItemsSource="{Binding IDXs}">
 						<ListBox.ItemTemplate>

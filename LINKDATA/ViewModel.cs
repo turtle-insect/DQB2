@@ -363,36 +363,28 @@ namespace LINKDATA
 			Byte[] Buffer = System.IO.File.ReadAllBytes(path);
 			Int32 packCount = (Buffer.Length + PackSplitSize - 1) / PackSplitSize;
 
-			List<Byte> Packed = new List<Byte>();
+			using var ms = new MemoryStream();
 			// split size.
-			foreach (Byte b in BitConverter.GetBytes(PackSplitSize))
-			{
-				Packed.Add(b);
-			}
+			ms.Write(BitConverter.GetBytes(PackSplitSize), 0, 4);
 			// split count.
-			foreach (Byte b in BitConverter.GetBytes(packCount))
-			{
-				Packed.Add(b);
-			}
+			ms.Write(BitConverter.GetBytes(packCount), 0, 4);
 			// unpack file size.
-			foreach (Byte b in BitConverter.GetBytes(Buffer.Length))
-			{
-				Packed.Add(b);
-			}
+			ms.Write(BitConverter.GetBytes(Buffer.Length), 0, 4);
 
 			// chunk size.
 			// reserve.
+			// overwrite when writing data
 			for (int index = 0; index < packCount * 4; index++)
 			{
-				Packed.Add(0);
+				ms.WriteByte(0);
 			}
 
 			// padding.
-			int count = 0x80 - (Packed.Count % 0x80);
+			int count = 0x80 - ((int)ms.Length % 0x80);
 			if(count == 0x80)count = 0;
 			for (int index = 0; index < count; index++)
 			{
-				Packed.Add(0);
+				ms.WriteByte(0);
 			}
 
 			// data
@@ -406,26 +398,22 @@ namespace LINKDATA
 
 				int index = 0;
 				int size = tmp.Length;
-				foreach (Byte b in BitConverter.GetBytes(size + 4))
-				{
-					Packed[0x0C + pack * 4 + index] = b;
-					index++;
-				}
-				foreach (Byte b in BitConverter.GetBytes(size))
-				{
-					Packed.Add(b);
-				}
-				foreach (Byte b in tmp)
-				{
-					Packed.Add(b);
-				}
+
+				// rewrite chunk size
+				ms.Seek(0x0C + pack * 4, SeekOrigin.Begin);
+				ms.Write(BitConverter.GetBytes(size + 4), 0, 4);
+				// chunk data
+				// size & bytes
+				ms.Seek(0, SeekOrigin.End);
+				ms.Write(BitConverter.GetBytes(size), 0, 4);
+				ms.Write(tmp, 0, tmp.Length);
 
 				// padding.
-				count = 0x80 - (Packed.Count % 0x80);
+				count = 0x80 - ((int)ms.Length % 0x80);
 				if (count == 0x80) count = 0;
 				for (index = 0; index < count; index++)
 				{
-					Packed.Add(0);
+					ms.WriteByte(0);
 				}
 			}
 
@@ -434,17 +422,17 @@ namespace LINKDATA
 			dlg.InitialDirectory = WorkPath;
 			dlg.FileName = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(path));
 			if (dlg.ShowDialog() == false) return;
-			System.IO.File.WriteAllBytes(dlg.FileName, Packed.ToArray());
+			System.IO.File.WriteAllBytes(dlg.FileName, ms.ToArray());
 		}
 
 		private Byte[] Comp(Byte[] data)
 		{
-			Byte[] result = null;
+			Byte[] result = [];
 			using (var input = new MemoryStream(data))
 			{
 				using (var output = new MemoryStream())
 				{
-					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.SmallestSize))
+					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
 					{
 						input.CopyTo(zlib);
 					}
@@ -456,7 +444,7 @@ namespace LINKDATA
 
 		private Byte[] Decomp(Byte[] data)
 		{
-			Byte[] result = null;
+			Byte[] result = [];
 			using (var input = new MemoryStream(data))
 			{
 				using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))

@@ -102,7 +102,7 @@
 											<Label Content="Offset"/>
 											<Label Content="{Binding Offset}"/>
 											<Label Content="Size"/>
-											<Label Content="{Binding Size}"/>
+											<Label Content="{Binding FileSize}"/>
 										</StackPanel>
 									</DataTemplate>
 								</ListBox.ItemTemplate>

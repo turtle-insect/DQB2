@@ -396,22 +396,19 @@ namespace LINKDATA
 				Array.Copy(Buffer, PackSplitSize * pack, tmp, 0, tmp.Length);
 				tmp = Comp(tmp);
 
-				int index = 0;
-				int size = tmp.Length;
-
 				// rewrite chunk size
 				ms.Seek(0x0C + pack * 4, SeekOrigin.Begin);
-				ms.Write(BitConverter.GetBytes(size + 4), 0, 4);
+				ms.Write(BitConverter.GetBytes(tmp.Length + 4), 0, 4);
 				// chunk data
 				// size & bytes
 				ms.Seek(0, SeekOrigin.End);
-				ms.Write(BitConverter.GetBytes(size), 0, 4);
+				ms.Write(BitConverter.GetBytes(tmp.Length), 0, 4);
 				ms.Write(tmp, 0, tmp.Length);
 
 				// padding.
 				count = 0x80 - ((int)ms.Length % 0x80);
 				if (count == 0x80) count = 0;
-				for (index = 0; index < count; index++)
+				for (int index = 0; index < count; index++)
 				{
 					ms.WriteByte(0);
 				}

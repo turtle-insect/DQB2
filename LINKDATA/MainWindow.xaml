@@ -80,54 +80,58 @@
 				</DockPanel>
 			</TabItem>
 			<TabItem Header="idxzrc">
-				<DockPanel>
-					<Grid DockPanel.Dock="Top">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="80"/>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="50"/>
-						</Grid.ColumnDefinitions>
-						<Label Content="idxzrc Path"/>
-						<TextBox Grid.Column="1" Text="{Binding IDXzrcPath}"/>
-						<Button Grid.Column="2" Content="..." Command="{Binding CommandOpenIDXzrcFile}"/>
-					</Grid>
-					<Button DockPanel.Dock="Bottom" CommandParameter="{Binding IDXzrc}"
-							Content="unpack" Command="{Binding CommandUnPackIDXzrc}"/>
-					<ListBox ItemsSource="{Binding IDXzrc.Chunks}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<Label Content="Offset"/>
-									<Label Content="{Binding Offset}"/>
-									<Label Content="Size"/>
-									<Label Content="{Binding Size}"/>
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
-				</DockPanel>
-			</TabItem>
-			<TabItem Header="pack">
-				<DockPanel>
-					<Grid DockPanel.Dock="Top">
-						<Grid.RowDefinitions>
-							<RowDefinition/>
-							<RowDefinition/>
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="80"/>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="50"/>
-						</Grid.ColumnDefinitions>
-						<Label Content="unpack Path"/>
-						<TextBox Grid.Column="1" Text="{Binding UnPackIDXzrcPath, UpdateSourceTrigger=PropertyChanged}"/>
-						<Button Grid.Column="2" Content="..." Command="{Binding CommandOpenUnPackIDXzrcFile}"/>
-						<Label Grid.Row="1" Content="split size"/>
-						<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PackSplitSize, UpdateSourceTrigger=PropertyChanged}"/>
-					</Grid>
-					<Button DockPanel.Dock="Bottom" CommandParameter="{Binding IDXzrc}"
-							Content="pack" Command="{Binding CommandPackIDXzrc}"/>
-				</DockPanel>
+				<TabControl>
+					<TabItem Header="unpack">
+						<DockPanel>
+							<Grid DockPanel.Dock="Top">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="80"/>
+									<ColumnDefinition/>
+									<ColumnDefinition Width="50"/>
+								</Grid.ColumnDefinitions>
+								<Label Content="idxzrc Path"/>
+								<TextBox Grid.Column="1" Text="{Binding IDXzrcPath}"/>
+								<Button Grid.Column="2" Content="..." Command="{Binding CommandOpenIDXzrcFile}"/>
+							</Grid>
+							<Button DockPanel.Dock="Bottom" CommandParameter="{Binding IDXzrc}"
+									Content="unpack" Command="{Binding CommandUnPackIDXzrc}"/>
+							<ListBox ItemsSource="{Binding IDXzrc.Chunks}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<StackPanel Orientation="Horizontal">
+											<Label Content="Offset"/>
+											<Label Content="{Binding Offset}"/>
+											<Label Content="Size"/>
+											<Label Content="{Binding Size}"/>
+										</StackPanel>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+						</DockPanel>
+					</TabItem>
+					<TabItem Header="pack">
+						<DockPanel>
+							<Grid DockPanel.Dock="Top">
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="80"/>
+									<ColumnDefinition/>
+									<ColumnDefinition Width="50"/>
+								</Grid.ColumnDefinitions>
+								<Label Content="unpack Path"/>
+								<TextBox Grid.Column="1" Text="{Binding UnPackIDXzrcPath, UpdateSourceTrigger=PropertyChanged}"/>
+								<Button Grid.Column="2" Content="..." Command="{Binding CommandOpenUnPackIDXzrcFile}"/>
+								<Label Grid.Row="1" Content="split size"/>
+								<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PackSplitSize, UpdateSourceTrigger=PropertyChanged}"/>
+							</Grid>
+							<Button DockPanel.Dock="Bottom" CommandParameter="{Binding IDXzrc}"
+									Content="pack" Command="{Binding CommandPackIDXzrc}"/>
+						</DockPanel>
+					</TabItem>
+				</TabControl>
 			</TabItem>
 		</TabControl>
 	</DockPanel>

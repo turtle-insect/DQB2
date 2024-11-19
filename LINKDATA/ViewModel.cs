@@ -11,8 +11,8 @@ namespace LINKDATA
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;
 		
-		public ObservableCollection<IDX> IDXs { get; private set; } = new ObservableCollection<IDX>();
-		public IDXzrc IDXzrc { get; private set; } = new IDXzrc();
+		public ObservableCollection<IDX> IDXs { get; init; } = new ObservableCollection<IDX>();
+		public IDXzrc IDXzrc { get; init; } = new IDXzrc();
 		public ICommand CommandOpenWorkPath { get; init; }
 		public ICommand CommandOpenIDXFile { get; init; }
 		public ICommand CommandOpenIDXzrcFile { get; init; }

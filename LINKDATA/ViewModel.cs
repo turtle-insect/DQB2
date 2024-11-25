@@ -432,6 +432,7 @@ namespace LINKDATA
 					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
 					{
 						input.CopyTo(zlib);
+						zlib.Flush();
 					}
 					result = output.ToArray();
 				}
@@ -449,6 +450,7 @@ namespace LINKDATA
 					using (var output = new MemoryStream())
 					{
 						zlib.CopyTo(output);
+						output.Flush();
 						result = output.ToArray();
 					}
 				}

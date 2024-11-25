@@ -407,6 +407,7 @@ namespace STGDAT
 					using (var output = new MemoryStream())
 					{
 						zlib.CopyTo(output);
+						output.Flush();
 						result = output.ToArray();
 					}
 				}

@@ -41,6 +41,7 @@ namespace CMNDAT
 						using (var output = new MemoryStream())
 						{
 							zlib.CopyTo(output);
+							output.Flush();
 							mBuffer = output.ToArray();
 						}
 					}
@@ -69,6 +70,7 @@ namespace CMNDAT
 					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
 					{
 						input.CopyTo(zlib);
+						zlib.Flush();
 					}
 					comp = output.ToArray();
 				}

@@ -6,7 +6,7 @@ namespace STGDAT
 {
 	internal class MapGenerator
 	{
-		public bool AllObjectClear { get; set; } = false;
+		public bool AllEntityClear { get; set; } = false;
 		public ObservableCollection<Layer> Layers { get; set; } = new ObservableCollection<Layer>();
 
 		public MapGenerator()
@@ -54,8 +54,17 @@ namespace STGDAT
 
 		public void Execution()
 		{
-			if (AllObjectClear)
+			if (AllEntityClear)
 			{
+				// clear room info
+				for (uint i = 0; i < 100; i++)
+				{
+					uint address = 0x10 + i * 336;
+					SaveData.Instance().Fill(address, 36, 0);
+					SaveData.Instance().Fill(address + 36, 300, 0xFF);
+				}
+
+				// clear entity info
 				SaveData.Instance().WriteNumber(0x24E7CD, 3, 1);
 				SaveData.Instance().Fill(0x24E7D1, 24 * 0xC8000, 0);
 				for (uint i = 0; i < 0xC8000; i++)

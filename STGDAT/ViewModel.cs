@@ -117,6 +117,11 @@ namespace STGDAT
 			foreach (var item in Tablewares) item.Clear();
 		}
 
+		// room
+		// 最大100個
+		// 0x10
+		// 1つ336Byte
+
 		// 超スーパーカー
 		// 0x13D8D
 		// 1つ10Byte

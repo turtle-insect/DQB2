@@ -143,7 +143,7 @@
 						<StackPanel DockPanel.Dock="Top">
 							<TextBox FontSize="16" FontWeight="Bold" Text="This Config is Super Flat Setting"/>
 							<TextBox FontSize="16" FontWeight="Bold" Text="Max Height = 96 (if 96 or more, ignore.)"/>
-							<CheckBox IsChecked="{Binding Map.AllObjectClear}" Content="all object clear"/>
+							<CheckBox IsChecked="{Binding Map.AllEntityClear}" Content="all entity clear"/>
 						</StackPanel>
 						<Grid DockPanel.Dock="Bottom">
 							<Grid.ColumnDefinitions>

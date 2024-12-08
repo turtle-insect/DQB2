@@ -6,7 +6,7 @@ namespace CMNDAT
 	internal class MaterialIsland
 	{
 		private readonly uint mAddress;
-		public ObservableCollection<BitItem> Info { get; set; } = new ObservableCollection<BitItem>();
+		public ObservableCollection<BitItem> Items { get; set; } = new ObservableCollection<BitItem>();
 
 		public MaterialIsland(uint address, String name)
 		{
@@ -15,7 +15,7 @@ namespace CMNDAT
 
 			for (uint i = 0; i < 48; i++)
 			{
-				Info.Add(new BitItem(address + i / 8, i % 8));
+				Items.Add(new BitItem(address + i / 8, i % 8));
 			}
 		}
 

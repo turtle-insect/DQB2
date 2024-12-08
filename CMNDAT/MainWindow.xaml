@@ -322,33 +322,43 @@
 					</ListBox>
 				</TabItem>
 				<TabItem Header="Material Island">
-					<ListBox ItemsSource="{Binding MaterialIslands}">
-						<ListBox.Resources>
-							<local:MaterialIslandStateConverter x:Key="MaterialIslandStateConverter"/>
-						</ListBox.Resources>
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<Label Content="{Binding Name}"/>
-									<StackPanel Orientation="Horizontal">
-										<Label Content="State"/>
-										<ComboBox SelectedIndex="{Binding State, Converter={StaticResource MaterialIslandStateConverter}}">
-											<ComboBoxItem Content="None"/>
-											<ComboBoxItem Content="View"/>
-											<ComboBoxItem Content="Open"/>
-										</ComboBox>
+					<DockPanel>
+						<Grid DockPanel.Dock="Bottom">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<Button Content="All Check" Command="{Binding CommandAllCheckMaterials}"/>
+							<Button Grid.Column="1" Content="All UnCheck" Command="{Binding CommandAllUnCheckMaterials}"/>
+						</Grid>
+						<ListBox ItemsSource="{Binding MaterialIslands}">
+							<ListBox.Resources>
+								<local:MaterialIslandStateConverter x:Key="MaterialIslandStateConverter"/>
+							</ListBox.Resources>
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<Label Content="{Binding Name}"/>
+										<StackPanel Orientation="Horizontal">
+											<Label Content="State"/>
+											<ComboBox SelectedIndex="{Binding State, Converter={StaticResource MaterialIslandStateConverter}}">
+												<ComboBoxItem Content="None"/>
+												<ComboBoxItem Content="View"/>
+												<ComboBoxItem Content="Open"/>
+											</ComboBox>
+										</StackPanel>
+										<ListBox Height="100" ItemsSource="{Binding Items}">
+											<ListBox.ItemTemplate>
+												<DataTemplate>
+													<CheckBox IsChecked="{Binding Value}"/>
+												</DataTemplate>
+											</ListBox.ItemTemplate>
+										</ListBox>
 									</StackPanel>
-									<ListBox Height="100" ItemsSource="{Binding Info}">
-										<ListBox.ItemTemplate>
-											<DataTemplate>
-												<CheckBox IsChecked="{Binding Value}"/>
-											</DataTemplate>
-										</ListBox.ItemTemplate>
-									</ListBox>
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</DockPanel>
 				</TabItem>
 				<TabItem Header="Crafts">
 					<DockPanel>

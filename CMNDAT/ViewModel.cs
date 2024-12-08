@@ -24,6 +24,8 @@ namespace CMNDAT
 		public ICommand CommandCraftAllInfinite { get; init; }
 		public ICommand CommandAllCheckSceneries { get; init; }
 		public ICommand CommandAllUnCheckSceneries { get; init; }
+		public ICommand CommandAllCheckMaterials { get; init; }
+		public ICommand CommandAllUnCheckMaterials { get; init; }
 
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
@@ -124,7 +126,8 @@ namespace CMNDAT
 			CommandCraftAllInfinite = new CommandAction(CraftAllInfinite);
 			CommandAllCheckSceneries = new CommandAction(AllCheckSceneries);
 			CommandAllUnCheckSceneries = new CommandAction(AllUnCheckSceneries);
-
+			CommandAllCheckMaterials = new CommandAction(AllCheckMaterials);
+			CommandAllUnCheckMaterials = new CommandAction(AllUnCheckMaterials);
 
 			for (uint i = 0; i < 15; i++)
 			{
@@ -505,6 +508,27 @@ namespace CMNDAT
 			foreach (var scene in Sceneries)
 			{
 				scene.Visit = flag;
+			}
+		}
+
+		private void AllCheckMaterials(Object? obj)
+		{
+			UpdateMaterials(true);
+		}
+
+		private void AllUnCheckMaterials(Object? obj)
+		{
+			UpdateMaterials(false);
+		}
+
+		private void UpdateMaterials(bool flag)
+		{
+			foreach (var island in MaterialIslands)
+			{
+				foreach (var item in island.Items)
+				{
+					item.Value = flag;
+				}
 			}
 		}
 	}

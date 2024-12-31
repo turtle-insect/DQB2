@@ -185,6 +185,24 @@
 						</ListBox>
 					</DockPanel>
 				</TabItem>
+				<TabItem Header="BluePrint">
+					<ListBox ItemsSource="{Binding BluePrints}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<Label Content="ID"/>
+									<Label Content="{Binding ID}"/>
+									<Label Content="X"/>
+									<Label Content="{Binding X}"/>
+									<Label Content="Y"/>
+									<Label Content="{Binding Y}"/>
+									<Label Content="Z"/>
+									<Label Content="{Binding Z}"/>
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</TabItem>
 				<TabItem Header="Chunk">
 					<DockPanel>
 						<Button DockPanel.Dock="Bottom" Content="Execution" Click="ButtonChunkUpdate_Click"/>

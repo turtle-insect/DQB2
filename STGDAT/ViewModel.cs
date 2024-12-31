@@ -30,6 +30,7 @@ namespace STGDAT
 		public ObservableCollection<Tableware> Tablewares { get; private set; } = new ObservableCollection<Tableware>();
 		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
 		public ObservableCollection<Entity> Entitys { get; private set; } = new ObservableCollection<Entity>();
+		public ObservableCollection<BluePrint> BluePrints { get; private set; } = new ObservableCollection<BluePrint>();
 
 		public string FilterEntityID
 		{
@@ -100,6 +101,11 @@ namespace STGDAT
 				var part = new Entity(0x24E7D1 + i * 24, 0x150E7D1 + i * 4);
 				mEntity.Add(part);
 				Entitys.Add(part);
+			}
+
+			for (uint i = 0; i < 5; i++)
+			{
+				BluePrints.Add(new BluePrint(0x2CA3C + i * 12));
 			}
 		}
 

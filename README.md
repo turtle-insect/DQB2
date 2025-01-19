@@ -65,6 +65,15 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 * [dqb2thank](https://gbatemp.net/threads/dragon-quest-builders-2-save-editor-pc-steam.558947/post-10008029)
 * [Ryan Kramer](https://github.com/default-kramer)
 
+# Play Any version(Steam)
+ex) 1.7.3a  
+reference : [StermDB](https://steamdb.info/depot/1072421/manifests/)
+```
+git pull git@github.com:SteamRE/DepotDownloader.git
+cd DepotDownloader
+DepotDownloader.exe -app 1072420 -depot 1072421 -manifest 6650286556016577149 -username **** -password ****
+```
+
 # LINKDATA edit
 ## external Tool
 * g1t_tools_0.3.zip

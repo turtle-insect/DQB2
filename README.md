@@ -66,11 +66,12 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 * [Ryan Kramer](https://github.com/default-kramer)
 
 # Play Any version(Steam)
+## external Tool
+* [DepotDownloader](https://github.com/SteamRE/DepotDownloader/releases)
+* [SteamDB](https://steamdb.info/depot/1072421/manifests/)
+
 ex) 1.7.3a  
-reference : [StermDB](https://steamdb.info/depot/1072421/manifests/)
 ```
-git pull git@github.com:SteamRE/DepotDownloader.git
-cd DepotDownloader
 DepotDownloader.exe -app 1072420 -depot 1072421 -manifest 6650286556016577149 -username **** -password ****
 ```
 

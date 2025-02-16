@@ -26,6 +26,7 @@ namespace CMNDAT
 		public ICommand CommandAllUnCheckSceneries { get; init; }
 		public ICommand CommandAllCheckMaterials { get; init; }
 		public ICommand CommandAllUnCheckMaterials { get; init; }
+		public ICommand CommandDLCItems { get; init; }
 
 		public Appearance Appearance { get; private set; } = new Appearance();
 		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
@@ -128,6 +129,7 @@ namespace CMNDAT
 			CommandAllUnCheckSceneries = new CommandAction(AllUnCheckSceneries);
 			CommandAllCheckMaterials = new CommandAction(AllCheckMaterials);
 			CommandAllUnCheckMaterials = new CommandAction(AllUnCheckMaterials);
+			CommandDLCItems = new CommandAction(DLCItems);
 
 			for (uint i = 0; i < 15; i++)
 			{
@@ -519,6 +521,25 @@ namespace CMNDAT
 		private void AllUnCheckMaterials(Object? obj)
 		{
 			UpdateMaterials(false);
+		}
+
+		private void DLCItems(Object? obj)
+		{
+			// Recipe Flag
+			uint address = 0x227DDE;
+			for(uint i = 0; i < 13; i++)
+			{
+				if (i == 3) continue;
+				SaveData.Instance().WriteNumber(address + i * 4, 1, 11);
+			}
+
+			// Have Flag
+			address = 0x230D6F;
+			for (uint i = 0; i < 11; i++)
+			{
+				if (i == 1) continue;
+				SaveData.Instance().WriteNumber(address + i, 1, 2);
+			}
 		}
 
 		private void UpdateMaterials(bool flag)

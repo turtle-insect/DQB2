@@ -791,6 +791,12 @@
 						</ListBox.ItemTemplate>
 					</ListBox>
 				</TabItem>
+				<TabItem Header="Recipe">
+					<DockPanel>
+						<Label DockPanel.Dock="Top" Foreground="Red" FontWeight="ExtraBold" Content="Free DLC Recipe Only"/>
+						<Button Content="Get Flag" Command="{Binding CommandDLCItems}"/>
+					</DockPanel>
+				</TabItem>
 			</TabControl>
 		</DockPanel>
 	</Grid>

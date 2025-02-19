@@ -136,7 +136,7 @@ namespace LINKDATA
 		private void OpenIDXFile(object? param)
 		{
 			var dlg = new Microsoft.Win32.OpenFileDialog();
-			dlg.Filter = "LINKDATA|LINKDATA.IDX";
+			dlg.Filter = "LINKDATA|LINKDATA*.IDX";
 			if (dlg.ShowDialog() == false) return;
 
 			LinkDataPath = dlg.FileName;

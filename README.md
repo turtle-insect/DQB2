@@ -78,7 +78,7 @@ DepotDownloader.exe -app 1072420 -depot 1072421 -manifest 6650286556016577149 -u
 # LINKDATA edit
 ## external Tool
 * g1t_tools_0.3.zip
-* [gimp](https://www.gimp.org/) 2.10.38
+* [gimp](https://www.gimp.org/) 3.0.0
 
 ## Process
 * start LINKDATA.exe

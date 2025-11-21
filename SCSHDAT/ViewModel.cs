@@ -13,7 +13,7 @@ namespace SCSHDAT
 		public ICommand ImportPhotoCommand { get; init; }
 		public ICommand ExportPhotoCommand { get; init; }
 
-		public ObservableCollection<Photo> Photos { get; private set; } = new();
+		public ObservableCollection<Photo> Photos { get; init; } = new();
 
 		public ViewModel()
 		{

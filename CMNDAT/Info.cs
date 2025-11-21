@@ -5,12 +5,12 @@ namespace CMNDAT
 {
 	internal class Info
 	{
-		private static Info mThis;
-		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> StoryIsland { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> MaterialIsland { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> Mood { get; private set; } = new List<NameValueInfo>();
-		public List<NameValueInfo> Crop { get; private set; } = new List<NameValueInfo>();
+		private static Info? mThis;
+		public List<NameValueInfo> Item { get; private set; } = new();
+		public List<NameValueInfo> StoryIsland { get; private set; } = new();
+		public List<NameValueInfo> MaterialIsland { get; private set; } = new();
+		public List<NameValueInfo> Mood { get; private set; } = new();
+		public List<NameValueInfo> Crop { get; private set; } = new();
 
 		private Info() { }
 

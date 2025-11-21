@@ -9,7 +9,7 @@ namespace STGDAT
 	internal class SaveData
 	{
 		private const int HeaderLength = 0x110;
-		private static SaveData mThis = new SaveData();
+		private static SaveData mThis = new();
 		private String mFileName = null;
 		private Byte[] mHeader = [];
 		private Byte[] mBuffer = null;

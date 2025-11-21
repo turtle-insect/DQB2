@@ -3,7 +3,7 @@
 	internal class Tableware
 	{
 		private readonly uint mAddress;
-		public Item Item { get; set; }
+		public Item Item { get; init; }
 
 		public Tableware(uint info, uint item)
 		{

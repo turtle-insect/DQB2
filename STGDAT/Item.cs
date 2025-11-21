@@ -4,6 +4,8 @@ namespace STGDAT
 {
 	internal class Item : INotifyPropertyChanged
 	{
+		public event PropertyChangedEventHandler? PropertyChanged;
+
 		readonly uint mAddress;
 
 		public Item(uint address)
@@ -30,7 +32,5 @@ namespace STGDAT
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
 			}
 		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

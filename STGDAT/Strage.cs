@@ -5,7 +5,7 @@ namespace STGDAT
 	internal class Strage
 	{
 		private readonly uint mAddress;
-		public ObservableCollection<Item> Items { get; private set; } = new ObservableCollection<Item>();
+		public ObservableCollection<Item> Items { get; private set; } = new();
 
 		public Strage(uint info, uint inside)
 		{

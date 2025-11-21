@@ -7,7 +7,7 @@ namespace STGDAT
 	internal class MapGenerator
 	{
 		public bool AllEntityClear { get; set; } = false;
-		public ObservableCollection<Layer> Layers { get; set; } = new ObservableCollection<Layer>();
+		public ObservableCollection<Layer> Layers { get; set; } = new();
 
 		public MapGenerator()
 		{

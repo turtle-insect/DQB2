@@ -5,9 +5,9 @@ namespace STGDAT
 {
 	internal class Info
 	{
-		private static Info mThis;
-		public List<NameValueInfo> Item { get; private set; } = new List<NameValueInfo>();
-		public List<BlockInfo> Block { get; private set; } = new List<BlockInfo>();
+		private static Info? mThis;
+		public List<NameValueInfo> Item { get; private set; } = new();
+		public List<BlockInfo> Block { get; private set; } = new();
 
 		private Info() { }
 

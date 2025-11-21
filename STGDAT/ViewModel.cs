@@ -34,16 +34,15 @@ namespace STGDAT
 
 		public string FilterEntityID
 		{
-			get => mFilterEntityID;
+			get => field;
 			set
 			{
-				mFilterEntityID = value;
+				field = value;
 				FilterPart();
 			}
-		}
-		private string mFilterEntityID = "";
+		} = String.Empty;
 
-		private List<Entity> mEntity = new List<Entity>();
+		private List<Entity> mEntity = new();
 
 		public uint Heart
 		{

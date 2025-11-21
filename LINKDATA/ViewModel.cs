@@ -10,9 +10,9 @@ namespace LINKDATA
 	internal class ViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler? PropertyChanged;
-		
-		public ObservableCollection<IDX> IDXs { get; init; } = new ObservableCollection<IDX>();
-		public IDXzrc IDXzrc { get; init; } = new IDXzrc();
+
+		public ObservableCollection<IDX> IDXs { get; init; } = new();
+		public IDXzrc IDXzrc { get; init; } = new();
 		public ICommand CommandOpenWorkPath { get; init; }
 		public ICommand CommandOpenIDXFile { get; init; }
 		public ICommand CommandOpenIDXzrcFile { get; init; }
@@ -25,95 +25,88 @@ namespace LINKDATA
 
 		public uint IDXSizeFilter
 		{
-			get => mIDXSizeFilter;
+			get => field;
 			set
 			{
-				mIDXSizeFilter = value;
+				field = value;
 				FilterIdxList();
 			}
-		}
+		} = 0;
 
 		public String IDXIndexFilter
 		{
-			get => mIDXIndexFilter;
+			get => field;
 			set
 			{
-				mIDXIndexFilter = value;
+				field = value;
 				FilterIdxList();
 			}
-		}
+		} = String.Empty;
 
 		public uint IDXFilterType
 		{
-			get => mIDXFilterType;
+			get => field;
 			set
 			{
-				mIDXFilterType = value;
+				field = value;
 				FilterIdxList();
 			}
-		}
+		} = 0;
 
-		private List<IDX> mIDXs = new List<IDX>();
-		private String mWorkPath = "";
-		private uint mIDXSizeFilter = 0;
-		private String mIDXIndexFilter = "";
-		private uint mIDXFilterType = 0;
-		private String mLinkDataPath = "";
-		private String mIDXzrcPath = "";
-		private String mUnPackIDXzrcPath = "";
-		private String mItemResoucePath = "";
+		private List<IDX> mIDXs = new();
 		public String WorkPath
 		{
-			get => mWorkPath;
+			get => field;
 			set
 			{
-				mWorkPath = value;
+				field = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(WorkPath)));
 			}
-		}
+		} = String.Empty;
 
 		public String LinkDataPath
 		{
-			get => mLinkDataPath;
+			get => field;
 			set
 			{
-				mLinkDataPath = value;
+				field = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LinkDataPath)));
 			}
-		}
+		} = String.Empty;
+
 		public String IDXzrcPath
 		{
-			get => mIDXzrcPath;
+			get => field;
 			set
 			{
-				mIDXzrcPath = value;
+				field = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IDXzrcPath)));
 			}
-		}
+		} = String.Empty;
 
 		public String UnPackIDXzrcPath
 		{
-			get => mUnPackIDXzrcPath;
+			get => field;
 			set
 			{
-				mUnPackIDXzrcPath = value;
+				field = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UnPackIDXzrcPath)));
 			}
-		}
+		} = String.Empty;
 
 		public String ItemResoucePath
 		{
-			get => mItemResoucePath;
+			get => field;
 			set
 			{
-				mItemResoucePath = value;
+				field = value;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ItemResoucePath)));
 			}
-		}
+		} = String.Empty;
 
 		public ViewModel()
 		{
-			mWorkPath = Environment.CurrentDirectory;
+			WorkPath = Environment.CurrentDirectory;
 			CommandOpenWorkPath = new CommandAction(OpenWorkPath);
 			CommandOpenIDXFile = new CommandAction(OpenIDXFile);
 			CommandOpenIDXzrcFile = new CommandAction(OpenIDXzrcFile);
@@ -146,7 +139,7 @@ namespace LINKDATA
 		private void CreateIdxList()
 		{
 			mIDXs.Clear();
-			String path = mLinkDataPath;
+			String path = LinkDataPath;
 			if (!System.IO.File.Exists(path)) return;
 
 			Byte[] buffer = System.IO.File.ReadAllBytes(path);
@@ -176,7 +169,7 @@ namespace LINKDATA
 			IDXs.Clear();
 			foreach (IDX idx in mIDXs)
 			{
-				if (idx.UncompressedSize < mIDXSizeFilter) continue;
+				if (idx.UncompressedSize < IDXSizeFilter) continue;
 
 				if (String.IsNullOrEmpty(IDXIndexFilter))
 				{
@@ -184,13 +177,13 @@ namespace LINKDATA
 				}
 				else
 				{
-					if(mIDXFilterType == 0)
+					if(IDXFilterType == 0)
 					{
 						// contain
 						if (idx.Index.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
 						else if (idx.GameIndex.ToString().IndexOf(IDXIndexFilter) != -1) IDXs.Add(idx);
 					}
-					else if (mIDXFilterType == 1)
+					else if (IDXFilterType == 1)
 					{
 						// >=
 						uint index;
@@ -216,7 +209,7 @@ namespace LINKDATA
 
 		private void ExportIDX(object? param)
 		{
-			String path = mLinkDataPath;
+			String path = LinkDataPath;
 			if (!System.IO.File.Exists(path)) return;
 			path = path.Substring(0, path.Length - 3) + "BIN";
 			if (!System.IO.File.Exists(path)) return;
@@ -248,7 +241,7 @@ namespace LINKDATA
 
 		private void ImportIDX(object? param)
 		{
-			String path = mLinkDataPath;
+			String path = LinkDataPath;
 			if (!System.IO.File.Exists(path)) return;
 			path = path.Substring(0, path.Length - 3) + "BIN";
 			if (!System.IO.File.Exists(path)) return;
@@ -282,7 +275,7 @@ namespace LINKDATA
 			}
 
 			Byte[] importFile = System.IO.File.ReadAllBytes(dlg.FileName);
-			Byte[] link_idx = System.IO.File.ReadAllBytes(mLinkDataPath);
+			Byte[] link_idx = System.IO.File.ReadAllBytes(LinkDataPath);
 			Byte[] link_bin = System.IO.File.ReadAllBytes(path);
 
 			// offset = after - original
@@ -308,7 +301,7 @@ namespace LINKDATA
 				Array.Copy(link_bin, (int)mIDXs[index].Offset, bin, address, (int)mIDXs[index].CompressedSize);
 			}
 
-			System.IO.File.WriteAllBytes(mLinkDataPath, link_idx);
+			System.IO.File.WriteAllBytes(LinkDataPath, link_idx);
 			System.IO.File.WriteAllBytes(path, bin);
 
 			CreateIdxList();
@@ -320,7 +313,7 @@ namespace LINKDATA
 			if (idxzrd == null) return;
 			if(idxzrd.UncompressedSize == 0) return;
 
-			String path = mIDXzrcPath;
+			String path = IDXzrcPath;
 			if (!System.IO.File.Exists(path)) return;
 
 			var dlg = new Microsoft.Win32.SaveFileDialog();
@@ -357,7 +350,7 @@ namespace LINKDATA
 
 		private void PackIDXzrc(object? param)
 		{
-			String path = mUnPackIDXzrcPath;
+			String path = UnPackIDXzrcPath;
 			if (!System.IO.File.Exists(path)) return;
 
 			Byte[] Buffer = System.IO.File.ReadAllBytes(path);

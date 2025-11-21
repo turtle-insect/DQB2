@@ -10,9 +10,9 @@ namespace CMNDAT
 {
 	internal class ViewModel
 	{
-		public Info Info { get; private set; } = Info.Instance();
-		public Player Player { get; private set; } = new Player();
-		public Skill Skill { get; private set; } = new Skill();
+		public Info Info { get; init; } = Info.Instance();
+		public Player Player { get; init; } = new Player();
+		public Skill Skill { get; init; } = new Skill();
 
 		public ICommand CommandImportFile { get; init; }
 		public ICommand CommandExportFile { get; init; }
@@ -28,18 +28,18 @@ namespace CMNDAT
 		public ICommand CommandAllUnCheckMaterials { get; init; }
 		public ICommand CommandDLCItems { get; init; }
 
-		public Appearance Appearance { get; private set; } = new Appearance();
-		public ObservableCollection<Item> Inventory { get; private set; } = new ObservableCollection<Item>();
-		public ObservableCollection<Item> Bag { get; private set; } = new ObservableCollection<Item>();
-		public ObservableCollection<StoryIsland> StoryIslands { get; private set; } = new ObservableCollection<StoryIsland>();
-		public ObservableCollection<MaterialIsland> MaterialIslands { get; private set; } = new ObservableCollection<MaterialIsland>();
-		public ObservableCollection<People> Residents { get; private set; } = new ObservableCollection<People>();
-		public ObservableCollection<People> StoryPeople { get; private set; } = new ObservableCollection<People>();
-		public ObservableCollection<Party> Party { get; private set; } = new ObservableCollection<Party>();
-		public ObservableCollection<BluePrint> BluePrints { get; private set; } = new ObservableCollection<BluePrint>();
-		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
-		public ObservableCollection<Crop> Crops { get; private set; } = new ObservableCollection<Crop>();
-		public ObservableCollection<Scenery> Sceneries { get; private set; } = new ObservableCollection<Scenery>();
+		public Appearance Appearance { get; init; } = new Appearance();
+		public ObservableCollection<Item> Inventory { get; init; } = new();
+		public ObservableCollection<Item> Bag { get; init; } = new();
+		public ObservableCollection<StoryIsland> StoryIslands { get; init; } = new();
+		public ObservableCollection<MaterialIsland> MaterialIslands { get; init; } = new();
+		public ObservableCollection<People> Residents { get; init; } = new();
+		public ObservableCollection<People> StoryPeople { get; init; } = new();
+		public ObservableCollection<Party> Party { get; init; } = new();
+		public ObservableCollection<BluePrint> BluePrints { get; init; } = new();
+		public ObservableCollection<Craft> Crafts { get; init; } = new();
+		public ObservableCollection<Crop> Crops { get; init; } = new();
+		public ObservableCollection<Scenery> Sceneries { get; init; } = new();
 
 		// サムネ
 		// 0x10D - 0x2A40F

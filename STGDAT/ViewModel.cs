@@ -9,7 +9,7 @@ namespace STGDAT
 	internal class ViewModel
 	{
 		public Info Info { get; private set; } = Info.Instance();
-		public MapGenerator Map { get; private set; } = new MapGenerator();
+		public MapGenerator Map { get; private set; } = new();
 
 		public ICommand CommandImportFile { get; init; }
 		public ICommand CommandExportFile { get; init; }
@@ -23,14 +23,14 @@ namespace STGDAT
 		public ICommand CommandMapGeneratorClear { get; init; }
 		public ICommand CommandMapGeneratorExecute { get; init; }
 
-		public ObservableCollection<Strage> Boxes { get; private set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Strage> Cabinets { get; private set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Strage> ShelfChests { get; private set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Strage> ShelfDrawers { get; private set; } = new ObservableCollection<Strage>();
-		public ObservableCollection<Tableware> Tablewares { get; private set; } = new ObservableCollection<Tableware>();
-		public ObservableCollection<Craft> Crafts { get; private set; } = new ObservableCollection<Craft>();
-		public ObservableCollection<Entity> Entitys { get; private set; } = new ObservableCollection<Entity>();
-		public ObservableCollection<BluePrint> BluePrints { get; private set; } = new ObservableCollection<BluePrint>();
+		public ObservableCollection<Strage> Boxes { get; init; } = new();
+		public ObservableCollection<Strage> Cabinets { get; init; } = new();
+		public ObservableCollection<Strage> ShelfChests { get; init; } = new();
+		public ObservableCollection<Strage> ShelfDrawers { get; init; } = new();
+		public ObservableCollection<Tableware> Tablewares { get; init; } = new();
+		public ObservableCollection<Craft> Crafts { get; init; } = new();
+		public ObservableCollection<Entity> Entitys { get; init; } = new();
+		public ObservableCollection<BluePrint> BluePrints { get; init; } = new();
 
 		public string FilterEntityID
 		{

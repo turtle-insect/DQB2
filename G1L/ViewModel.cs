@@ -7,7 +7,7 @@ namespace G1L
 	{
 		public String WorkPath { get; set; } = "";
 		public String OutputPath { get; set; } = "";
-		public ICommand ExecuteCommand { get; set; }
+		public ICommand ExecuteCommand { get; init; }
 
 		public ViewModel()
 		{

@@ -5,7 +5,7 @@ namespace LINKDATA
 {
 	internal class IDXzrc
 	{
-		public ObservableCollection<IDXzrcChunk> Chunks { get; private set; } = new ObservableCollection<IDXzrcChunk>();
+		public ObservableCollection<IDXzrcChunk> Chunks { get; private set; } = new();
 		public UInt32 SplitSize { get; private set; }
 		public UInt32 UncompressedSize { get; private set; }
 		public void Read(String filename)

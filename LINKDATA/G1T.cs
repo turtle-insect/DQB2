@@ -5,7 +5,7 @@ namespace LINKDATA
 {
 	internal class G1T
 	{
-		public String Magic { get; private set; } = "";
+		public String Magic { get; private set; } = String.Empty;
 		public UInt32 Version { get; private set; }
 		public UInt32 FileSize { get; private set; }
 		public UInt32 HeaderSize { get; private set; }

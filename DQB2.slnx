@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="CMNDAT/CMNDAT.csproj" />
+  <Project Path="G1L/G1L.csproj" />
+  <Project Path="LINKDATA/LINKDATA.csproj" />
+  <Project Path="SCSHDAT/SCSHDAT.csproj" />
+  <Project Path="STGDAT/STGDAT.csproj" />
+</Solution>

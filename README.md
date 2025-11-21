@@ -19,13 +19,13 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 
 # 実行に必要
 * Windows マシン
-* [.NET 9](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)の導入
+* [.NET 10](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)の導入
 * セーブデータの吸い出し
 * セーブデータの書き戻し
 
 # Build環境
-* Windows 10(64bit)
-* [Visual Studio 2022](https://visualstudio.microsoft.com/)
+* Windows 11(64bit)
+* [Visual Studio 2026](https://visualstudio.microsoft.com/)
 
 # セーブデータの構成
 * AUTOxx.BIN

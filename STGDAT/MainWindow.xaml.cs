@@ -1,9 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace STGDAT
 {
@@ -28,7 +31,7 @@ namespace STGDAT
 			if (files == null) return;
 
 			SaveData.Instance().Open(files[0]);
-			DataContext = new ViewModel();
+			OpenFile();
 		}
 
 		private void MenuItemFileOpen_Click(object sender, RoutedEventArgs e)
@@ -38,8 +41,7 @@ namespace STGDAT
 			if (dlg.ShowDialog() == false) return;
 
 			SaveData.Instance().Open(dlg.FileName);
-			DataContext = new ViewModel();
-			LoadChunk();
+			OpenFile();
 		}
 
 		private void MenuItemFileSave_Click(object sender, RoutedEventArgs e)
@@ -74,6 +76,13 @@ namespace STGDAT
 			if (vm == null) return;
 
 			vm.AllTablewareUnActive();
+		}
+
+		private void OpenFile()
+		{
+			DataContext = new ViewModel();
+			LoadChunk();
+			LoadWorldMap();
 		}
 
 		private void LoadChunk()
@@ -133,5 +142,38 @@ namespace STGDAT
 			SaveData.Instance().WriteNumber(0x24E7C5, 2, count);
 			SaveData.Instance().Resize(Util.CalcChunkAddress((uint)chunkSize) - 0x110);
 		}
-    }
+
+		private void LoadWorldMap()
+		{
+			WorldModel.Children.Clear();
+
+			var commonMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.ForestGreen));
+
+			var maxX = (int)SaveData.Instance().ReadNumber(0x24E7C9, 2) / 32;
+			var maxZ = (int)SaveData.Instance().ReadNumber(0x24E7CB, 2) / 32;
+
+			var halfX = maxX / 2;
+			var halfZ = maxZ / 2;
+
+			var chunkMesh = new ChunkMesh();
+			for (int z = 0; z < maxZ; z++)
+			{
+				for (int x = 0; x < maxX; x++)
+				{
+					var address = 0x24C7C1 + (z * maxX + x) * 2;
+					var chunkID = SaveData.Instance().ReadNumber((uint)address, 2);
+					if (chunkID == 0xFFFF) continue;
+
+					var mesh = chunkMesh.Build(chunkID, (x - halfX) * 32, (z - halfZ) * 32);
+					GeometryModel3D model = new GeometryModel3D
+					{
+						Geometry = mesh,
+						Material = commonMaterial
+					};
+
+					WorldModel.Children.Add(new ModelVisual3D { Content = model });
+				}
+			}
+		}
+	}
 }

@@ -211,6 +211,33 @@
 						</ScrollViewer>
 					</DockPanel>
 				</TabItem>
+				<TabItem Header="3D">
+					<Viewport3D>
+						<Viewport3D.Camera>
+							<PerspectiveCamera
+								Position="0, 400, 500"
+								LookDirection="0, -100, -100"
+								UpDirection="0,1,0"
+								FieldOfView="100"/>
+						</Viewport3D.Camera>
+
+						<ModelVisual3D>
+							<ModelVisual3D.Content>
+								<DirectionalLight
+									Color="White"
+									Direction="-1,-1,-2"/>
+							</ModelVisual3D.Content>
+						</ModelVisual3D>
+
+						<ModelVisual3D>
+							<ModelVisual3D.Content>
+								<AmbientLight Color="#333333"/>
+							</ModelVisual3D.Content>
+						</ModelVisual3D>
+
+						<ModelVisual3D x:Name="WorldModel"/>
+					</Viewport3D>
+				</TabItem>
 			</TabControl>
 		</DockPanel>
 	</Grid>

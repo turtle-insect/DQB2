@@ -153,7 +153,6 @@ namespace STGDAT
 			var halfX = maxX / 2;
 			var halfZ = maxZ / 2;
 
-			var chunkMesh = new ChunkMesh();
 			for (int z = 0; z < maxZ; z++)
 			{
 				for (int x = 0; x < maxX; x++)
@@ -162,7 +161,8 @@ namespace STGDAT
 					var chunkID = SaveData.Instance().ReadNumber((uint)address, 2);
 					if (chunkID == 0xFFFF) continue;
 
-					var mesh = chunkMesh.Build(chunkID, (x - halfX) * 32, (z - halfZ) * 32);
+					var chunkMesh = new ChunkMesh(chunkID);
+					var mesh = chunkMesh.Build((x - halfX) * 32, (z - halfZ) * 32);
 					GeometryModel3D model = new GeometryModel3D
 					{
 						Geometry = mesh,

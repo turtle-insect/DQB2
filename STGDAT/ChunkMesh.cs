@@ -5,7 +5,14 @@ namespace STGDAT
 {
 	internal class ChunkMesh
 	{
-		public MeshGeometry3D Build(uint chunkID, int offsetX, int offsetZ)
+		private readonly uint mAddress;
+
+		public ChunkMesh(uint chunkID)
+		{
+			mAddress = 0x183FEF0 + chunkID * 0x30000;
+		}
+
+		public MeshGeometry3D Build(int offsetX, int offsetZ)
 		{
 			MeshGeometry3D mesh = new MeshGeometry3D
 			{
@@ -35,8 +42,8 @@ namespace STGDAT
 					{
 						for (x[u] = 0; x[u] < dims[u]; x[u]++)
 						{
-							int a = (x[d] >= 0) ? Get(chunkID, x[0], x[1], x[2]) : 0;
-							int b = (x[d] < dims[d] - 1) ? Get(chunkID, x[0] + q[0], x[1] + q[1], x[2] + q[2]) : 0;
+							int a = (x[d] >= 0) ? Get(x[0], x[1], x[2]) : 0;
+							int b = (x[d] < dims[d] - 1) ? Get(x[0] + q[0], x[1] + q[1], x[2] + q[2]) : 0;
 
 							if ((a != 0) == (b != 0))
 								mask[x[u], x[v]] = 0;
@@ -107,12 +114,11 @@ namespace STGDAT
 			return mesh;
 		}
 
-		private int Get(uint chunkID, int x, int y, int z)
+		private int Get(int x, int y, int z)
 		{
-			uint address = 0x183FEF0 + chunkID * 0x30000;
-			address += (uint)(y * 32 * 32 + z * 32 + x) * 2;
+			uint offset = (uint)(y * 32 * 32 + z * 32 + x) * 2;
 
-			return (int)SaveData.Instance().ReadNumber(address, 1);
+			return (int)SaveData.Instance().ReadNumber(mAddress + offset, 1);
 		}
 
 		private void AddQuad(MeshGeometry3D mesh, double x, double y, double z,

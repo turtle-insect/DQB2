@@ -115,3 +115,6 @@ index = 90(jp), 91(us)
   
 Item's Inventory & Bag Icon resource  
 index = 795  
+
+# Memo
+If you want to reflect the system mode, add `ThemeMode="System"` to `App.xaml`

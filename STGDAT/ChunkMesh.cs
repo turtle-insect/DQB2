@@ -9,7 +9,7 @@ namespace STGDAT
 
 		public ChunkMesh(uint chunkID)
 		{
-			mAddress = 0x183FEF0 + chunkID * 0x30000;
+			mAddress = Util.CalcChunkAddress(chunkID);
 		}
 
 		public MeshGeometry3D Build(int offsetX, int offsetZ)
@@ -116,7 +116,7 @@ namespace STGDAT
 
 		private int Get(int x, int y, int z)
 		{
-			uint offset = (uint)(y * 32 * 32 + z * 32 + x) * 2;
+			uint offset = (uint)((y * 32 + z) * 32 + x) * 2;
 
 			return (int)SaveData.Instance().ReadNumber(mAddress + offset, 1);
 		}

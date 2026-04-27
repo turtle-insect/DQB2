@@ -105,7 +105,7 @@ namespace CMNDAT
 		{
 			if (mBuffer == null) return 0;
 			address = CalcAddress(address);
-			if (address + size >= mBuffer.Length) return 0;
+			if (address + size > mBuffer.Length) return 0;
 			uint result = 0;
 			for (int i = 0; i < size; i++)
 			{
@@ -118,7 +118,7 @@ namespace CMNDAT
 		{
 			if (mHeader == null) return 0;
 			address = CalcAddress(address);
-			if (address + size >= mHeader.Length) return 0;
+			if (address + size > mHeader.Length) return 0;
 			uint result = 0;
 			for (int i = 0; i < size; i++)
 			{
@@ -132,7 +132,7 @@ namespace CMNDAT
 			Byte[] result = new Byte[size];
 			if (mBuffer == null) return result;
 			address = CalcAddress(address);
-			if (address + size >= mBuffer.Length) return result;
+			if (address + size > mBuffer.Length) return result;
 			Array.Copy(mBuffer, address, result, 0, size);
 			return result;
 		}
@@ -152,7 +152,7 @@ namespace CMNDAT
 		{
 			if (mBuffer == null) return "";
 			address = CalcAddress(address);
-			if (address + size >= mBuffer.Length) return "";
+			if (address + size > mBuffer.Length) return "";
 
 			Byte[] tmp = new Byte[size];
 			for (uint i = 0; i < size; i++)
@@ -167,7 +167,7 @@ namespace CMNDAT
 		{
 			if (mHeader == null) return "";
 			address = CalcAddress(address);
-			if (address + size >= mHeader.Length) return "";
+			if (address + size > mHeader.Length) return "";
 
 			Byte[] tmp = new Byte[size];
 			for (uint i = 0; i < size; i++)
@@ -182,7 +182,7 @@ namespace CMNDAT
 		{
 			if (mBuffer == null) return;
 			address = CalcAddress(address);
-			if (address + size >= mBuffer.Length) return;
+			if (address + size > mBuffer.Length) return;
 			for (uint i = 0; i < size; i++)
 			{
 				mBuffer[address + i] = (Byte)(value & 0xFF);
@@ -194,7 +194,7 @@ namespace CMNDAT
 		{
 			if (mHeader == null) return;
 			address = CalcAddress(address);
-			if (address + size >= mHeader.Length) return;
+			if (address + size > mHeader.Length) return;
 			for (uint i = 0; i < size; i++)
 			{
 				mHeader[address + i] = (Byte)(value & 0xFF);
@@ -218,7 +218,7 @@ namespace CMNDAT
 		{
 			if (mBuffer == null) return;
 			address = CalcAddress(address);
-			if (address + size >= mBuffer.Length) return;
+			if (address + size > mBuffer.Length) return;
 			Byte[] tmp = mEncode.GetBytes(value);
 			Array.Resize(ref tmp, (int)size);
 			Array.Copy(tmp, 0, mBuffer, address, size);
@@ -228,7 +228,7 @@ namespace CMNDAT
 		{
 			if (mHeader == null) return;
 			address = CalcAddress(address);
-			if (address + size >= mHeader.Length) return;
+			if (address + size > mHeader.Length) return;
 			Byte[] tmp = mEncode.GetBytes(value);
 			Array.Resize(ref tmp, (int)size);
 			Array.Copy(tmp, 0, mHeader, address, size);
@@ -238,7 +238,7 @@ namespace CMNDAT
 		{
 			if (mBuffer == null) return;
 			address = CalcAddress(address);
-			if (address + buffer.Length >= mBuffer.Length) return;
+			if (address + buffer.Length > mBuffer.Length) return;
 			Array.Copy(buffer, 0, mBuffer, address, buffer.Length);
 		}
 
@@ -246,7 +246,7 @@ namespace CMNDAT
 		{
 			if (mBuffer == null) return;
 			address = CalcAddress(address);
-			if (address + size >= mBuffer.Length) return;
+			if (address + size > mBuffer.Length) return;
 			for (uint i = 0; i < size; i++)
 			{
 				mBuffer[address + i] = number;
@@ -258,7 +258,7 @@ namespace CMNDAT
 			if (mBuffer == null) return;
 			from = CalcAddress(from);
 			to = CalcAddress(to);
-			if (from + size >= mBuffer.Length) return;
+			if (from + size > mBuffer.Length) return;
 			if (to + size >= mBuffer.Length) return;
 			for (uint i = 0; i < size; i++)
 			{
@@ -271,8 +271,8 @@ namespace CMNDAT
 			if (mBuffer == null) return;
 			from = CalcAddress(from);
 			to = CalcAddress(to);
-			if (from + size >= mBuffer.Length) return;
-			if (to + size >= mBuffer.Length) return;
+			if (from + size > mBuffer.Length) return;
+			if (to + size > mBuffer.Length) return;
 			for (uint i = 0; i < size; i++)
 			{
 				Byte tmp = mBuffer[to + i];

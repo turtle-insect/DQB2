@@ -259,7 +259,7 @@ namespace CMNDAT
 			from = CalcAddress(from);
 			to = CalcAddress(to);
 			if (from + size > mBuffer.Length) return;
-			if (to + size >= mBuffer.Length) return;
+			if (to + size > mBuffer.Length) return;
 			for (uint i = 0; i < size; i++)
 			{
 				mBuffer[to + i] = mBuffer[from + i];

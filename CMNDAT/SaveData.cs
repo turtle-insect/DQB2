@@ -137,6 +137,15 @@ namespace CMNDAT
 			return result;
 		}
 
+		public Byte[] ReadValue_Header(uint address, uint size)
+		{
+			Byte[] result = new Byte[size];
+			if (mHeader == null) return result;
+			if (address + size > mHeader.Length) return result;
+			Array.Copy(mHeader, address, result, 0, size);
+			return result;
+		}
+
 		// 0 to 7.
 		public bool ReadBit(uint address, uint bit)
 		{

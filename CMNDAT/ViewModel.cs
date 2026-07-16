@@ -283,14 +283,8 @@ namespace CMNDAT
 		{
 			get
 			{
-				int size = 320 * 180 * 3;
-				Byte[] pixel = new Byte[size];
-
-				for (int i = 0; i < size; i++)
-				{
-					pixel[i] = (Byte)SaveData.Instance().ReadNumber_Header(0x10D + (uint)i, 1);
-				}
-				BitmapSource thumbnail = BitmapSource.Create(320, 180, 96, 96, PixelFormats.Bgr24, null, pixel, 960);
+				Byte[] buffer = SaveData.Instance().ReadValue_Header(0x10D, 320 * 180 * 3);
+				BitmapSource thumbnail = BitmapSource.Create(320, 180, 96, 96, PixelFormats.Bgr24, null, buffer, 960);
 				return thumbnail;
 			}
 		}

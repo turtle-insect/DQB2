@@ -40,26 +40,10 @@
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>
 [ENABLE]
-alloc(newmem,2048,"DQB2.exe"+353A02) 
-label(returnhere)
-label(originalcode)
-label(exit)
-
-newmem:
-
-originalcode:
-
-exit:
-jmp returnhere
-
 "DQB2.exe"+353A02:
-jmp newmem
-nop 3
-returnhere:
-
+nop 8
 
 [DISABLE]
-dealloc(newmem)
 "DQB2.exe"+353A02:
 movss [rcx+000954D4],xmm3
 
@@ -72,27 +56,11 @@ movss [rcx+000954D4],xmm3
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>
 [ENABLE]
-alloc(newmem,2048,"DQB2.exe"+38765B) 
-label(returnhere)
-label(originalcode)
-label(exit)
-
-newmem:
-
-originalcode:
-jmp DQB2.exe+38773C
-
-exit:
-jmp returnhere
-
 "DQB2.exe"+38765B:
-jmp newmem
+jmp DQB2.exe+38773C
 nop
-returnhere:
-
 
 [DISABLE]
-dealloc(newmem)
 "DQB2.exe"+38765B:
 je DQB2.exe+38773C
 
@@ -129,29 +97,13 @@ myhk2.destroy()
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>
 [ENABLE]
-alloc(newmem,2048,"DQB2.exe"+352712) 
-label(returnhere)
-label(originalcode)
-label(exit)
-
-newmem:
-
-originalcode:
-//mov [rdx+000954C4],r8w
-
-exit:
-jmp returnhere
-
 "DQB2.exe"+352712:
-jmp newmem
-nop 3
-returnhere:
-
+nop 8
 
 [DISABLE]
-dealloc(newmem)
 "DQB2.exe"+352712:
-db 66 44 89 82 C4 54 09 00
+mov [rdx+000954C4],r8w
+
 
           </AssemblerScript>
         </CheatEntry>
@@ -4173,23 +4125,52 @@ local al = getAddressList()
 local base = al.getMemoryRecordByDescription("Items")
 
 local ddlItem = createStringlist()
-for i,j in ipairs(itemList) do
-  ddlItem.add(string.format("%s",j))
+for _, item in ipairs(itemList) do
+  ddlItem.add(item)
 end
 
-for index = 0, 15 - 1 do
-  if base[index * 2] ~= nil then
-    base[index * 2].DropDownList.Text = ddlItem.Text
-    base[index * 2].DropDownReadOnly = false
-    base[index * 2].DropDownDescriptionOnly = true
-    base[index * 2].DisplayAsDropDownListItem = true
-  end
+createdItems = {}
+
+for index = 1, 15 do
+  local offset = 0xB88650 + (index - 1) * 4
+
+  -- ID
+  local id = al.createMemoryRecord()
+  id.Description = string.format("Item %02d ID", index)
+  id.VarType = vtWord
+  id.Address = "DQB2.exe+137E490"
+  id.OffsetCount = 2
+  id.Offset[0] = offset
+  id.Offset[1] = 0x60
+  id.Parent = base
+
+  id.DropDownList.Text = ddlItem.Text
+  id.DropDownReadOnly = false
+  id.DropDownDescriptionOnly = true
+  id.DisplayAsDropDownListItem = true
+
+  table.insert(createdItems, id)
+
+  -- Count
+  local count = al.createMemoryRecord()
+  count.Description = string.format("Item %02d Count", index)
+  count.VarType = vtWord
+  count.Address = "DQB2.exe+137E490"
+  count.OffsetCount = 2
+  count.Offset[0] = offset + 2
+  count.Offset[1] = 0x60
+  count.Parent = base
+
+  table.insert(createdItems, count)
 end
 
 
 [DISABLE]
 {$lua}
-
+for _, record in ipairs(createdItems) do
+  record.destroy()
+end
+createdItems = nil
 
       </AssemblerScript>
       <CheatEntries>
@@ -4378,308 +4359,6 @@ end
           <ID>500</ID>
           <Description>"Items"</Description>
           <GroupHeader>1</GroupHeader>
-          <CheatEntries>
-            <CheatEntry>
-              <ID>501</ID>
-              <Description>"Item 01 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88650</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>502</ID>
-              <Description>"Item 01 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88652</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>503</ID>
-              <Description>"Item 02 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88654</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>504</ID>
-              <Description>"Item 02 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88656</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>505</ID>
-              <Description>"Item 03 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88658</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>506</ID>
-              <Description>"Item 03 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8865A</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>507</ID>
-              <Description>"Item 04 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8865C</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>508</ID>
-              <Description>"Item 04 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8865E</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>509</ID>
-              <Description>"Item 05 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88660</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>510</ID>
-              <Description>"Item 05 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88662</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>511</ID>
-              <Description>"Item 06 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88664</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>512</ID>
-              <Description>"Item 06 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88666</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>513</ID>
-              <Description>"Item 07 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88668</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>514</ID>
-              <Description>"Item 07 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8866A</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>515</ID>
-              <Description>"Item 08 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8866C</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>516</ID>
-              <Description>"Item 08 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8866E</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>517</ID>
-              <Description>"Item 09 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88670</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>518</ID>
-              <Description>"Item 09 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88672</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>519</ID>
-              <Description>"Item 10 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88674</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>520</ID>
-              <Description>"Item 10 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88676</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>521</ID>
-              <Description>"Item 11 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88678</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>522</ID>
-              <Description>"Item 11 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8867A</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>523</ID>
-              <Description>"Item 12 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8867C</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>524</ID>
-              <Description>"Item 12 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8867E</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>525</ID>
-              <Description>"Item 13 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88680</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>526</ID>
-              <Description>"Item 13 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88682</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>527</ID>
-              <Description>"Item 14 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88684</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>528</ID>
-              <Description>"Item 14 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88686</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>529</ID>
-              <Description>"Item 15 ID"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B88688</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>530</ID>
-              <Description>"Item 15 Count"</Description>
-              <VariableType>2 Bytes</VariableType>
-              <Address>DQB2.exe+137E490</Address>
-              <Offsets>
-                <Offset>B8868A</Offset>
-                <Offset>60</Offset>
-              </Offsets>
-            </CheatEntry>
-          </CheatEntries>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>

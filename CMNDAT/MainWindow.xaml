@@ -35,14 +35,14 @@
 				</Grid>
 				<Grid>
 					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="90"/>
 						<ColumnDefinition/>
-						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="5"/>
+						<ColumnDefinition Width="90"/>
 						<ColumnDefinition/>
+						<ColumnDefinition Width="5"/>
+						<ColumnDefinition Width="90"/>
 						<ColumnDefinition/>
-						<ColumnDefinition Width="80"/>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="240"/>
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
 						<RowDefinition/>
@@ -566,7 +566,13 @@
 							</ComboBox>
 							<ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectedIndex="{Binding ResidentFilter}"/>
 						</DockPanel>
-						<ListBox ItemsSource="{Binding Residents}" ItemTemplate="{StaticResource PeopleDataTemplate}"/>
+						<ListBox ItemsSource="{Binding Residents}" ItemTemplate="{StaticResource PeopleDataTemplate}">
+							<ListBox.ItemContainerStyle>
+								<Style TargetType="ListBoxItem">
+									<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+								</Style>
+							</ListBox.ItemContainerStyle>
+						</ListBox>
 					</DockPanel>
 				</TabItem>
 				<TabItem Header="Story People">
@@ -575,7 +581,13 @@
 							<Label Content="Filter"/>
 							<ComboBox ItemsSource="{Binding Info.StoryIsland}" DisplayMemberPath="Name" SelectedIndex="{Binding StoryPeopleFilter}"/>
 						</DockPanel>
-						<ListBox ItemsSource="{Binding StoryPeople}" ItemTemplate="{StaticResource PeopleDataTemplate}"/>
+						<ListBox ItemsSource="{Binding StoryPeople}" ItemTemplate="{StaticResource PeopleDataTemplate}">
+							<ListBox.ItemContainerStyle>
+								<Style TargetType="ListBoxItem">
+									<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+								</Style>
+							</ListBox.ItemContainerStyle>
+						</ListBox>
 					</DockPanel>
 				</TabItem>
 				<TabItem Header="Crop">

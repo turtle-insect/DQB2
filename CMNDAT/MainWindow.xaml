@@ -276,6 +276,9 @@
 						<Label Grid.Row="8"  Grid.Column="3" Content="Beam"/>
 						<CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding Car_Beam}" VerticalAlignment="Center"/>
 						<Image Grid.Row="9" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Source="{Binding Thumbnail}" Stretch="Uniform"/>
+						<Label Grid.Row="14"  Grid.Column="3" Content="Steam" FontWeight="Bold"/>
+						<Label Grid.Row="15"  Grid.Column="3" Content="ID"/>
+						<TextBox Grid.Row="15"  Grid.Column="4" Text="{Binding SteamID, UpdateSourceTrigger=PropertyChanged}"/>
 					</Grid>
 				</TabItem>
 				<TabItem Header="Island">

@@ -289,6 +289,20 @@ namespace CMNDAT
 			}
 		}
 
+		public UInt64 SteamID
+		{
+			get
+			{
+				Byte[] buffer = SaveData.Instance().ReadValue_Header(0x2A415, 8);
+				return BitConverter.ToUInt64(buffer);
+			}
+			set
+			{
+				Byte[] buffer = BitConverter.GetBytes(value);
+				SaveData.Instance().WriteValue_Header(0x2A415, buffer);
+			}
+		}
+
 		public bool MaterialBonusCord
 		{
 			get { return SaveData.Instance().ReadBit(0x22C75A, 4); }

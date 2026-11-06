@@ -251,6 +251,14 @@ namespace CMNDAT
 			Array.Copy(buffer, 0, mBuffer, address, buffer.Length);
 		}
 
+		public void WriteValue_Header(uint address, Byte[] buffer)
+		{
+			if (mHeader == null) return;
+			address = CalcAddress(address);
+			if (address + buffer.Length > mHeader.Length) return;
+			Array.Copy(buffer, 0, mHeader, address, buffer.Length);
+		}
+
 		public void Fill(uint address, uint size, Byte number)
 		{
 			if (mBuffer == null) return;

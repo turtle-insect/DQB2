@@ -64,6 +64,7 @@ https://www.jp.playstation.com/games/dragon-quest-builders-2-ps4/
 * [TaoistYang](https://gbatemp.net/threads/dragon-quest-builders-2-save-editor-pc-steam.558947/post-9504144)
 * [dqb2thank](https://gbatemp.net/threads/dragon-quest-builders-2-save-editor-pc-steam.558947/post-10008029)
 * [Ryan Kramer](https://github.com/default-kramer)
+* [Babuck0](https://github.com/Babuck0)
 
 # Play Any version(Steam)
 ## external Tool
@@ -74,6 +75,9 @@ ex) 1.7.3a
 ```
 DepotDownloader.exe -app 1072420 -depot 1072421 -manifest 6650286556016577149 -username **** -password ****
 ```
+
+# Play Another Account(Steam)
+https://github.com/turtle-insect/DQB2/issues/31
 
 # Cheat Engine Code
 * [Cheat Engine](https://www.cheatengine.org/)

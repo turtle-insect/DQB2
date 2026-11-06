@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         AllowDrop="True" Drop="Window_Drop" PreviewDragOver="Window_PreviewDragOver"
         Closed="Window_Closed"
-        Title="DQB2 CMNDAT Nintendo Switch &amp; Steam" Height="500" Width="810">
+        Title="DQB2 CMNDAT Nintendo Switch &amp; Steam" Height="550" Width="810">
 	<Window.DataContext>
 		<local:ViewModel/>
 	</Window.DataContext>
@@ -215,6 +215,8 @@
 							<RowDefinition/>
 							<RowDefinition/>
 							<RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
 						</Grid.RowDefinitions>
 						<Label Content="Place" FontWeight="Bold"/>
 						<Label Grid.Row="1" Content="From"/>
@@ -287,7 +289,7 @@
 							<RowDefinition/>
 							<RowDefinition/>
 							<RowDefinition/>
-							<RowDefinition Height="10*"/>
+							<RowDefinition Height="12*"/>
 						</Grid.RowDefinitions>
 						<Label Content="Main Island"/>
 						<TextBox Grid.Column="1" Text="{Binding MainIslandName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -321,8 +323,7 @@
 							<RowDefinition/>
 							<RowDefinition/>
 							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition Height="1*"/>
+							<RowDefinition Height="4*"/>
 						</Grid.RowDefinitions>
 						<Label Content="Name"/>
 						<TextBox Grid.Column="1" Text="{Binding Player.Name, UpdateSourceTrigger=PropertyChanged}"/>
@@ -380,7 +381,7 @@
 							<RowDefinition/>
 							<RowDefinition/>
 							<RowDefinition/>
-							<RowDefinition Height="6*"/>
+							<RowDefinition Height="8*"/>
 						</Grid.RowDefinitions>
 						<Label Content="Hammer"/>
 						<StackPanel Grid.Column="1" Orientation="Horizontal">

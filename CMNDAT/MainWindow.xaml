@@ -15,8 +15,6 @@
 	<Window.Resources>
 		<local:ItemIDConverter x:Key="ItemIDConverter"/>
 		<local:IslandIDConverter x:Key="IslandIDConverter"/>
-		<BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
-		<BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
 
 		<DataTemplate x:Key="PeopleDataTemplate">
 			<DockPanel>
@@ -183,12 +181,8 @@
 				</MenuItem>
 			</Menu>
 			<ToolBar DockPanel.Dock="Top">
-				<Button Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click">
-					<Image Source="{StaticResource Open}"/>
-				</Button>
-				<Button Height="32" ToolTip="Save" Click="MenuItemFileSave_Click">
-					<Image Source="{StaticResource Save}"/>
-				</Button>
+				<Button Content="📁" FontSize="20" Height="32" ToolTip="Open" Click="MenuItemFileOpen_Click"/>
+				<Button Content="💾" FontSize="20" Height="32" ToolTip="Save" Click="MenuItemFileSave_Click"/>
 			</ToolBar>
 			<TabControl>
 				<TabItem Header="Basic">

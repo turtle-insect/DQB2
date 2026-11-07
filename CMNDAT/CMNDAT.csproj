@@ -9,17 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="resource\Open.png" />
-    <None Remove="resource\Save.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="CMNDAT.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="resource\Open.png" />
-    <Resource Include="resource\Save.png" />
   </ItemGroup>
 
   <ItemGroup>

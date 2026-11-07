@@ -20,8 +20,6 @@
 					  Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.ExportPhotoCommand}"
 					  CommandParameter="{Binding}"/>
 		</ContextMenu>
-		<BitmapImage x:Key="Open" UriSource="./resource/Open.png"/>
-		<BitmapImage x:Key="Save" UriSource="./resource/Save.png"/>
 	</Window.Resources>
 	<Grid>
 		<DockPanel>
@@ -37,12 +35,8 @@
 				</MenuItem>
 			</Menu>
 			<ToolBar DockPanel.Dock="Top">
-				<Button Height="32" ToolTip="Open" Command="{Binding OpenFileCommand}">
-					<Image Source="{StaticResource Open}"/>
-				</Button>
-				<Button Height="32" ToolTip="Save" Command="{Binding SaveFileCommand}">
-					<Image Source="{StaticResource Save}"/>
-				</Button>
+				<Button Content="📁" FontSize="20" Height="32" ToolTip="Open" Command="{Binding OpenFileCommand}"/>
+				<Button Content="💾" FontSize="20" Height="32" ToolTip="Save" Command="{Binding SaveFileCommand}"/>
 			</ToolBar>
 			<ListBox x:Name="ListBoxPhoto" ItemsSource="{Binding Photos}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 				<ListBox.ItemTemplate>

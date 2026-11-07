@@ -76,7 +76,7 @@ ex) 1.7.3a
 DepotDownloader.exe -app 1072420 -depot 1072421 -manifest 6650286556016577149 -username **** -password ****
 ```
 
-# Play Another Account(Steam)
+# Play Another Account saveData(Steam)
 https://github.com/turtle-insect/DQB2/issues/31
 
 # Cheat Engine Code

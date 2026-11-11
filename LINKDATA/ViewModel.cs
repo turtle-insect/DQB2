@@ -331,7 +331,7 @@ namespace LINKDATA
 				int size = BitConverter.ToInt32(bin, (int)chunk.Offset);
 				Byte[] tmp = new Byte[size];
 				Array.Copy(bin, chunk.Offset + 4, tmp, 0, tmp.Length);
-				tmp = Decomp(tmp);
+				tmp = Decompress(tmp);
 				Array.Copy(tmp, 0, buffer, index, tmp.Length);
 				index += tmp.Length;
 			}
@@ -387,7 +387,7 @@ namespace LINKDATA
 				if (pack + 1 == packCount) length = Buffer.Length % PackSplitSize;
 				Byte[] tmp = new Byte[length];
 				Array.Copy(Buffer, PackSplitSize * pack, tmp, 0, tmp.Length);
-				tmp = Comp(tmp);
+				tmp = Compression(tmp);
 
 				// rewrite chunk size
 				ms.Seek(0x0C + pack * 4, SeekOrigin.Begin);
@@ -415,40 +415,27 @@ namespace LINKDATA
 			System.IO.File.WriteAllBytes(dlg.FileName, ms.ToArray());
 		}
 
-		private Byte[] Comp(Byte[] data)
+		private Byte[] Compression(Byte[] buffer)
 		{
-			Byte[] result = [];
-			using (var input = new MemoryStream(data))
+			using System.IO.MemoryStream output = new();
+			using (System.IO.Compression.ZLibStream zlib = new(output, System.IO.Compression.CompressionLevel.Optimal))
 			{
-				using (var output = new MemoryStream())
-				{
-					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
-					{
-						input.CopyTo(zlib);
-						zlib.Flush();
-					}
-					result = output.ToArray();
-				}
+				zlib.Write(buffer);
 			}
-			return result;
+
+			return output.ToArray();
 		}
 
-		private Byte[] Decomp(Byte[] data)
+		private Byte[] Decompress(Byte[] buffer)
 		{
-			Byte[] result = [];
-			using (var input = new MemoryStream(data))
+			using System.IO.MemoryStream input = new(buffer);
+			using System.IO.MemoryStream output = new();
+			using (System.IO.Compression.ZLibStream zlib = new(input, System.IO.Compression.CompressionMode.Decompress))
 			{
-				using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
-				{
-					using (var output = new MemoryStream())
-					{
-						zlib.CopyTo(output);
-						output.Flush();
-						result = output.ToArray();
-					}
-				}
+				zlib.CopyTo(output);
 			}
-			return result;
+
+			return output.ToArray();
 		}
 	}
 }

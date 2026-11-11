@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,32 +28,20 @@ namespace CMNDAT
 		{
 			if (System.IO.File.Exists(filename) == false) return false;
 
-			Byte[] tmp = System.IO.File.ReadAllBytes(filename);
-			String prefix = mEncode.GetString(tmp, 0, 4);
+			Byte[] buffer = System.IO.File.ReadAllBytes(filename);
+			String prefix = mEncode.GetString(buffer, 0, 4);
 			if (prefix != "aerC") return false;
 
 			try
 			{
-				Byte[] comp = tmp[HeaderLength..];
-				using (var input = new MemoryStream(comp))
-				{
-					using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
-					{
-						using (var output = new MemoryStream())
-						{
-							zlib.CopyTo(output);
-							output.Flush();
-							mBuffer = output.ToArray();
-						}
-					}
-				}
+				mBuffer = Decompress(buffer[HeaderLength..]);
 			}
 			catch
 			{
 				return false;
 			}
 
-			mHeader = tmp[..HeaderLength];
+			mHeader = buffer[..HeaderLength];
 			mFileName = filename;
 			return true;
 		}
@@ -62,23 +51,13 @@ namespace CMNDAT
 			if (mFileName == null || mBuffer == null) return false;
 			Backup();
 
-			Byte[] comp = [];
-			using (var input = new MemoryStream(mBuffer))
-			{
-				using (var output = new MemoryStream())
-				{
-					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Fastest))
-					{
-						input.CopyTo(zlib);
-						zlib.Flush();
-					}
-					comp = output.ToArray();
-				}
-			}
-			Byte[] tmp = mHeader.Concat(comp).ToArray();
-			Byte[] size = BitConverter.GetBytes(tmp.Length);
-			Array.Copy(size, 0, tmp, 0x10, size.Length);
-			System.IO.File.WriteAllBytes(mFileName, tmp);
+			Byte[] buffer = [
+				.. mHeader,
+				.. Compression(mBuffer),
+			];
+			BinaryPrimitives.WriteInt32LittleEndian(buffer.AsSpan(0x10, 4), buffer.Length);
+
+			System.IO.File.WriteAllBytes(mFileName, buffer);
 			return true;
 		}
 
@@ -332,6 +311,29 @@ namespace CMNDAT
 			}
 			path = System.IO.Path.Combine(path, $"{now:yyyy-MM-dd HH-mm-ss} {System.IO.Path.GetFileName(mFileName)}");
 			System.IO.File.Copy(mFileName, path, true);
+		}
+
+		private Byte[] Compression(Byte[] buffer)
+		{
+			using System.IO.MemoryStream output = new();
+			using (System.IO.Compression.ZLibStream zlib = new(output, System.IO.Compression.CompressionLevel.Optimal))
+			{
+				zlib.Write(buffer);
+			}
+
+			return output.ToArray();
+		}
+
+		private Byte[] Decompress(Byte[] buffer)
+		{
+			using System.IO.MemoryStream input = new(buffer);
+			using System.IO.MemoryStream output = new();
+			using (System.IO.Compression.ZLibStream zlib = new(input, System.IO.Compression.CompressionMode.Decompress))
+			{
+				zlib.CopyTo(output);
+			}
+
+			return output.ToArray();
 		}
 	}
 }

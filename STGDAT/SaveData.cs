@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,21 +35,20 @@ namespace STGDAT
 		{
 			if (System.IO.File.Exists(filename) == false) return false;
 
-			Byte[] tmp = System.IO.File.ReadAllBytes(filename);
-			String prefix = mEncode.GetString(tmp, 0, 4);
+			Byte[] buffer = System.IO.File.ReadAllBytes(filename);
+			String prefix = mEncode.GetString(buffer, 0, 4);
 			if (prefix != "aerC") return false;
 
 			try
 			{
-				Byte[] comp = tmp[HeaderLength..];
-				mBuffer = Decomp(comp);
+				mBuffer = Decompress(buffer[HeaderLength..]);
 			}
 			catch
 			{
 				return false;
 			}
 
-			mHeader = tmp[..HeaderLength];
+			mHeader = buffer[..HeaderLength];
 			mFileName = filename;
 			return true;
 		}
@@ -58,11 +58,16 @@ namespace STGDAT
 			if (mFileName == null || mBuffer == null) return false;
 			Backup();
 
-			Byte[] comp = Comp(mBuffer);
-			Byte[] tmp = mHeader.Concat(comp).ToArray();
-			Byte[] size = BitConverter.GetBytes(tmp.Length);
-			Array.Copy(size, 0, tmp, 0x10, size.Length);
-			System.IO.File.WriteAllBytes(mFileName, tmp);
+			if (mFileName == null || mBuffer == null) return false;
+			Backup();
+
+			Byte[] buffer = [
+				.. mHeader,
+				.. Compression(mBuffer),
+			];
+			BinaryPrimitives.WriteInt32LittleEndian(buffer.AsSpan(0x10, 4), buffer.Length);
+
+			System.IO.File.WriteAllBytes(mFileName, buffer);
 			return true;
 		}
 
@@ -128,7 +133,7 @@ namespace STGDAT
 			Array.Copy(tmp, mHeader.Length, comp, 0, comp.Length);
 			try
 			{
-				buffer = Decomp(comp);
+				buffer = Decompress(comp);
 			}
 			catch
 			{
@@ -146,7 +151,7 @@ namespace STGDAT
 			Byte[] buffer = System.IO.File.ReadAllBytes(filename);
 			try
 			{
-				buffer = Decomp(buffer);
+				buffer = Decompress(buffer);
 			}
 			catch
 			{
@@ -379,40 +384,27 @@ namespace STGDAT
 			System.IO.File.Copy(mFileName, path, true);
 		}
 
-		private Byte[] Comp(Byte[] data)
+		private Byte[] Compression(Byte[] buffer)
 		{
-			Byte[] result = [];
-			using (var input = new MemoryStream(data))
+			using System.IO.MemoryStream output = new();
+			using (System.IO.Compression.ZLibStream zlib = new(output, System.IO.Compression.CompressionLevel.Optimal))
 			{
-				using (var output = new MemoryStream())
-				{
-					using (var zlib = new System.IO.Compression.ZLibStream(output, System.IO.Compression.CompressionLevel.Optimal))
-					{
-						input.CopyTo(zlib);
-						zlib.Flush();
-					}
-					result = output.ToArray();
-				}
+				zlib.Write(buffer);
 			}
-			return result;
+
+			return output.ToArray();
 		}
 
-		private Byte[] Decomp(Byte[] data)
+		private Byte[] Decompress(Byte[] buffer)
 		{
-			Byte[] result = [];
-			using (var input = new MemoryStream(data))
+			using System.IO.MemoryStream input = new(buffer);
+			using System.IO.MemoryStream output = new();
+			using (System.IO.Compression.ZLibStream zlib = new(input, System.IO.Compression.CompressionMode.Decompress))
 			{
-				using (var zlib = new System.IO.Compression.ZLibStream(input, System.IO.Compression.CompressionMode.Decompress))
-				{
-					using (var output = new MemoryStream())
-					{
-						zlib.CopyTo(output);
-						output.Flush();
-						result = output.ToArray();
-					}
-				}
+				zlib.CopyTo(output);
 			}
-			return result;
+
+			return output.ToArray();
 		}
 	}
 }
